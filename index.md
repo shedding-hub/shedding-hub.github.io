@@ -35,14 +35,7 @@ title: Shedding Hub
     {% assign dataset = dataset_hash[1] %}
     <div class="card">
       <div class="card-content">
-        <p class="title">
-          {% if dataset.url %}
-          {% assign url = dataset.url %}
-          {% else %}
-          {% assign url = "https://doi.org/" | append: dataset.doi %}
-          {% endif %}
-          <a href="{{ url }}">{{dataset.title}}</a>
-        </p>
+        <p class="title has-text-primary">{{dataset.title}}</p>
         <div class="grid">
           <div class="cell has-text-centered">
             <div>
@@ -87,6 +80,19 @@ title: Shedding Hub
 
       </div>
       <footer class="card-footer">
+        {% if dataset.url %}
+        {% assign url = dataset.url %}
+        {% else %}
+        {% assign url = "https://doi.org/" | append: dataset.doi %}
+        {% endif %}
+        <a href="{{ url }}" class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa-solid fa-file-lines"></i>
+            </span>
+            <span>View Source</span>
+          </span>
+        </a>
         <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{dataset_hash[0]}}.yaml"
           class="card-footer-item">
           <span class="icon-text">
