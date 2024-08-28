@@ -83,7 +83,7 @@ title: Shedding Hub
             </div>
           </div>
         </div>
-        <p>{{ dataset.description | markdownify }}</p>
+        <div class="content">{{ dataset.description | markdownify }}</div>
 
       </div>
       <footer class="card-footer">
