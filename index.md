@@ -51,7 +51,7 @@ title: Shedding Hub
                 <span class="icon">
                   <i class="fas fa-user"></i>
                 </span>
-                <span>{{ dataset.participants | size }}</span>
+                <span class="separate-thousands">{{ dataset.participants | size }}</span>
               </span>
             </div>
           </div>
@@ -67,7 +67,7 @@ title: Shedding Hub
                 <span class="icon">
                   <i class="fa-solid fa-vial-circle-check"></i>
                 </span>
-                <span>{{ num_measurements }}</span>
+                <span class="separate-thousands">{{ num_measurements }}</span>
               </span>
             </div>
           </div>
