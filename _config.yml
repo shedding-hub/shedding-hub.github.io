@@ -1,1 +1,10 @@
 title: Shedding Hub
+collections:
+  datasets:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: datasets
+    values:
+      layout: dataset

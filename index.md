@@ -6,8 +6,7 @@ title: Shedding Hub
   <!-- calculate the number of measurements, participants, and studies -->
   {% assign num_measurements = 0 %}
   {% assign num_participants = 0 %}
-  {% for dataset_hash in site.data.datasets %}
-  {% assign dataset = dataset_hash[1] %}
+  {% for dataset in site.datasets %}
   {% assign temp = dataset.participants | size %}
   {% assign num_participants = num_participants | plus: temp %}
   {% for participant in dataset.participants %}
@@ -22,7 +21,7 @@ title: Shedding Hub
         biomarker measurements for
         <span class="has-text-primary has-text-weight-bold separate-thousands">{{ num_participants }}</span>
         participants from
-        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ site.data.datasets | size }}</span>
+        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ site.datasets | size }}</span>
         studies. And counting.
       </div>
     </div>
@@ -31,8 +30,7 @@ title: Shedding Hub
 
 <section class="section">
   <div class="container is-max-desktop">
-    {% for dataset_hash in site.data.datasets %}
-    {% assign dataset = dataset_hash[1] %}
+    {% for dataset in site.datasets %}
     <div class="card">
       <div class="card-content">
         <p class="title has-text-primary">{{dataset.title}}</p>
@@ -42,7 +40,7 @@ title: Shedding Hub
               <p class="heading">Participants</p>
               <span class="icon-text">
                 <span class="icon">
-                  <i class="fas fa-user"></i>
+                  <i class="fas fa-people-group"></i>
                 </span>
                 <span class="separate-thousands">{{ dataset.participants | size }}</span>
               </span>
@@ -100,6 +98,14 @@ title: Shedding Hub
               <i class="fab fa-github-alt"></i>
             </span>
             <span>View on GitHub</span>
+          </span>
+        </a>
+        <a href="{{ dataset.url }}" class="card-footer-item">
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa-solid fa-chart-line"></i>
+            </span>
+            <span>Explore Dataset</span>
           </span>
         </a>
       </footer>
