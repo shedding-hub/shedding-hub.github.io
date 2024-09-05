@@ -93,7 +93,7 @@ title: Shedding Hub
             <span>View Source</span>
           </span>
         </a>
-        <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{dataset_hash[0]}}.yaml"
+        <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{dataset_hash[0]}}/{{dataset_hash[0]}}.yaml"
           class="card-footer-item">
           <span class="icon-text">
             <span class="icon">
