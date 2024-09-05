@@ -34,8 +34,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Fetch data
-        run: make _data/datasets
+      - name: Fetch data and convert to markdown
+        run: |
+          make ^_datasets-yaml
+          make _datasets
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
