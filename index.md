@@ -75,13 +75,13 @@ title: Shedding Hub
           </div>
         </div>
         <div class="content">{{ dataset.description | markdownify }}</div>
-
       </div>
       <footer class="card-footer">
-        {% if dataset.url %}
-        {% assign url = dataset.url %}
-        {% else %}
+        {% if dataset.doi %}
         {% assign url = "https://doi.org/" | append: dataset.doi %}
+        {% else %}
+        <!-- TODO: `url` automatically created by the collection overwrites the `url` field in the data. -->
+        {% assign url = dataset.url %}
         {% endif %}
         <a href="{{ url }}" class="card-footer-item">
           <span class="icon-text">
@@ -91,7 +91,8 @@ title: Shedding Hub
             <span>View Source</span>
           </span>
         </a>
-        <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{dataset_hash[0]}}/{{dataset_hash[0]}}.yaml"
+        {% assign dataset_key = dataset.path | split: "/" | last | split: "." | first%}
+        <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{ dataset_key }}/{{ dataset_key }}.yaml"
           class="card-footer-item">
           <span class="icon-text">
             <span class="icon">

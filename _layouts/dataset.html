@@ -46,6 +46,13 @@ layout: default
 
           <div class="panel-block">
             <span class="panel-icon">
+              <i class="fa-solid fa-virus"></i>
+            </span>
+            Biomarker: {{ analyte.biomarker }}
+          </div>
+
+          <div class="panel-block">
+            <span class="panel-icon">
               <i class="fa-solid fa-vial"></i>
             </span>
             Specimen: {{ analyte.specimen | replace: "_", " "}}
@@ -85,14 +92,14 @@ layout: default
             <span class="panel-icon">
               <i class="fa-solid fa-circle-plus"></i>
             </span>
-            Positive samples: {{ num_positive }}
+            Positive samples (not quantifiable): {{ num_positive }}
           </div>
 
           <div class="panel-block">
             <span class="panel-icon">
               <i class="fa-solid fa-hashtag"></i>
             </span>
-            Quantified samples: {{ num_quantified }}
+            Quantifiable samples: {{ num_quantified }}
           </div>
 
           <div class="panel-block">
