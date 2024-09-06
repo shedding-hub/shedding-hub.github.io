@@ -46,7 +46,28 @@
   <script>
     // Separate thousands by a comma if the element has the `separate-thousands` class.
     for (const element of document.getElementsByClassName("separate-thousands")) {
-      element.textContent = element.textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // Parse the value and don't do anything if the value isn't a number.
+      let value = parseFloat(element.textContent);
+      if (isNaN(value)) {
+        continue;
+      }
+      // Round if desired.
+      let sigfigs = element.getAttribute("data-sigfigs");
+      console.log(sigfigs);
+      if (sigfigs) {
+        value = value.toFixed(parseInt(sigfigs));
+      } else {
+        value = element.textContent;
+      }
+      console.log(value);
+      // Add the separators.
+      let [integralPart, decimalPart] = value.split(".");
+      integralPart = integralPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (decimalPart) {
+        element.innerHTML = `${integralPart}.${decimalPart}`;
+      } else {
+        element.innerHTML = integralPart;
+      }
     }
   </script>
 </body>

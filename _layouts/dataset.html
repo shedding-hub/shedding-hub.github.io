@@ -131,7 +131,7 @@ layout: default
                     <span class="icon">
                       <i class="fa-solid fa-circle-up"></i>
                     </span>
-                    <span class="separate-thousands">{{ analyte.limit_of_quantification }}</span>
+                    <span class="separate-thousands" data-sigfigs="2">{{ analyte.limit_of_quantification }}</span>
                   </span>
                 </div>
               </div>
@@ -143,7 +143,7 @@ layout: default
                     <span class="icon">
                       <i class="fa-solid fa-circle-down"></i>
                     </span>
-                    <span class="separate-thousands">{{ analyte.limit_of_detection }}</span>
+                    <span class="separate-thousands" data-sigfigs="2">{{ analyte.limit_of_detection }}</span>
                   </span>
                 </div>
               </div>
@@ -156,7 +156,7 @@ layout: default
                     <span class="icon">
                       <i class="fa-solid fa-circle-dot"></i>
                     </span>
-                    <span class="separate-thousands">{{ analyte.limit_of_blank }}</span>
+                    <span class="separate-thousands" data-sigfigs="2">{{ analyte.limit_of_blank }}</span>
                   </span>
                 </div>
               </div>
