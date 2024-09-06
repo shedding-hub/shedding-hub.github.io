@@ -8,7 +8,7 @@ DATASETS_MD = ${DATASETS_YAML:.yaml=.md}
 _datasets : ${DATASETS_MD}
 
 ${DATASETS_MD} : _datasets/%.md : _datasets/%.yaml
-	echo "---\n`cat $<`\n---" > $@
+	echo "---\n`cat $<`\n---" | sed 's/^url:/source_url:/g' > $@
 
 # Phony target to download the yaml files.
 ^_datasets-yaml : tmp/shedding-hub.zip

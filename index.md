@@ -80,8 +80,7 @@ title: Shedding Hub
         {% if dataset.doi %}
         {% assign url = "https://doi.org/" | append: dataset.doi %}
         {% else %}
-        <!-- TODO: `url` automatically created by the collection overwrites the `url` field in the data. -->
-        {% assign url = dataset.url %}
+        {% assign url = dataset.source_url %}
         {% endif %}
         <a href="{{ url }}" class="card-footer-item">
           <span class="icon-text">
