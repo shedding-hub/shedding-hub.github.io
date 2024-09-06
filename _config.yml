@@ -1,4 +1,5 @@
 title: Shedding Hub
+strict_front_matter: true
 collections:
   datasets:
     output: true

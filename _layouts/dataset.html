@@ -31,7 +31,7 @@ layout: default
           {% assign any = 0 %}
           {% for measurement in participant.measurements %}
           {% if measurement.analyte == analyte_hash[0] %}
-          {% assign any = 1%}
+          {% assign any = 1 %}
           {% if measurement.value == "negative" %}
           {% assign num_negative = num_negative | plus: 1 %}
           {% elsif measurement.value == "positive" %}
@@ -55,7 +55,12 @@ layout: default
             <span class="panel-icon">
               <i class="fa-solid fa-vial"></i>
             </span>
-            Specimen: {{ analyte.specimen | replace: "_", " "}}
+            Specimen: {% if analyte.specimen.first %}
+            {% capture specimens %}{% for specimen in analyte.specimen %}{{specimen | replace: "_", " "}};{% endfor %}{% endcapture %}
+            {{ specimens | split: ";" | array_to_sentence_string }}
+            {% else %}
+            {{ analyte.specimen | replace: "_", " "}}
+            {% endif %}
           </div>
 
           <div class="panel-block">
