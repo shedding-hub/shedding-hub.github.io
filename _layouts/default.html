@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <meta property="og:description" content="Data and statistical models for biomarker shedding.">
+  <meta property="og:image" content="https://unsplash.com/photos/Ac97OqAWDvg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fHdhc3Rld2F0ZXJ8ZW58MHx8fHwxNzI1NTUxODUyfDA&force=true&w=1920">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1438">
 </head>
 
 <body>
@@ -46,7 +50,28 @@
   <script>
     // Separate thousands by a comma if the element has the `separate-thousands` class.
     for (const element of document.getElementsByClassName("separate-thousands")) {
-      element.textContent = element.textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      // Parse the value and don't do anything if the value isn't a number.
+      let value = parseFloat(element.textContent);
+      if (isNaN(value)) {
+        continue;
+      }
+      // Round if desired.
+      let sigfigs = element.getAttribute("data-sigfigs");
+      console.log(sigfigs);
+      if (sigfigs) {
+        value = value.toFixed(parseInt(sigfigs));
+      } else {
+        value = element.textContent;
+      }
+      console.log(value);
+      // Add the separators.
+      let [integralPart, decimalPart] = value.split(".");
+      integralPart = integralPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      if (decimalPart) {
+        element.innerHTML = `${integralPart}.${decimalPart}`;
+      } else {
+        element.innerHTML = integralPart;
+      }
     }
   </script>
 </body>
