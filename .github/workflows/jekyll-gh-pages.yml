@@ -5,6 +5,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,8 +34,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Fetch data
-        run: make _data/datasets
+      - name: Fetch data and convert to markdown
+        run: |
+          make ^_datasets-yaml
+          make _datasets
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
@@ -46,6 +50,7 @@ jobs:
 
   # Deployment job
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

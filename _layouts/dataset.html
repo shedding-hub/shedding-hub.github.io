@@ -1,0 +1,173 @@
+---
+layout: default
+---
+
+<section class="section">
+  <div class="container is-max-desktop content">
+
+    <h1 class="has-text-primary">{{ page.title }}</h1>
+
+    {{ page.description | markdownify }}
+
+    <h2 class="has-text-primary">Analytes</h2>
+
+    <div class="grid is-col-min-18">
+      {% for analyte_hash in page.analytes %}
+      {% assign analyte = analyte_hash[1] %}
+      <div class="cell">
+        <div id="{{ analyte_hash[0] }}" class="card">
+          <header class="card-header">
+            <p class="card-header-title"><code>{{ analyte_hash[0] }}</code></p>
+            <a class="card-header-icon" href="{{page.url}}#{{ analyte_hash[0] }}">
+              <span class="icon">
+                <i class="fas fa-link" aria-hidden="true"></i>
+              </span>
+            </a>
+          </header>
+
+          <div class="card-content">
+            {{ analyte.description | markdownify }}
+
+            <!-- calculate all the summary statistics in liquid -->
+            {% assign num_participants = 0 %}
+            {% assign num_positive = 0 %}
+            {% assign num_negative = 0 %}
+            {% assign num_quantified = 0 %}
+            {% for participant in page.participants %}
+              {% assign any = 0 %}
+              {% for measurement in participant.measurements %}
+                {% if measurement.analyte == analyte_hash[0] %}
+                  {% assign any = 1%}
+                  {% if measurement.value == "negative" %}
+                    {% assign num_negative = num_negative | plus: 1 %}
+                  {% elsif measurement.value == "positive" %}
+                    {% assign num_positive = num_positive | plus: 1 %}
+                  {% else %}
+                    {% assign num_quantified = num_quantified | plus: 1 %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% assign num_participants = num_participants | plus: any %}
+            {% endfor %}
+
+            <div class="grid">
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Specimen</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-vial"></i>
+                    </span>
+                    <span>{{ analyte.specimen | replace: "_", " "}}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Units</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-ruler"></i>
+                    </span>
+                    <span>{{ analyte.unit }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Participants</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-people-group"></i>
+                    </span>
+                    <span class="separate-thousands">{{ num_participants }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Negative samples</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-circle-minus"></i>
+                    </span>
+                    <span class="separate-thousands">{{ num_negative }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Positive samples</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-circle-plus"></i>
+                    </span>
+                    <span class="separate-thousands">{{ num_positive }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Quantified samples</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-hashtag"></i>
+                    </span>
+                    <span class="separate-thousands">{{ num_quantified }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Limit of quantification</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-circle-up"></i>
+                    </span>
+                    <span class="separate-thousands">{{ analyte.limit_of_quantification }}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Limit of detection</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-circle-down"></i>
+                    </span>
+                    <span class="separate-thousands">{{ analyte.limit_of_detection }}</span>
+                  </span>
+                </div>
+              </div>
+
+              {% if analyte.limit_of_blank %}
+              <div class="cell has-text-centered">
+                <div>
+                  <p class="heading">Limit of blank</p>
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fa-solid fa-circle-dot"></i>
+                    </span>
+                    <span class="separate-thousands">{{ analyte.limit_of_blank }}</span>
+                  </span>
+                </div>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

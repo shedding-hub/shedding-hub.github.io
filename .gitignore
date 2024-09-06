@@ -1,8 +1,9 @@
-_data/datasets/
+_datasets/
 _site/
 .bundle/
 .jekyll-cache/
 .jekyll-metadata
 .sass-cache/
+playground/
 tmp/
 vendor/
