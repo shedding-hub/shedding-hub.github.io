@@ -37,6 +37,17 @@ title: Shedding Hub
         <div class="grid">
           <div class="cell has-text-centered">
             <div>
+              <p class="heading">Identifier</p>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-barcode"></i>
+                </span>
+                <code>{{ dataset.slug }}</code>
+              </span>
+            </div>
+          </div>
+          <div class="cell has-text-centered">
+            <div>
               <p class="heading">Participants</p>
               <span class="icon-text">
                 <span class="icon">
