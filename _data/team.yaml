@@ -16,7 +16,7 @@ till:
   institution: Harvard T.H. Chan School of Public Health
   website: https://tillahoffmann.github.io/
   description: |
-    I develop affordable, equitable public health monitoring solutions that pose a minimal burden for the population. My research connects models with complex, often messy real-world datasets, such as data not originally intended for research purposes. I am particularly interested in open and reproducible science based on data that adheres to the principle of privacy by design—without compromising the insights we can glean.
+    I develop affordable, equitable public health monitoring solutions that impose a minimal burden on the population. My research connects models with complex, often messy real-world datasets, such as data not originally intended for research purposes. I am particularly interested in open and reproducible science based on data that adheres to the principle of privacy by design—without compromising the insights we can glean.
 
     Previously, I was a Postdoctoral Research Associate at [Imperial College London](https://www.imperial.ac.uk/mathematics), Staff Research Scientist at [Spotify](https://research.atspotify.com), and Principal Research Scientist at [Sonalytic](https://techcrunch.com/2017/03/07/spotify-acquires-audio-detection-startup-sonalytic/). I received my PhD from Imperial College London under the supervision of [Nick S. Jones](https://www.imperial.ac.uk/people/nick.jones) and Master of Physics from the [University of Oxford](https://www.physics.ox.ac.uk).
 fiona:
@@ -31,3 +31,9 @@ lejun:
   institution: Emory University
   job: Master's Student
   description: Lejun is a first-year master's student in the Department of Biostatistics and Bioinformatics at Emory University. She received her BS in Actuarial Science and Mathematics, with a minor in Computer Science. She is passionate about data analysis and statistical methodology, with a primary interest in generalized linear models, classification, and the application of deep learning techniques to public health and biomedical data.
+zirui:
+  first: Zirui
+  last: Chen
+  institution: Emory University
+  job: Master's Student
+  description: Zirui is from Shenzhen, China, and is currently a first-year master's student in the department of Biostatistics and Bioinformatics at Emory University. She is passionate about bioinformatics and statistical analysis. She also used Bayesian analysis to complete some projects using public health and biological data.
