@@ -17,7 +17,7 @@ title: Team
           </figure>
         </div>
         <div class="media-content">
-          <p class="title is-4">{{person.first}} {{person.last}}</p>
+          <p id="{{person_hash[0]}}" class="title is-4">{{person.first}} {{person.last}}</p>
           <p class="subtitle is-6">
           <ul style="list-style: none; margin: 0; padding: 0;">
             {% if person.job %}
