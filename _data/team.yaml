@@ -37,3 +37,15 @@ zirui:
   institution: Emory University
   job: Master's Student
   description: Zirui is from Shenzhen, China, and is currently a first-year master's student in the department of Biostatistics and Bioinformatics at Emory University. She is passionate about bioinformatics and statistical analysis. She also used Bayesian analysis to complete some projects using public health and biological data.
+youwei:
+  first: Youwei
+  last: Hu
+  institution: Emory University
+  job: Master's Student
+  description: Youwei, originally from Suzhou, China, is currently pursuing a graduate degree in Biostatistics at Emory University, with an expected graduation in 2026. She holds a Bachelor of Science in Financial Mathematics from the Department of Mathematics and Physics. Her interests include data science and machine learning, where she is driven by a passion for applying analytical techniques to solve complex problems.
+haisu:
+  first: Haisu
+  last: Zhang
+  institution: Emory University
+  job: PhD Student
+  description: Haisu is a second-year PhD student in the Gangarosa Department of Environmental Health at Emory University, where he also earned his MS in Epidemiology. His research focuses primarily on environmental epidemiology, with previous work exploring the health impacts of air pollution and extreme heat. He also wants to gain more experience in different statistical methods and data processing techniques.
