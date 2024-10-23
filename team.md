@@ -50,6 +50,16 @@ title: Team
               </span>
             </li>
             {% endif %}
+            {% if person.github %}
+            <li>
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span><a href="https://github.com/{{person.github}}">@{{person.github}}</a></span>
+              </span>
+            </li>
+            {% endif %}
           </ul>
           </p>
           <p>{{person.description | markdownify}}</p>
