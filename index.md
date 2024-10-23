@@ -106,7 +106,7 @@ title: Shedding Hub
           class="card-footer-item">
           <span class="icon-text">
             <span class="icon">
-              <i class="fab fa-github-alt"></i>
+              <i class="fab fa-github"></i>
             </span>
             <span>View on GitHub</span>
           </span>
