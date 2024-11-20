@@ -1,0 +1,25 @@
+model{
+  for(subj in 1:n.subj) {
+    v0[subj] <- ((alpha[subj]+gamma[subj])/gamma[subj])*
+                ((alpha[subj]+gamma[subj])/alpha[subj])^(alpha[subj]/gamma[subj])
+    offs.sympt[subj] ~ dnorm(mu.offs,tau.offs)
+    loglat[subj] ~ dnorm(mu.loglat,tau.loglat)
+    offs.shed[subj] <- offs.sympt[subj]-exp(loglat[subj])
+    for(obs in 1:n.obs[subj]) {
+      t[subj,obs] <- t.obs[subj,obs]-offs.shed[subj]
+      u[subj,obs] <- c[subj] + d[subj]*
+        log(exp(-alpha[subj]*t[subj,obs])*(1-exp(-gamma[subj]*t[subj,obs]))*
+            v0[subj])
+      v.cens[subj,obs] ~ dinterval(logv.obs[subj,obs],logcenslim)
+      logv.obs[subj,obs] ~ dnorm(u[subj,obs],tau.obs)
+    }
+    alpha[subj] <- exp(theta[subj,1])
+    gamma[subj] <- exp(theta[subj,2])
+    c[subj]     <- exp(theta[subj,3])
+    d[subj]     <- exp(theta[subj,4])
+    theta[subj,1:4] ~ dmnorm(mu.theta,tau.theta)
+  }
+  mu.theta ~ dmnorm(mu.hyp,tau.hyp)
+  tau.theta ~ dwish(omega,df)
+  tau.obs ~ dgamma(tau.obs.hyp[1],tau.obs.hyp[2])
+}
