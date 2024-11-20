@@ -123,10 +123,10 @@ $$
 The likelihood of the model for this subject then becomes
 
 $$
-\begin{align}
+\begin{align*}
 \ell_{n} = \prod_{k=1}^{K_{n}}\phi(U_{n,k}\vert
   u(T_{n,k},\alpha_{n}, \gamma_{n}, c_{n}, d_{n}),\tau)
-\end{align}
+\end{align*}
 $$
 
 where $\phi(\mu,\tau)$ is the normal probability density with mean $\mu$ and
