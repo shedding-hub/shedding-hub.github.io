@@ -31,13 +31,13 @@ The concentration $v_{2}(t)$ of virus leaving the intestines then can be
 described as resulting from
 
 $$
-\begin{align}
+\begin{align*}
 \bigg\lbrace
 \begin{array}{ll}
 v_{1}^{\prime}(t) = -\alpha v_{1}(t); & v_{1}(0) = A\\
 v_{2}^{\prime}(t) = +\alpha v_{1}(t) - \beta v_{2}(t); & v_{2}(0) = 0\\
 \end{array}
-\end{align}
+\end{align*}
 $$
 
 where $A$ is the initial concentration of virus at the primary infection
@@ -46,14 +46,14 @@ and effective volumes of the compartments within the intestinal tract
 ([Teunis, 1994](https://rivm.openrepository.com/handle/10029/9967)). The solution
 
 $$
-\begin{align}
+\begin{align*}
 \bigg\lbrace
 \begin{array}{ll}
 v_{1}(t) = A\text{e}^{-\alpha t} & \\
 v_{2}(t) = \frac{\alpha}{\beta -\alpha}A\text{e}^{-\alpha t}
  \left(1-\text{e}^{-(\beta-\alpha)t}\right) & \\
 \end{array}
-\end{align}
+\end{align*}
 $$
 
 is realistic for $\alpha >0$ and $\beta > \alpha$.
@@ -61,10 +61,10 @@ is realistic for $\alpha >0$ and $\beta > \alpha$.
 The observed fecal virus concentration can then be written as
 
 $$
-\begin{align}
+\begin{align*}
 v(t \vert \alpha, \gamma ) = v_{0}\text{e}^{-\alpha t}(1-\text{e}^{-\gamma t}),
 \quad where \enspace \alpha > 0, \enspace \gamma > 0
-\end{align}
+\end{align*} \qquad \qquad (1)
 $$
 
 At onset of shedding ($t=0$) the virus concentration $v(t)$ increases
@@ -82,19 +82,19 @@ and then decreases to $0$ again (with rate $v_{0}\alpha$).
 If the constant $v_{0}$ is defined as
 
 $$
-\begin{align}
+\begin{align*}
  v_{0} = \frac{\alpha +\gamma}{\gamma}
  \left(\frac{\alpha +\gamma}{\alpha}\right)^{\frac{\alpha}{\gamma}}
-\end{align}
+\end{align*} \qquad \qquad (2)
 $$
 
 then the peak virus concentration is $v_{1} = 1$. When virus
 concentrations are measured on a log scale the regression model is
 
 $$
-\begin{align}
+\begin{align*}
 u(t \vert \alpha, \gamma, c, d) = c + d \log(v(t \vert \alpha, \gamma ))
-\end{align}
+\end{align*} \qquad \qquad (3)
 $$
 
 with scale factor $d$ and offset $c$.
@@ -144,7 +144,7 @@ $$\Phi(u\vert \mu,\tau) = \int_{-\infty}^{u}\phi(u\vert \mu,\tau)$$
 
 ### 2.2 Missing Onset
 
-The onset of shedding, $t=0$ in equation (3), cannot be observed. For symptomatic
+The onset of shedding, $t=0$ in equation (1), cannot be observed. For symptomatic
 subjects the onset of symptoms may be assumed to occur shortly after the
 onset of shedding ([Sukhire et al., 2012](https://academic.oup.com/cid/article-abstract/54/7/931/299160?redirectedFrom=fulltext&login=false)). For asymptomatic subjects
 the onset of symptoms (onset of virus shedding) is usually missing.
@@ -152,7 +152,7 @@ the onset of symptoms (onset of virus shedding) is usually missing.
 When there are observations of the shedding response an estimate of the
 onset of shedding may be found by shifting the origin of the time axis
 until optimum agreement between the observed virus concentrations and
-the curve predicted by equation (3).
+the curve predicted by equation (1).
 
 <figure class="image">
   <img src="png/timing.png" alt="timing"/>
@@ -168,10 +168,10 @@ it is always present) and express onset of shedding as the time
 $\Delta t$ from the first sample (Figure 2).
 
 $$
-\begin{align}
+\begin{align*}
 u(t + \Delta t \vert \alpha, \gamma, c, d) = 
   c - d \log(v(t + \Delta t \vert \alpha, \gamma ))
-\end{align}
+\end{align*}
 $$
 
 For symptomatic cases the onset of symptoms may be known. The onset of
@@ -182,11 +182,11 @@ As long as observed log concentrations $U_{n,k}$ are present, $\Delta t$
 can be estimated using the likelihood
 
 $$
-\begin{align}
+\begin{align*}
 \ell_{n} = \prod_{k=1}^{K_{n}}\phi(U_{n,k}\vert
 u(T_{n,k}+\Delta t_{n},\alpha_{n}, \gamma_{n}, c_{n}, d_{n}),\tau)
 \psi(\Delta t_{n})
-\end{align}
+\end{align*}
 $$
 
 where $\Delta t_{n}$ is the offset between first
@@ -208,10 +208,10 @@ In a Bayesian framework the variation of these parameters in the study
 population can be described by their joint probability distribution
 
 $$
-\begin{align}
+\begin{align*}
 \boldsymbol{\theta} = \log(\alpha, \gamma, c, d) \sim
   N(\boldsymbol{\mu}\_{\theta},\boldsymbol{\tau}\_{\theta})
-\end{align}
+\end{align*}
 $$
 
 where $N(\boldsymbol{\mu}\_{\theta},\boldsymbol{\tau}\_{\theta})$ is a
@@ -234,7 +234,7 @@ Figure 3 shows the structure of the Bayesian model in a directed acyclic graph.
 
 The source code for the corresponding JAGS model
 
-Equation (5) can be translated into
+Equation (3) can be translated into
 
 ```
 u[subj,obs] <- c[subj] + d[subj]*log(exp(-alpha[subj]*t[subj,obs])*
@@ -243,7 +243,7 @@ u[subj,obs] <- c[subj] + d[subj]*log(exp(-alpha[subj]*t[subj,obs])*
 
 where `subj` and `obs` refer to a subject ($n = 1,\dots , N$) and the
 observation for that subject ($k = 1,\dots,K_{n}$). The normalizing
-factor `v0[subj]` as defined in equation (4) is
+factor `v0[subj]` as defined in equation (2) is
 
 ```
 v0[subj] <- ((alpha[subj]+gamma[subj])/gamma[subj])*
@@ -269,7 +269,7 @@ now $\Delta t$ = `offs.shed` may be calculated
 offs.shed[subj] <- offs.sympt[subj]-exp(loglat[subj])
 ```
 
-The time from the start of shedding as used in Equation (5) can
+The time from the start of shedding as used in Equation (3) can
 now be calculated by correcting the time of the sample `t.obs[subj,obs]`
 
 ```
