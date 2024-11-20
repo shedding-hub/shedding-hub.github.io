@@ -94,8 +94,7 @@ concentrations are measured on a log scale the regression model is
 $$
 \begin{align}
 u(t \vert \alpha, \gamma, c, d) = c + d \log(v(t \vert \alpha, \gamma ))
-\end{align}
-\tag{3}
+\end{align} \quad \tag{3}
 $$
 
 with scale factor $d$ and offset $c$.
