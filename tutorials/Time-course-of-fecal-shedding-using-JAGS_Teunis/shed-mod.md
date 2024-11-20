@@ -30,7 +30,7 @@ with peristalsis, to ultimately be excreted.
 The concentration $v_{2}(t)$ of virus leaving the intestines then can be
 described as resulting from
 
-$$
+```math
 \begin{align}
 \bigg\lbrace
 \begin{array}{ll}
@@ -38,7 +38,7 @@ v_{1}^{\prime}(t) = -\alpha v_{1}(t); & v_{1}(0) = A\\
 v_{2}^{\prime}(t) = +\alpha v_{1}(t) - \beta v_{2}(t); & v_{2}(0) = 0\\
 \end{array}
 \end{align}
-$$
+```
 
 where $A$ is the initial concentration of virus at the primary infection
 site, $\alpha$ and $\beta$ are constants defined by the transport rate
