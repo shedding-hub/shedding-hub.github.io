@@ -36,7 +36,7 @@ described as resulting from
 \begin{array}{ll}
 v_{1}^{\prime}(t) = -\alpha v_{1}(t); & v_{1}(0) = A\\
 v_{2}^{\prime}(t) = +\alpha v_{1}(t) - \beta v_{2}(t); & v_{2}(0) = 0\\
-\end{array}
+\end{array} \tag
 \end{align}
 ```
 
