@@ -61,10 +61,10 @@ is realistic for $\alpha >0$ and $\beta > \alpha$.
 The observed fecal virus concentration can then be written as
 
 $$
-\begin{align}
+\begin{align*}
 v(t \vert \alpha, \gamma ) = v_{0}\text{e}^{-\alpha t}(1-\text{e}^{-\gamma t}),
 \quad where \enspace \alpha > 0, \enspace \gamma > 0
-\end{align} \tag{1}
+\end{align*} \qquad \qquad (1)
 $$
 
 At onset of shedding ($t=0$) the virus concentration $v(t)$ increases
@@ -82,19 +82,19 @@ and then decreases to $0$ again (with rate $v_{0}\alpha$).
 If the constant $v_{0}$ is defined as
 
 $$
-\begin{align}
+\begin{align*}
  v_{0} = \frac{\alpha +\gamma}{\gamma}
  \left(\frac{\alpha +\gamma}{\alpha}\right)^{\frac{\alpha}{\gamma}}
-\end{align} \tag{2}
+\end{align*} \qquad \qquad (2)
 $$
 
 then the peak virus concentration is $v_{1} = 1$. When virus
 concentrations are measured on a log scale the regression model is
 
 $$
-\begin{align}
+\begin{align*}
 u(t \vert \alpha, \gamma, c, d) = c + d \log(v(t \vert \alpha, \gamma ))
-\end{align} \quad \tag{3}
+\end{align*} \qquad \qquad (3)
 $$
 
 with scale factor $d$ and offset $c$.
