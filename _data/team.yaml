@@ -49,6 +49,13 @@ youwei:
   job: Master's Student
   github: hww228
   description: Youwei, originally from Suzhou, China, is currently pursuing a graduate degree in Biostatistics at Emory University, with an expected graduation in 2026. She holds a Bachelor of Science in Financial Mathematics from the Department of Mathematics and Physics. Her interests include data science and machine learning, where she is driven by a passion for applying analytical techniques to solve complex problems.
+siyu:
+  first: Siyu
+  last: Zhai
+  institution: Emory University
+  job: Master's Student
+  github: LivZHAI
+  description: Siyu is currently a first-year master's student in the Biostatistics department at the Rollins School of Public Health, Emory University. She earned her bachelor’s degree in Financial Mathematics from Suzhou, China. She is dedicated to advanced statistical analysis and methodologies, as well as the application of machine learning in the field of public health.
 haisu:
   first: Haisu
   last: Zhang
