@@ -18,14 +18,11 @@ Suppose virus is accumulated at an infection site and released into the
 intestinal tract with concentration $v_{1}(t)$, where it is transported
 with peristalsis, to ultimately be excreted.
 
-<figure class="image">
-  <img src="png/model.png" alt="Figure 1" style="width:50%; height:auto;/>
-  <figcaption>
+<p align="center">
+  <img src="png/model.png" alt="Figure 1" width="50%">
+</p>
 
-  Figure 1. Virus present at an infection site is transported to the intestines with rate $\alpha$ from where it is shedded with a rate $\beta$.
-
-  </figcaption>
-</figure>
+**Figure 1:** Virus present at an infection site is transported to the intestines with rate $\alpha$ from where it is shedded with a rate $\beta$.
 
 The concentration $v_{2}(t)$ of virus leaving the intestines then can be
 described as resulting from
@@ -154,14 +151,11 @@ onset of shedding may be found by shifting the origin of the time axis
 until optimum agreement between the observed virus concentrations and
 the curve predicted by equation (1).
 
-<figure class="image">
-  <img src="png/timing.png" alt="timing" style="width:50%; height:auto;/>
-  <figcaption>
+<p align="center">
+  <img src="png/timing.png" alt="Figure 2" width="50%">
+</p>
 
-  Figure 2. Timing of events relevant for finding the onset of the shedding response. When a subject is infected tissues in the intestinal tract become colonized by virus and after a few days symptoms of acute illness may develop. Virus may also be shed in feces, not necessarily at the same time as the appearance of symptoms. Some latency $t_{\text{lat}}$ may exist between onsets of shedding and symptoms. Note that $t_{\text{lat}}$ may be positve or negative, depending on the within-host dynamics of the infection. Usually the first sample is taken a bit later: the delay between onset of shedding and date of first sample is $\Delta t$.
-
-  </figcaption>
-</figure>
+**Figure 2:** Timing of events relevant for finding the onset of the shedding response. When a subject is infected tissues in the intestinal tract become colonized by virus and after a few days symptoms of acute illness may develop. Virus may also be shed in feces, not necessarily at the same time as the appearance of symptoms. Some latency $t_{\text{lat}}$ may exist between onsets of shedding and symptoms. Note that $t_{\text{lat}}$ may be positve or negative, depending on the within-host dynamics of the infection. Usually the first sample is taken a bit later: the delay between onset of shedding and date of first sample is $\Delta t$.
 
 It is convenient to take the time of the first sample as reference (as
 it is always present) and express onset of shedding as the time
@@ -221,14 +215,11 @@ $\boldsymbol{\mu}\_{\theta} = (\mu\_{\alpha}, \mu\_{\gamma}, \mu\_{c},
 
 Figure 3 shows the structure of the Bayesian model in a directed acyclic graph.
 
-<figure class="image">
-  <img src="png/dag-prec2.png" alt="model-dag" style="width:75%; height:auto;/>
-  <figcaption>
+<p align="center">
+  <img src="png/dag-prec2.png" alt="Figure 3" width="80%">
+</p>
 
-  Figure 3. Directed acyclic graph of the shedding model. For subject $n$ ($n = 1, 2, \dots, N$) sample $k$ ($k = 1,2,\dots, K_{n}$) has log concentrations $U_{n,k}$ observed at times $T_{n,k}$. Log concentrations are measured with precision $\tau_{\text{obs}}$. The shedding response $u(t + \Delta t, \boldsymbol{\theta})$ has parameters $\boldsymbol{\theta}\_{n} = (\alpha\_{n}, \gamma\_{n}, c\_{n}, d\_{n})$ with joint normal distribution, mean $\boldsymbol{\mu}\_{\theta}$, precision matrix $\boldsymbol{\tau}\_{\theta}$. The offset $\Delta t_{n}$ between time of first sample $T_{n,1}$ and onset of shedding has its own (normal) distribution (mean $\mu_{\Delta t}$ and precision $\tau_{\Delta t}$).
-
-  </figcaption>
-</figure>
+**Figure 3:** Directed acyclic graph of the shedding model. For subject $n$ ($n = 1, 2, \dots, N$) sample $k$ ($k = 1,2,\dots, K_{n}$) has log concentrations $U_{n,k}$ observed at times $T_{n,k}$. Log concentrations are measured with precision $\tau_{\text{obs}}$. The shedding response $u(t + \Delta t, \boldsymbol{\theta})$ has parameters $\boldsymbol{\theta}\_{n} = (\alpha\_{n}, \gamma\_{n}, c\_{n}, d\_{n})$ with joint normal distribution, mean $\boldsymbol{\mu}\_{\theta}$, precision matrix $\boldsymbol{\tau}\_{\theta}$. The offset $\Delta t_{n}$ between time of first sample $T_{n,1}$ and onset of shedding has its own (normal) distribution (mean $\mu_{\Delta t}$ and precision $\tau_{\Delta t}$).
 
 ### 2.4 Implementation in JAGS
 
@@ -599,14 +590,11 @@ for(k.subj in 1:(nsubj)){
 }
 ```
 
-<figure class="image">
-  <img src="png/estim.png" alt="pred"/>
-  <figcaption>
+<p align="center">
+  <img src="png/estim.png" alt="Figure 4">
+</p>
 
-  Figure 4. Estimated fecal shedding dynamics of SARS-CoV-2 in 9 subjects: median and 95% credible interval range reported. Y-axis: genome copies per mL.
-
-  </figcaption>
-</figure>
+**Figure 4:** Estimated fecal shedding dynamics of SARS-CoV-2 in 9 subjects: median and 95% credible interval range reported. Y-axis: genome copies per mL.
 
 Figure 5 shows a graph of the data and a predicted time course of fecal shedding,
 calculated from the posterior predictive sample of the parameter vector
@@ -625,14 +613,12 @@ for(k.subj in 1:nsubj){
 graph.resp(trange,pred.subj,"black")
 ticks.log(2,n.major=5)
 ```
-<figure class="image">
-  <img src="png/pred.png" alt="pred" style="width:50%; height:auto;/>
-  <figcaption>
 
-  Figure 5. Predicted time course of fecal shedding of nCoV in 9 subjects ($N=82$): median and 95% credible interval range reported. Y-axis: genome copies per mL.
+<p align="center">
+  <img src="png/pred.png" alt="Figure 5">
+</p>
 
-  </figcaption>
-</figure>
+**Figure 5:** Predicted time course of fecal shedding of nCoV in 9 subjects ($N=82$): median and 95% credible interval range reported. Y-axis: genome copies per mL.
 
 Figure 6 shows residuals for individual response curves.
 
@@ -666,14 +652,11 @@ errbar(x=index[!is.na(offs.sympt)],
        xlab="observation #",ylab="residual (log gc/mL)",errbar.col="black")
 ```
 
-<figure class="image">
-  <img src="png/residuals.png" alt="residuals" style="width:70%; height:auto;/>
-  <figcaption>
+<p align="center">
+  <img src="png/residuals.png" alt="Figure 6" width="80%>
+</p>
 
-  Figure 6. Difference between predicted and observed log virus concentrations. Note that this can be shown only for samples with virus concentration above the lower detection limit: 68 out of 82 samples in 9 subjects.
-
-  </figcaption>
-</figure>
+**Figure 6:** Difference between predicted and observed log virus concentrations. Note that this can be shown only for samples with virus concentration above the lower detection limit: 68 out of 82 samples in 9 subjects.
 
 ## References
 
