@@ -646,7 +646,7 @@ ticks.log(2,n.major=5)
 ```
 
 <p align="center">
-  <img src="png/pred.png" alt="Figure 5" width="60%>
+  <img src="png/pred.png" alt="Figure 5" width="80%>
 </p>
 
 **Figure 5:** Predicted time course of fecal shedding of nCoV in 9 subjects ($N=82$): median and 95% credible interval range reported. Y-axis: genome copies per mL.
@@ -684,7 +684,7 @@ errbar(x=index[!is.na(offs.sympt)],
 ```
 
 <p align="center">
-  <img src="png/residuals.png" alt="Figure 6" width="0%>
+  <img src="png/residuals.png" alt="Figure 6" width="80%>
 </p>
 
 **Figure 6:** Difference between predicted and observed log virus concentrations. Note that this can be shown only for samples with virus concentration above the lower detection limit: 68 out of 82 samples in 9 subjects.
