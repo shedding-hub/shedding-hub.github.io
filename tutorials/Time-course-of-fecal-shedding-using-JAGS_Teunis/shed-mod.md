@@ -422,21 +422,21 @@ logcenslim <- log(censorlimit);
 
 In a Bayesian framework unknown parameters can be specified by prior distributions reflecting *a priori* knowledge available before the analysis ([Bayes, 1763](https://royalsocietypublishing.org/doi/10.1098/rstl.1763.0053)). Usually such knowledge cannot be specified precisely and consequently prior distributions are defined to reflect such ignorance. It should be noted that often the structure of the model also imposes limits on possible outcomes and therefore can also represent prior information.
 
-The start of the shedding response, the onset of shedding, cannot be directly observed. Often the onset of symptoms is observed: the onset of shedding may be delayed relative to (or precede) symptom onset. Taking the notation in Figure 2 the onset of shedding $t_\text{shed}$ may be calculated relative to the date $t_{1}$ of the first sample
+The start of the shedding response, the onset of shedding, cannot be directly observed. Often the onset of symptoms is observed: the onset of shedding may be delayed relative to (or precede) symptom onset. Taking the notation in Figure 2 the onset of shedding $t_{\text{shed}}$ may be calculated relative to the date $t_{1}$ of the first sample
 
 $$
 \Delta t = t_{1}-\left(t_{\text{sympt}}-t_{\text{lat}}\right)
 $$
 
-In practice $t_{\text{lat}} $ cannot usually be observed although for some diseases some general knowledge may be available for this latency.
+In practice $t_{\text{lat}}$ cannot usually be observed although for some diseases some general knowledge may be available for this latency.
 
-The prior for the symptom offset $t_{\text{sympt}} = $`offs.sympt` is a normal distribution with mean `mu.offs`$=-1.0 $ and precision (1/variance) `tau.offs`$= 0.0001 $.  This is a 'flat' prior that allows $t_{\text{sympt}} $ to vary over a wide range as is appropriate because when symptom onset is unknown then there is no way of knowing when infection occurred.
+The prior for the symptom offset $t_{\text{sympt}} =$ `offs.sympt` is a normal distribution with mean `mu.offs`$= -1.0$ and precision (1/variance) `tau.offs`$= 0.0001$. This is a 'flat' prior that allows $t_{\text{sympt}}$ to vary over a wide range as is appropriate because when symptom onset is unknown then there is no way of knowing when infection occurred.
 
-As explained earlier the onset of shedding is estimated by adjusting the offset $\Delta t $ (the time from shedding onset to the date of the first sample). When the symptom onset has been observed this allows estimation of the latency $t_{\text{lat}} = \exp( $`loglat`$) $.  The prior for `loglat` is a normal distribution with mean `mu.loglat`$ = -1.0 $ and precision `tau.loglat`$ = 10.0 $. This is a 'narrow' prior that restricts $t_{\text{lat}} $ to a narrow range around $0.37 $. Note that it has been assumed that $t_{\text{lat}} > 0 $: onset of symptoms is assumed to precede onset of shedding. Should one want to explore whether a larger range for $t_{\text{lat}} $ is supported by the data, the precision `tau.loglat` may be lowered.
+As explained earlier the onset of shedding is estimated by adjusting the offset $\Delta t$ (the time from shedding onset to the date of the first sample). When the symptom onset has been observed this allows estimation of the latency $t_{\text{lat}} = \exp($`loglat`$)$.  The prior for `loglat` is a normal distribution with mean `mu.loglat`$ = -1.0$ and precision `tau.loglat`$= 10.0$. This is a 'narrow' prior that restricts $t_{\text{lat}}$ to a narrow range around $0.37$. Note that it has been assumed that $t_{\text{lat}} > 0$: onset of symptoms is assumed to precede onset of shedding. Should one want to explore whether a larger range for $t_{\text{lat}}$ is supported by the data, the precision `tau.loglat` may be lowered.
 
-The parameter vector $\boldsymbol{\theta} $ has a multivariate normal distribution with mean vector $\boldsymbol{\mu}_{\theta} $ and precision matrix $\boldsymbol{\tau}_{\theta} $.
+The parameter vector $\boldsymbol{\theta}$ has a multivariate normal distribution with mean vector $\boldsymbol{\mu}_{\theta}$ and precision matrix $\boldsymbol{\tau}_{\theta}$.
 
-The prior for $\boldsymbol{\mu}_{\theta} = $ `mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu_{\text{hyp}} = $ `mu.hyp` and $\tau_{\text{hyp}} = $ `tau.hyp`. The mean vector
+The prior for $\boldsymbol{\mu}_{\theta} =$`mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu_{\text{hyp}} =$`mu.hyp` and $\tau_{\text{hyp}} =$`tau.hyp`. The mean vector
 
 $$
   \mu_{\text{hyp}} = \left(\begin{array}{c}-3.0\\ -3.0\\ 2.7\\ -0.7\\
@@ -455,9 +455,9 @@ $$
    \end{array}\right)
 $$
 
-The parameters in the mean vector have been chosen by graphing the model Equation (3) to (approximately) reflect the observed range of (log) virus concentrations. This is not essential for convergence but may help in decreasing the number of burn--in iterations. The precision matrix assumes absence of correlations among the means of the parameters and weak limits on their variances.
+The parameters in the mean vector have been chosen by graphing the model Equation (3) to (approximately) reflect the observed range of (log) virus concentrations. This is not essential for convergence but may help in decreasing the number of burn-in iterations. The precision matrix assumes absence of correlations among the means of the parameters and weak limits on their variances.
 
-The prior for $\boldsymbol{\tau}_{\theta} = $ `tau.theta` is a Wishart distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with $\Omega = $`omega` and $\text{df}= $`df`.
+The prior for $\boldsymbol{\tau}_{\theta} =$ `tau.theta` is a Wishart distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with $\Omega =$`omega` and $\text{df}=$`df`.
 
 $$
 \Omega =
@@ -479,18 +479,17 @@ This prior distribution allows variation in $\boldsymbol{\theta} $ while making 
 
 Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v) $ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}} $.
 
-The prior of $\tau_{\text{obs}} =$\verb|tau.obs.hyp| is a Gamma distribution with parameter vector
+The prior of $\tau_{\text{obs}} =$`tau.obs.hyp` is a Gamma distribution with parameter vector
 
 $$
-  \tau_{\text{obs},\text{hyp}} =  \left(\begin{array}{c}4\\ 20\\
-  \end{array}\right)
+\tau_{\text{obs},\text{hyp}} =  \left( 4 \atop 20 \right)
 $$
 
 reflecting the (known) measurement error of the used assay.
 
 When having arrived at a model run that appears to converge and produce stable output it is always a good idea to relax priors and check how the output changes. Ideally, when data provide sufficient information, a change in priors is only a minor influence on the results.
 
-Parameters for the following priors must be specified:
+In the case study, we specified the parameters for the following priors:
 
 - Normal prior for `offs.sympt`: `mu.offs` = -1.0, `tau.offs` = 0.0001
     (a 'flat' prior)
