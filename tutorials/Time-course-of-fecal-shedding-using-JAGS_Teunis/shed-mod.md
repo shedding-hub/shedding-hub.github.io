@@ -216,7 +216,7 @@ $\boldsymbol{\mu}\_{\theta} = (\mu\_{\alpha}, \mu\_{\gamma}, \mu\_{c},
 Figure 3 shows the structure of the Bayesian model in a directed acyclic graph.
 
 <p align="center">
-  <img src="png/dag-prec2.png" alt="Figure 3" width="80%">
+  <img src="png/dag-prec2.png" alt="Figure 3" width="60%">
 </p>
 
 **Figure 3:** Directed acyclic graph of the shedding model. For subject $n$ ($n = 1, 2, \dots, N$) sample $k$ ($k = 1,2,\dots, K_{n}$) has log concentrations $U_{n,k}$ observed at times $T_{n,k}$. Log concentrations are measured with precision $\tau_{\text{obs}}$. The shedding response $u(t + \Delta t, \boldsymbol{\theta})$ has parameters $\boldsymbol{\theta}\_{n} = (\alpha\_{n}, \gamma\_{n}, c\_{n}, d\_{n})$ with joint normal distribution, mean $\boldsymbol{\mu}\_{\theta}$, precision matrix $\boldsymbol{\tau}\_{\theta}$. The offset $\Delta t_{n}$ between time of first sample $T_{n,1}$ and onset of shedding has its own (normal) distribution (mean $\mu_{\Delta t}$ and precision $\tau_{\Delta t}$).
@@ -353,7 +353,7 @@ model{
 
 ## 3. Case Study using R
 
-### 3.1 Data and Constants
+### 3.1 Data
 
 We use the longitudinal SARS-CoV-2 fecal shedding data from [Wölfel et al. (2020)](https://www.nature.com/articles/s41586-020-2196-x). The data includes observations of SARS-CoV-2 RNA concentration in 82 stool samples from 9 patients. The date of sample collection spans from Day 3 to Day 22 after symptom onset. We load the data in R with:
 
@@ -417,6 +417,78 @@ v.cens <- c.cens;
 logv.init <- log(c.init);
 logcenslim <- log(censorlimit);
 ```
+
+### 3.2 Priors
+
+In a Bayesian framework unknown parameters can be specified by prior distributions reflecting *a priori* knowledge available before the analysis ([Bayes, 1763](https://royalsocietypublishing.org/doi/10.1098/rstl.1763.0053)). Usually such knowledge cannot be specified precisely and consequently prior distributions are defined to reflect such ignorance. It should be noted that often the structure of the model also imposes limits on possible outcomes and therefore can also represent prior information.
+
+The start of the shedding response, the onset of shedding, cannot be directly observed. Often the onset of symptoms is observed: the onset of shedding may be delayed relative to (or precede) symptom onset. Taking the notation in Figure \ref{deltat_timing} the onset of shedding $t_{\text{shed}} $ may be calculated relative to the date $t_{1} $ of the first sample
+
+$$
+\Delta t = t_{1}-\left(t_{\text{sympt}}-t_{\text{lat}}\right)
+$$
+
+In practice $t_{\text{lat}} $ cannot usually be observed although for some diseases some general knowledge may be available for this latency.
+
+The prior for the symptom offset $t_{\text{sympt}} = $`offs.sympt` is a normal distribution with mean `mu.offs`$=-1.0 $ and precision (1/variance) `tau.offs`$= 0.0001 $.  This is a 'flat' prior that allows $t_{\text{sympt}} $ to vary over a wide range as is appropriate because when symptom onset is unknown then there is no way of knowing when infection occurred.
+
+As explained earlier the onset of shedding is estimated by adjusting the offset $\Delta t $ (the time from shedding onset to the date of the first sample). When the symptom onset has been observed this allows estimation of the latency $t_{\text{lat}} = \exp( $`loglat`$) $.  The prior for `loglat` is a normal distribution with mean `mu.loglat`$ = -1.0 $ and precision `tau.loglat`$ = 10.0 $. This is a 'narrow' prior that restricts $t_{\text{lat}} $ to a narrow range around $0.37 $. Note that it has been assumed that $t_{\text{lat}} > 0 $: onset of symptoms is assumed to precede onset of shedding. Should one want to explore whether a larger range for $t_{\text{lat}} $ is supported by the data, the precision `tau.loglat` may be lowered.
+
+The parameter vector $\boldsymbol{\theta} $ has a multivariate normal distribution with mean vector $\boldsymbol{\mu}_{\theta} $ and precision matrix $\boldsymbol{\tau}_{\theta} $.
+
+The prior for $\boldsymbol{\mu}_{\theta} = $ `mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu_{\text{hyp}} = $ `mu.hyp` and $\tau_{\text{hyp}} = $ `tau.hyp`. The mean vector
+
+$$
+  \mu_{\text{hyp}} = \left(\begin{array}{c}-3.0\\ -3.0\\ 2.7\\ -0.7\\
+  \end{array}\right) 
+$$
+
+and the precision matrix
+
+$$
+  \tau_{\text{hyp}} =
+  \left(\begin{array}{cccc}
+   1 & 0 & 0 & 0\\
+   0 & 1 & 0 & 0\\
+   0 & 0 & 1 & 0\\
+   0 & 0 & 0 & 1\\
+   \end{array}\right)
+$$
+
+The parameters in the mean vector have been chosen by graphing the model Equation (3) to (approximately) reflect the observed range of (log) virus concentrations. This is not essential for convergence but may help in decreasing the number of burn--in iterations. The precision matrix assumes absence of correlations among the means of the parameters and weak limits on their variances.
+
+The prior for $\boldsymbol{\tau}_{\theta} = $ `tau.theta` is a Wishart distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with $\Omega = $`omega` and $\text{df}= $`df`.
+
+$$
+\Omega =
+  \left(\begin{array}{cccc}
+   0.1 & 0 & 0 & 0\\
+   0 & 0.1 & 0 & 0\\
+   0 & 0 & 0.1 & 0\\
+   0 & 0 & 0 & 0.1\\
+  \end{array}\right)
+$$
+
+and
+
+$$
+\text{df} = 4
+$$
+
+This prior distribution allows variation in $\boldsymbol{\theta} $ while making no *a priori* assumptions about correlation among its components. Note that such correlations may be studied in the posterior $\boldsymbol{\tau}_{\theta} $.
+
+Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v) $ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}} $.
+
+The prior of $\tau_{\text{obs}} =$\verb|tau.obs.hyp| is a Gamma distribution with parameter vector
+
+$$
+  \tau_{\text{obs},\text{hyp}} =  \left(\begin{array}{c}4\\ 20\\
+  \end{array}\right)
+$$
+
+reflecting the (known) measurement error of the used assay.
+
+When having arrived at a model run that appears to converge and produce stable output it is always a good idea to relax priors and check how the output changes. Ideally, when data provide sufficient information, a change in priors is only a minor influence on the results.
 
 Parameters for the following priors must be specified:
 
@@ -615,7 +687,7 @@ ticks.log(2,n.major=5)
 ```
 
 <p align="center">
-  <img src="png/pred.png" alt="Figure 5">
+  <img src="png/pred.png" alt="Figure 5" width="60%>
 </p>
 
 **Figure 5:** Predicted time course of fecal shedding of nCoV in 9 subjects ($N=82$): median and 95% credible interval range reported. Y-axis: genome copies per mL.
@@ -653,12 +725,17 @@ errbar(x=index[!is.na(offs.sympt)],
 ```
 
 <p align="center">
-  <img src="png/residuals.png" alt="Figure 6" width="80%>
+  <img src="png/residuals.png" alt="Figure 6" width="0%>
 </p>
 
 **Figure 6:** Difference between predicted and observed log virus concentrations. Note that this can be shown only for samples with virus concentration above the lower detection limit: 68 out of 82 samples in 9 subjects.
 
+
 ## References
+
+Thomas Bayes. An essay towards solving a problem in the doctrine of chances. *Biometrika*, 45:296–315, 1958. Reprint of a letter by Mr. Price, to John Canton, 1763.
+
+Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin. *Bayesian Data Analysis*. CRC Press, Boca Raton, Fla USA, third edition, 2014.
 
 Peter F.M. Teunis. Infectious gastroenteritis–opportunities for dose response modeling. *Technical Report* 284 550 003, RIVM, Bilthoven, November 1997.
 
