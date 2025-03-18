@@ -439,8 +439,7 @@ The parameter vector $\boldsymbol{\theta}$ has a multivariate normal distributio
 The prior for $\boldsymbol{\mu}\_{\theta} =$`mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu\_{\text{hyp}} =$`mu.hyp` and $\tau_{\text{hyp}} =$`tau.hyp`. The mean vector
 
 $$
-  \mu_{\text{hyp}} = \left(\begin{array}{c}-3.0\\ -3.0\\ 2.7\\ -0.7\\
-  \end{array}\right) 
+  \mu_{\text{hyp}} = \left( -3.0 \atop -3.0 \atop 2.7 \atop -0.7 \right) 
 $$
 
 and the precision matrix
@@ -475,9 +474,9 @@ $$
 \text{df} = 4
 $$
 
-This prior distribution allows variation in $\boldsymbol{\theta} $ while making no *a priori* assumptions about correlation among its components. Note that such correlations may be studied in the posterior $\boldsymbol{\tau}_{\theta} $.
+This prior distribution allows variation in $\boldsymbol{\theta}$ while making no *a priori* assumptions about correlation among its components. Note that such correlations may be studied in the posterior $\boldsymbol{\tau}_{\theta}$.
 
-Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v)$ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}} $.
+Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v)$ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}}$.
 
 The prior of $\tau_{\text{obs}} =$`tau.obs.hyp` is a Gamma distribution with parameter vector
 
@@ -691,7 +690,7 @@ errbar(x=index[!is.na(offs.sympt)],
 
 ## References
 
-Thomas Bayes. An essay towards solving a problem in the doctrine of chances. *Biometrika*, 45:296–315, 1958. Reprint of a letter by Mr. Price, to John Canton, 1763.
+Thomas Bayes. An essay towards solving a problem in the doctrine of chances. *Biometrika*, 45:296–315, 1958. Reprint of a letter by Mr. Price, to John Canton, 1763. https://doi.org/10.1098/rstl.1763.0053
 
 Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin. *Bayesian Data Analysis*. CRC Press, Boca Raton, Fla USA, third edition, 2014.
 
