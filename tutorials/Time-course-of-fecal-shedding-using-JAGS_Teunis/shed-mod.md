@@ -444,7 +444,8 @@ $$
   -3.0\\
   -3.0\\
   2.7\\
-  -0.7\right) 
+  -0.7\\
+  \end{array}\right) 
 $$
 
 and the precision matrix
