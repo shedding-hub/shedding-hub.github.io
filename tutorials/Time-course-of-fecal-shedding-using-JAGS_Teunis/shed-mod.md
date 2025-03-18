@@ -432,11 +432,11 @@ In practice $t_{\text{lat}}$ cannot usually be observed although for some diseas
 
 The prior for the symptom offset $t_{\text{sympt}} =$ `offs.sympt` is a normal distribution with mean `mu.offs`$= -1.0$ and precision (1/variance) `tau.offs`$= 0.0001$. This is a 'flat' prior that allows $t_{\text{sympt}}$ to vary over a wide range as is appropriate because when symptom onset is unknown then there is no way of knowing when infection occurred.
 
-As explained earlier the onset of shedding is estimated by adjusting the offset $\Delta t$ (the time from shedding onset to the date of the first sample). When the symptom onset has been observed this allows estimation of the latency $t_{\text{lat}} = \exp($`loglat`$)$.  The prior for `loglat` is a normal distribution with mean `mu.loglat`$ = -1.0$ and precision `tau.loglat`$= 10.0$. This is a 'narrow' prior that restricts $t_{\text{lat}}$ to a narrow range around $0.37$. Note that it has been assumed that $t_{\text{lat}} > 0$: onset of symptoms is assumed to precede onset of shedding. Should one want to explore whether a larger range for $t_{\text{lat}}$ is supported by the data, the precision `tau.loglat` may be lowered.
+As explained earlier the onset of shedding is estimated by adjusting the offset $\Delta t$ (the time from shedding onset to the date of the first sample). When the symptom onset has been observed this allows estimation of the latency $t_{\text{lat}} = \exp($ `loglat` $)$.  The prior for `loglat` is a normal distribution with mean `mu.loglat` $= -1.0$ and precision `tau.loglat`$= 10.0$. This is a 'narrow' prior that restricts $t_{\text{lat}}$ to a narrow range around $0.37$. Note that it has been assumed that $t_{\text{lat}} > 0$: onset of symptoms is assumed to precede onset of shedding. Should one want to explore whether a larger range for $t_{\text{lat}}$ is supported by the data, the precision `tau.loglat` may be lowered.
 
-The parameter vector $\boldsymbol{\theta}$ has a multivariate normal distribution with mean vector $\boldsymbol{\mu}_{\theta}$ and precision matrix $\boldsymbol{\tau}_{\theta}$.
+The parameter vector $\boldsymbol{\theta}$ has a multivariate normal distribution with mean vector $\boldsymbol{\mu}\_{\theta}$ and precision matrix $\boldsymbol{\tau}\_{\theta}$.
 
-The prior for $\boldsymbol{\mu}_{\theta} =$`mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu_{\text{hyp}} =$`mu.hyp` and $\tau_{\text{hyp}} =$`tau.hyp`. The mean vector
+The prior for $\boldsymbol{\mu}\_{\theta} =$`mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu\_{\text{hyp}} =$`mu.hyp` and $\tau_{\text{hyp}} =$`tau.hyp`. The mean vector
 
 $$
   \mu_{\text{hyp}} = \left(\begin{array}{c}-3.0\\ -3.0\\ 2.7\\ -0.7\\
@@ -477,7 +477,7 @@ $$
 
 This prior distribution allows variation in $\boldsymbol{\theta} $ while making no *a priori* assumptions about correlation among its components. Note that such correlations may be studied in the posterior $\boldsymbol{\tau}_{\theta} $.
 
-Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v) $ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}} $.
+Observed virus concentrations are assumed to have a lognormal measurement error. That means that $u = \log(v)$ has a normal distribution with the observed log concentration as mean and precision (1/variance) $\tau_{\text{obs}} $.
 
 The prior of $\tau_{\text{obs}} =$`tau.obs.hyp` is a Gamma distribution with parameter vector
 
@@ -488,46 +488,6 @@ $$
 reflecting the (known) measurement error of the used assay.
 
 When having arrived at a model run that appears to converge and produce stable output it is always a good idea to relax priors and check how the output changes. Ideally, when data provide sufficient information, a change in priors is only a minor influence on the results.
-
-In the case study, we specified the parameters for the following priors:
-
-- Normal prior for `offs.sympt`: `mu.offs` = -1.0, `tau.offs` = 0.0001
-    (a 'flat' prior)
-
-- Normal prior for `loglat`: `mu.loglat` = -1.0, `tau.loglat` = 10.0
-    ('narrow' prior)
-
-- Normal prior for mean vector `mu.theta`:\
-  `mu.hyp` = 
-
-$$ \begin{pmatrix} 
-    -3.0 \\
-    -3.0 \\
-    2.7 \\
-    -0.7 \\
-   \end{pmatrix} $$
-
-  `tau.hyp` = 
-
-$$ \begin{pmatrix} 
-    1 & 0 & 0 & 0 \\
-    0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 \\
-    0 & 0 & 0 & 1 \\
-   \end{pmatrix} $$
-
-- Wishart prior for precision vector `tau.theta`:\
-  `df` = $4$, 
-  `omega` = 
-
-$$ \begin{pmatrix} 
-    0.1 & 0 & 0 & 0 \\
-    0 & 0.1 & 0 & 0 \\
-    0 & 0 & 0.1 & 0 \\
-    0 & 0 & 0 & 0.1 \\
-   \end{pmatrix} $$
-
-- Gamma prior for precision `tau.obs`: `tau.obs.hyp` = $\left( 4 \atop 20 \right)$
 
 ```r
 #priors
