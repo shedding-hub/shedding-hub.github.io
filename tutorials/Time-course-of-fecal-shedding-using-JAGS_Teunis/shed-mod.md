@@ -422,7 +422,7 @@ logcenslim <- log(censorlimit);
 
 In a Bayesian framework unknown parameters can be specified by prior distributions reflecting *a priori* knowledge available before the analysis ([Bayes, 1763](https://royalsocietypublishing.org/doi/10.1098/rstl.1763.0053)). Usually such knowledge cannot be specified precisely and consequently prior distributions are defined to reflect such ignorance. It should be noted that often the structure of the model also imposes limits on possible outcomes and therefore can also represent prior information.
 
-The start of the shedding response, the onset of shedding, cannot be directly observed. Often the onset of symptoms is observed: the onset of shedding may be delayed relative to (or precede) symptom onset. Taking the notation in Figure 2 the onset of shedding $t\_{shed} $ may be calculated relative to the date $t\_{1} $ of the first sample
+The start of the shedding response, the onset of shedding, cannot be directly observed. Often the onset of symptoms is observed: the onset of shedding may be delayed relative to (or precede) symptom onset. Taking the notation in Figure 2 the onset of shedding $t_\text{shed}$ may be calculated relative to the date $t_{1}$ of the first sample
 
 $$
 \Delta t = t_{1}-\left(t_{\text{sympt}}-t_{\text{lat}}\right)
