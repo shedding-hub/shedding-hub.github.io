@@ -439,7 +439,12 @@ The parameter vector $\boldsymbol{\theta}$ has a multivariate normal distributio
 The prior for $\boldsymbol{\mu}\_{\theta} =$`mu.theta` is a multivariate normal distribution ([Gelman et al., 2014](https://sites.stat.columbia.edu/gelman/book/)) with parameters $\mu\_{\text{hyp}} =$`mu.hyp` and $\tau_{\text{hyp}} =$`tau.hyp`. The mean vector
 
 $$
-  \mu_{\text{hyp}} = \left( -3.0 \atop -3.0 \atop 2.7 \atop -0.7 \right) 
+  \mu_{\text{hyp}} = 
+  \left(\begin{array}{c}
+  -3.0\\
+  -3.0\\
+  2.7\\
+  -0.7\right) 
 $$
 
 and the precision matrix
