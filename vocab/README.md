@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT.html)
 ![Version](https://img.shields.io/badge/Version-0.1.0-green)
 
-A controlled vocabulary for studies with pathogen and biomarker shedding information.
+A controlled vocabulary for studies with pathogen and biomarker shedding information. The ontology is published at [BioPortal](https://bioportal.bioontology.org/ontologies/SHEDDING-HUB)
 
 ## Overview
 
@@ -98,4 +98,4 @@ Shedding Hub Vocabulary. (2025). Shedding Hub Project. https://shedding-hub.gith
 
 ## Contact
 
-For questions, suggestions, or contributions, please [open an issue](https://github.com/shedding-hub/vocab/issues) on our GitHub repository or contact the maintainer at [maintainer@example.com](mailto:maintainer@example.com).
+For questions, suggestions, or contributions, please [open an issue](https://github.com/shedding-hub/vocab/issues) on our GitHub repository or contact the maintainer at [yuke_dot_wang_at_emory_dot_edu](mailto:yuke.wang@emory.edu).
