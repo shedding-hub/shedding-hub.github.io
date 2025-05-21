@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://spdx.org/licenses/MIT.html)
 ![Version](https://img.shields.io/badge/Version-0.1.0-green)
 
-A controlled vocabulary for studies with pathogen and biomarker shedding information. The ontology is published at [BioPortal](https://bioportal.bioontology.org/ontologies/SHEDDING-HUB)
+A controlled vocabulary for studies with pathogen and biomarker shedding information. The ontology is published at [BioPortal](https://bioportal.bioontology.org/ontologies/SHEDDING-HUB).
 
 ## Overview
 
