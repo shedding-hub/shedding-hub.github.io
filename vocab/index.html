@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shedding Vocabulary</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <meta property="og:description" content="Data and statistical models for biomarker shedding.">
+    <meta property="og:image" content="https://unsplash.com/photos/Ac97OqAWDvg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fHdhc3Rld2F0ZXJ8ZW58MHx8fHwxNzI1NTUxODUyfDA&force=true&w=1920">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1438">
+    <style>
+        :root {
+            --primary-color: #14161A;
+            --secondary-color: #6397f8;
+            --text-color: white;
+            --accent-color: #e74c3c;
+            --light-bg: #1d1f25;
+            --border-color: #b9b9b9;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: white;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 20px 20px;
+        }
+        
+        header {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 0 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            margin: 20px 0 0 0;
+            font-size: 2.2em;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+        
+        .metadata {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .metadata dl {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 10px;
+            margin: 0;
+        }
+        
+        .metadata dt {
+            font-weight: bold;
+        }
+        
+        .metadata dd {
+            margin: 0;
+        }
+        
+        h2 {
+            color: var(--text-color);
+            font-size: 1.5em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            color: var(--text-color);
+            font-size: 1.3em;
+            margin-top: 30px;
+        }
+        
+        .concept {
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .concept h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+        
+        .concept-info {
+            margin-bottom: 15px;
+        }
+        
+        .concept-relations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .relation-group {
+            margin-bottom: 15px;
+        }
+        
+        .relation-group h5 {
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .relation-group ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        code {
+            background-color: var(--light-bg);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .prefixes {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.9em;
+            color: white;
+        }
+        
+        .section-nav {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+        }
+        
+        .section-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .section-nav li {
+            margin-right: 20px;
+        }
+        
+        .section-nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .section-nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .hierarchy {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .hierarchy ul {
+            padding-left: 20px;
+        }
+        
+        .hierarchy > ul {
+            padding-left: 0;
+        }
+        
+        .hierarchy li {
+            list-style: none;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        
+        .hierarchy li ul {
+            margin-top: 5px;
+        }
+        
+        .hierarchy li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .hierarchy > ul > li::before {
+            content: "▶";
+            color: var(--primary-color);
+        }
+        
+        .hierarchy a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .hierarchy a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js">
+    </script>
+    <nav class="navbar">
+        <div class="container is-max-desktop">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+            <span class="subtitle">
+                <span class="icon-text">
+                <span class="icon has-text-primary">
+                    <i class="fa-solid fa-poop"></i>
+                </span>
+                <span>Shedding Hub</span>
+                </span>
+            </span>
+            </a>
+
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+            <a class="navbar-item" href="/team.html">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-people-group"></i>
+                </span>
+                <span>Team</span>
+                </span>
+            </a>
+            <a class="navbar-item" href="/vocab/index.html">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-language"></i>
+                </span>
+                <span>Vocabulary</span>
+                </span>
+            </a>
+            <a class="navbar-item" href="/model.html">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </span>
+                <span>Model</span>
+                </span>
+            </a>
+            <a class="navbar-item" href="https://github.com/shedding-hub/shedding-hub" target="_blank">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+                </span>
+            </a>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Shedding Hub Vocabulary</h1>
+        <p class="subtitle">A controlled vocabulary for studies with pathogen and biomarker shedding information</p>
+    </header>
+    
+    <div class="metadata">
+        <dl>
+            <dt>URI</dt>
+            <dd><a href="https://shedding-hub.github.io/vocab">https://shedding-hub.github.io/vocab</a></dd>
+            
+            <dt>Version</dt>
+            <dd>0.1.0</dd>
+            
+            <dt>Created</dt>
+            <dd>2025-05-20</dd>
+            
+            <dt>Modified</dt>
+            <dd>2025-05-20</dd>
+            
+            <dt>Creator</dt>
+            <dd>Yuke Wang, <a href="https://orcid.org/0000-0002-9615-7859">https://orcid.org/0000-0002-9615-7859</a>;
+            Till Hoffmann, <a href="https://orcid.org/0000-0003-4403-0722">https://orcid.org/0000-0003-4403-0722</a></dd>
+            
+            <dt>Publisher</dt>
+            <dd><a href="https://shedding-hub.github.io/">Shedding Hub</a></dd>
+            
+            <dt>License</dt>
+            <dd><a href="https://spdx.org/licenses/MIT.html">MIT License</a></dd>
+        </dl>
+    </div>
+    
+    <section>
+        <h2>About this Vocabulary</h2>
+        <p>The Shedding Hub Vocabulary is a SKOS-based controlled vocabulary designed for standardizing terminology used in studies involving pathogen and biomarker shedding. It provides a structured framework for describing analytes, specimen types, measurement units, reference events, and participant attributes.</p>
+        
+        <div class="section-nav">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#prefixes">Prefixes</a></li>
+                <li><a href="#hierarchy">Concept Hierarchy</a></li>
+                <li><a href="#topconcepts">Top Concepts</a></li>
+                <li><a href="#analyte">Analyte</a></li>
+                <li><a href="#participants">Participants</a></li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="prefixes">
+        <h2>Namespace and Prefixes</h2>
+        <pre><code>@prefix dcat:  &lt;http://www.w3.org/ns/dcat#&gt; .
+@prefix dct:   &lt;http://purl.org/dc/terms/&gt; .
+@prefix owl:   &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdf:   &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs:  &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix schema: &lt;http://schema.org/&gt; .
+@prefix shv:   &lt;https://shedding-hub.github.io/vocab#&gt; .
+@prefix skos:  &lt;http://www.w3.org/2004/02/skos/core#&gt; .
+@prefix xsd:   &lt;http://www.w3.org/2001/XMLSchema#&gt; .</code></pre>
+    </section>
+    
+    <section id="hierarchy">
+        <h2>Concept Hierarchy</h2>
+        
+        <div class="hierarchy">
+            <ul>
+                <li><a href="#analyte">Analyte</a>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a>
+                            <ul>
+                                <li><a href="#crAssphage">crAssphage</a></li>
+                                <li><a href="#influenza">Influenza</a></li>
+                                <li><a href="#mtDNA">mtDNA</a></li>
+                                <li><a href="#PMMoV">PMMoV</a></li>
+                                <li><a href="#sapovirus">Sapovirus</a></li>
+                                <li><a href="#SARS">SARS</a></li>
+                                <li><a href="#SARS-CoV-2">SARS-CoV-2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#gene_target">Gene Target</a></li>
+                        <li><a href="#limit_of_blank">Limit of Blank</a></li>
+                        <li><a href="#limit_of_detection">Limit of Detection</a></li>
+                        <li><a href="#limit_of_quantification">Limit of Quantification</a></li>
+                        <li><a href="#reference_event">Reference Event</a>
+                            <ul>
+                                <li><a href="#symptom_onset">Symptom Onset</a></li>
+                                <li><a href="#confirmation_date">Confirmation Date</a></li>
+                                <li><a href="#enrollment">Enrollment</a></li>
+                                <li><a href="#hospital_admission">Hospital Admission</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#specimen">Specimen</a>
+                            <ul>
+                                <li><a href="#bronchoalveolar_lavage_fluid">Bronchoalveolar Lavage Fluid</a></li>
+                                <li><a href="#nasopharyngeal_swab">Nasopharyngeal Swab</a></li>
+                                <li><a href="#oropharyngeal_swab">Oropharyngeal Swab</a></li>
+                                <li><a href="#plasma">Plasma</a></li>
+                                <li><a href="#rectal_swab">Rectal Swab</a></li>
+                                <li><a href="#saliva">Saliva</a></li>
+                                <li><a href="#serum">Serum</a></li>
+                                <li><a href="#sputum">Sputum</a></li>
+                                <li><a href="#stool">Stool</a></li>
+                                <li><a href="#urine">Urine</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#unit">Unit</a>
+                            <ul>
+                                <li><a href="#cycle_threshold">Cycle Threshold</a></li>
+                                <li><a href="#gc_dry_gram">Gene Copies/Dry Gram</a></li>
+                                <li><a href="#gc_mL">Gene Copies/mL</a></li>
+                                <li><a href="#gc_swab">Gene Copies/Swab</a></li>
+                                <li><a href="#gc_wet_gram">Gene Copies/Wet Gram</a></li>
+                                <li><a href="#pfu_mL">PFU/mL</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#doi">DOI</a></li>
+                <li><a href="#participants">Participants</a>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a>
+                            <ul>
+                                <li><a href="#age">Age</a></li>
+                                <li><a href="#ethnicity">Ethnicity</a></li>
+                                <li><a href="#lineage">Lineage</a></li>
+                                <li><a href="#race">Race</a></li>
+                                <li><a href="#sex">Sex</a></li>
+                                <li><a href="#variant">Variant</a></li>
+                                <li><a href="#vaccinated">Vaccinated</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#measurements">Measurements</a>
+                            <ul>
+                                <li><a href="#sample_id">Sample ID</a></li>
+                                <li><a href="#time">Time</a></li>
+                                <li><a href="#value">Value</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#title">Title</a></li>
+                <li><a href="#url">URL</a></li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="topconcepts">
+        <h2>Top Concepts</h2>
+        
+        <div class="concept" id="analyte">
+            <h4>Analyte</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:analyte</code></p>
+                <p><strong>Label:</strong> Analyte</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                        <li><a href="#gene_target">Gene Target</a></li>
+                        <li><a href="#limit_of_blank">Limit of Blank</a></li>
+                        <li><a href="#limit_of_detection">Limit of Detection</a></li>
+                        <li><a href="#limit_of_quantification">Limit of Quantification</a></li>
+                        <li><a href="#reference_event">Reference Event</a></li>
+                        <li><a href="#specimen">Specimen</a></li>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="doi">
+            <h4>Digital Object Identifier</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:doi</code></p>
+                <p><strong>Label:</strong> Digital object identifier</p>
+                <p><strong>Definition:</strong> Digital object identifier (doi) for the source publication, study, or data repository</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+        </div>
+        
+        <div class="concept" id="participants">
+            <h4>Participants</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:participants</code></p>
+                <p><strong>Label:</strong> Partifipants or subjects</p>
+                <p><strong>Definition:</strong> Participants include patients who enrolled after disease confirmation or participants in a prospective study or human challenging study</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                        <li><a href="#measurements">Measurements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="title">
+            <h4>Title</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:title</code></p>
+                <p><strong>Label:</strong> Title</p>
+                <p><strong>Definition:</strong> Title of the source publication, study, or data repository.</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+        </div>
+        
+        <div class="concept" id="url">
+            <h4>URL</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:url</code></p>
+                <p><strong>Label:</strong> Access URL</p>
+                <p><strong>Definition:</strong> Url for the source publication, study, or data repository</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="analyte-section">
+        <h2>Analyte Concepts</h2>
+        
+        <div class="concept" id="biomarker">
+            <h4>Biomarker</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:biomarker</code></p>
+                <p><strong>Label:</strong> Biomarker or pathogen being measured</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#analyte">Analyte</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#crAssphage">crAssphage</a></li>
+                        <li><a href="#influenza">Influenza</a></li>
+                        <li><a href="#mtDNA">mtDNA</a></li>
+                        <li><a href="#PMMoV">PMMoV</a></li>
+                        <li><a href="#sapovirus">Sapovirus</a></li>
+                        <li><a href="#SARS">SARS</a></li>
+                        <li><a href="#SARS-CoV-2">SARS-CoV-2</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="crAssphage">
+            <h4>crAssphage</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:crAssphage</code></p>
+                <p><strong>Label:</strong> Cross-assembly phage</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="influenza">
+            <h4>Influenza</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:influenza</code></p>
+                <p><strong>Label:</strong> Influenza virus</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="mtDNA">
+            <h4>mtDNA</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:mtDNA</code></p>
+                <p><strong>Label:</strong> Mitochondrial DNA (mtDNA)</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="PMMoV">
+            <h4>PMMoV</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:PMMoV</code></p>
+                <p><strong>Label:</strong> Pepper mild mottle virus (PMMoV)</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="sapovirus">
+            <h4>Sapovirus</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:sapovirus</code></p>
+                <p><strong>Label:</strong> Sapovirus</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="SARS">
+            <h4>SARS</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:SARS</code></p>
+                <p><strong>Label:</strong> Severe acute respiratory syndrome (SARS) virus</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="SARS-CoV-2">
+            <h4>SARS-CoV-2</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:SARS-CoV-2</code></p>
+                <p><strong>Label:</strong> Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#biomarker">Biomarker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional analyte subconcepts -->
+        <div class="concept" id="gene_target">
+            <h4>Gene Target</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:gene_target</code></p>
+                <p><strong>Label:</strong> PCR gene target</p>
+                <p><strong>Definition:</strong> In PCR (Polymerase Chain Reaction), the specific gene or DNA sequence that is targeted for amplification</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#analyte">Analyte</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="concept" id="specimen">
+            <h4>Specimen</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:specimen</code></p>
+                <p><strong>Label:</strong> Specimen type or specimen types for combined samples</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#analyte">Analyte</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#bronchoalveolar_lavage_fluid">Bronchoalveolar Lavage Fluid</a></li>
+                        <li><a href="#nasopharyngeal_swab">Nasopharyngeal Swab</a></li>
+                        <li><a href="#oropharyngeal_swab">Oropharyngeal Swab</a></li>
+                        <li><a href="#plasma">Plasma</a></li>
+                        <li><a href="#rectal_swab">Rectal Swab</a></li>
+                        <li><a href="#saliva">Saliva</a></li>
+                        <li><a href="#serum">Serum</a></li>
+                        <li><a href="#sputum">Sputum</a></li>
+                        <li><a href="#stool">Stool</a></li>
+                        <li><a href="#urine">Urine</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="bronchoalveolar_lavage_fluid">
+            <h4>Bronchoalveolar Lavage Fluid</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:bronchoalveolar_lavage_fluid</code></p>
+                <p><strong>Label:</strong> Bronchoalveolar lavage fluid sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="nasopharyngeal_swab">
+            <h4>Nasopharyngeal Swab</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:nasopharyngeal_swab</code></p>
+                <p><strong>Label:</strong> Nasopharyngeal swab sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="oropharyngeal_swab">
+            <h4>Oropharyngeal Swab</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:oropharyngeal_swab</code></p>
+                <p><strong>Label:</strong> Oropharyngeal swab or throat swab sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="plasma">
+            <h4>Plasma</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:plasma</code></p>
+                <p><strong>Label:</strong> Plasma sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="rectal_swab">
+            <h4>Rectal Swab</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:rectal_swab</code></p>
+                <p><strong>Label:</strong> Rectal swab sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="saliva">
+            <h4>Saliva</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:saliva</code></p>
+                <p><strong>Label:</strong> Saliva sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="serum">
+            <h4>Serum</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:serum</code></p>
+                <p><strong>Label:</strong> Serum sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="sputum">
+            <h4>Sputum</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:sputum</code></p>
+                <p><strong>Label:</strong> Sputum sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="stool">
+            <h4>Stool</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:stool</code></p>
+                <p><strong>Label:</strong> Stool sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="urine">
+            <h4>Urine</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:urine</code></p>
+                <p><strong>Label:</strong> Urine sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#specimen">Specimen</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="concept" id="unit">
+            <h4>Unit</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:unit</code></p>
+                <p><strong>Label:</strong> Unit in which measurements are reported</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#analyte">Analyte</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#cycle_threshold">Cycle Threshold</a></li>
+                        <li><a href="#gc_dry_gram">Gene Copies/Dry Gram</a></li>
+                        <li><a href="#gc_mL">Gene Copies/mL</a></li>
+                        <li><a href="#gc_swab">Gene Copies/Swab</a></li>
+                        <li><a href="#gc_wet_gram">Gene Copies/Wet Gram</a></li>
+                        <li><a href="#pfu_mL">PFU/mL</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="cycle_threshold">
+            <h4>Cycle Threshold</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:cycle_threshold</code></p>
+                <p><strong>Label:</strong> Cycle threshold</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="gc_dry_gram">
+            <h4>gene copies/dry gram</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:gc_dry_gram</code></p>
+                <p><strong>Label:</strong> gene copies/dry gram</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="gc_mL">
+            <h4>gene copies/mL</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:gc_mL</code></p>
+                <p><strong>Label:</strong> gene copies/mL</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="gc_swab">
+            <h4>gene copies/swab</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:gc_swab</code></p>
+                <p><strong>Label:</strong> gene copies/swab</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="gc_wet_gram">
+            <h4>gene copies/wet gram</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:gc_wet_gram</code></p>
+                <p><strong>Label:</strong> gene copies/wet gram</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="pfu_mL">
+            <h4>plaque-forming unit (pfu)/mL</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:pfu_mL</code></p>
+                <p><strong>Label:</strong> plaque-forming unit (pfu)/mL</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#unit">Unit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="participants-section">
+        <h2>Participant Concepts</h2>
+        
+        <div class="concept" id="attributes">
+            <h4>Participant's attributes</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:attributes</code></p>
+                <p><strong>Label:</strong> Participant's attributes (such as demographics, comorbidities, and clinical characteristics)</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#participants">Participants</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#age">Age</a></li>
+                        <li><a href="#ethnicity">Ethnicity</a></li>
+                        <li><a href="#lineage">Lineage</a></li>
+                        <li><a href="#race">Race</a></li>
+                        <li><a href="#sex">Sex</a></li>
+                        <li><a href="#variant">Variant</a></li>
+                        <li><a href="#vaccinated">Vaccinated</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="age">
+            <h4>Age</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:age</code></p>
+                <p><strong>Label:</strong> Age of the participant in years</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="ethnicity">
+            <h4>Ethnicity</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:ethnicity</code></p>
+                <p><strong>Label:</strong> Ethnicity of the participant</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#hispanic">Hispanic</a></li>
+                        <li><a href="#not_hispanic">Not Hispanic</a></li>
+                        <li><a href="#unknown">Unknown</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="hispanic">
+            <h4>Hispanic</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:hispanic</code></p>
+                <p><strong>Label:</strong> If the participant is hispanic</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#ethnicity">Ethnicity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="not_hispanic">
+            <h4>Not Hispanic</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:not_hispanic</code></p>
+                <p><strong>Label:</strong> If the participant is not hispanic</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#ethnicity">Ethnicity</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="concept" id="race">
+            <h4>Race</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:race</code></p>
+                <p><strong>Label:</strong> Race of the participant</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#asian">Asian</a></li>
+                        <li><a href="#black">Black</a></li>
+                        <li><a href="#white">White</a></li>
+                        <li><a href="#race_other">Other</a></li>
+                        <li><a href="#unknown">Unknown</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="asian">
+            <h4>Asian</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:asian</code></p>
+                <p><strong>Label:</strong> If the participant is Asian</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#race">Race</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="black">
+            <h4>Black</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:black</code></p>
+                <p><strong>Label:</strong> If the participant is Black</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#race">Race</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="white">
+            <h4>White</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:white</code></p>
+                <p><strong>Label:</strong> If the participant is White</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#race">Race</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="race_other">
+            <h4>Other Race</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:race_other</code></p>
+                <p><strong>Label:</strong> If the participant is other than Asian, Black, and White.</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#race">Race</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="sex">
+            <h4>Sex</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:sex</code></p>
+                <p><strong>Label:</strong> Sex of the participant at birth</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#female">Female</a></li>
+                        <li><a href="#male">Male</a></li>
+                        <li><a href="#unknown">Unknown</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="female">
+            <h4>Female</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:female</code></p>
+                <p><strong>Label:</strong> If the participant at birth is female</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#sex">Sex</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="male">
+            <h4>Male</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:male</code></p>
+                <p><strong>Label:</strong> If the participant at birth is male</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#sex">Sex</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="variant">
+            <h4>Variant</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:variant</code></p>
+                <p><strong>Label:</strong> Pathogen variant for the participant</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="vaccinated">
+            <h4>Vaccinated</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:vaccinated</code></p>
+                <p><strong>Label:</strong> If the participant was vaccinated against the pathogen.</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#attributes">Attributes</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#unknown">Unknown</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="measurements">
+            <h4>Measurements</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:measurements</code></p>
+                <p><strong>Label:</strong> Measurements of samples collected from the participant</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#participants">Participants</a></li>
+                    </ul>
+                </div>
+                <div class="relation-group">
+                    <h5>Narrower Concepts:</h5>
+                    <ul>
+                        <li><a href="#analyte">Analyte</a></li>
+                        <li><a href="#sample_id">Sample ID</a></li>
+                        <li><a href="#time">Time</a></li>
+                        <li><a href="#value">Value</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="sample_id">
+            <h4>Sample ID</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:sample_id</code></p>
+                <p><strong>Label:</strong> Unique sample identifier</p>
+                <p><strong>Definition:</strong> Unique sample identifier in case multiple measurements are reported for the same sample</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#measurements">Measurements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="time">
+            <h4>Time</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:time</code></p>
+                <p><strong>Label:</strong> Sample collection time</p>
+                <p><strong>Definition:</strong> Time of sample collection since the reference event (e.g., symptom onset)</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#measurements">Measurements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept" id="value">
+            <h4>Value</h4>
+            <div class="concept-info">
+                <p><strong>URI:</strong> <code>shv:value</code></p>
+                <p><strong>Label:</strong> Measurement value for the analyte</p>
+                <p><strong>Created:</strong> 2025-05-20</p>
+            </div>
+            <div class="concept-relations">
+                <div class="relation-group">
+                    <h5>Broader Concept:</h5>
+                    <ul>
+                        <li><a href="#measurements">Measurements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>

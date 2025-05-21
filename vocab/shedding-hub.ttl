@@ -370,7 +370,7 @@ shv:race a skos:Concept ;
   dct:created "2025-05-20"^^xsd:date ;
   skos:prefLabel "Race of the participant"@en ;
   rdfs:label "Race of the participant"@en ;
-  skos:narrower shv:asian, shv:black, shv:white, shv:other, shv:unknown ;
+  skos:narrower shv:asian, shv:black, shv:white, shv:race_other, shv:unknown ;
   skos:broader shv:attributes ;
   skos:inScheme <https://shedding-hub.github.io/vocab> .
 
@@ -395,7 +395,7 @@ shv:white a skos:Concept ;
   skos:broader shv:race ;
   skos:inScheme <https://shedding-hub.github.io/vocab> .
 
-shv:other a skos:Concept ;
+shv:race_other a skos:Concept ;
   dct:created "2025-05-20"^^xsd:date ;
   skos:prefLabel "If the participant is other than Asian, Black, and White."@en ;
   rdfs:label "If the participant is other than Asian, Black, and White."@en ;
