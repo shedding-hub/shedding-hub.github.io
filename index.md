@@ -15,28 +15,6 @@ title: Shedding Hub
   </div>
 </section>
 
-<!-- Interactive Data Explorer Section -->
-<section class="section">
-  <div class="container is-fluid">
-    <h2 class="title is-3 has-text-centered mb-6">Interactive Data Explorer</h2>
-    <div class="container is-max-desktop content has-text-centered mb-5">
-      <p>
-        Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
-        compare across studies, and analyze shedding dynamics.
-      </p>
-    </div>
-    <div class="dashboard-container">
-      <iframe
-        id="dash-dashboard"
-        src="PLACEHOLDER_DASH_URL"
-        frameborder="0"
-        loading="lazy"
-        title="Shedding Hub Interactive Dashboard">
-      </iframe>
-    </div>
-  </div>
-</section>
-
 <!-- Highlights Section -->
 <section class="section has-background-white-ter">
   <div class="container is-max-desktop">
@@ -84,6 +62,28 @@ title: Shedding Hub
   </div>
 </section>
 
+<!-- Interactive Data Explorer Section -->
+<section class="section">
+  <div class="container is-fluid">
+    <h2 class="title is-3 has-text-centered has-text-dark mb-6">Interactive Data Explorer</h2>
+    <div class="container is-max-desktop content has-text-centered mb-5">
+      <p>
+        Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
+        compare across studies, and analyze shedding dynamics.
+      </p>
+    </div>
+    <div class="dashboard-container">
+      <iframe
+        id="dash-dashboard"
+        src="PLACEHOLDER_DASH_URL"
+        frameborder="0"
+        loading="lazy"
+        title="Shedding Hub Interactive Dashboard">
+      </iframe>
+    </div>
+  </div>
+</section>
+
 <!-- Why Section -->
 <section class="section">
   <div class="container is-max-desktop">
@@ -108,7 +108,7 @@ title: Shedding Hub
 <!-- Leadership Section -->
 <section class="section has-background-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered mb-6">Leadership</h2>
+    <h2 class="title is-3 has-text-centered has-text-dark mb-6">Leadership</h2>
     <div class="columns">
       <div class="column is-6">
         <div class="card">
