@@ -15,13 +15,35 @@ title: Shedding Hub
   </div>
 </section>
 
-<!-- Highlights Section -->
+<!-- Interactive Data Explorer Section -->
 <section class="section">
+  <div class="container is-fluid">
+    <h2 class="title is-3 has-text-centered mb-6">Interactive Data Explorer</h2>
+    <div class="container is-max-desktop content has-text-centered mb-5">
+      <p>
+        Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
+        compare across studies, and analyze shedding dynamics.
+      </p>
+    </div>
+    <div class="dashboard-container">
+      <iframe
+        id="dash-dashboard"
+        src="PLACEHOLDER_DASH_URL"
+        frameborder="0"
+        loading="lazy"
+        title="Shedding Hub Interactive Dashboard">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Highlights Section -->
+<section class="section has-background-white-ter">
   <div class="container is-max-desktop">
     <div class="columns">
       <div class="column">
-        <div class="box has-background-light" style="height: 100%;">
-          <h3 class="title is-5">
+        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
+          <h3 class="title is-5 has-text-dark">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-database"></i>
@@ -29,12 +51,12 @@ title: Shedding Hub
               <span>Curated Datasets</span>
             </span>
           </h3>
-          <p>Access standardized biomarker shedding data from published studies, spanning multiple pathogens and specimen types.</p>
+          <p class="has-text-dark">Access standardized biomarker shedding data from published studies, spanning multiple pathogens and specimen types.</p>
         </div>
       </div>
       <div class="column">
-        <div class="box has-background-light" style="height: 100%;">
-          <h3 class="title is-5">
+        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
+          <h3 class="title is-5 has-text-dark">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-chart-line"></i>
@@ -42,12 +64,12 @@ title: Shedding Hub
               <span>Statistical Models</span>
             </span>
           </h3>
-          <p>Bayesian workflows and tutorials for modeling shedding dynamics, including time-course analysis and decay models.</p>
+          <p class="has-text-dark">Bayesian workflows and tutorials for modeling shedding dynamics, including time-course analysis and decay models.</p>
         </div>
       </div>
       <div class="column">
-        <div class="box has-background-light" style="height: 100%;">
-          <h3 class="title is-5">
+        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
+          <h3 class="title is-5 has-text-dark">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-code"></i>
@@ -55,7 +77,7 @@ title: Shedding Hub
               <span>Python Tools</span>
             </span>
           </h3>
-          <p>Programmatic access to data and analysis tools through our open-source Python package and interactive visualizations.</p>
+          <p class="has-text-dark">Programmatic access to data and analysis tools through our open-source Python package and interactive visualizations.</p>
         </div>
       </div>
     </div>
@@ -132,28 +154,6 @@ title: Shedding Hub
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Interactive Data Explorer Section -->
-<section class="section">
-  <div class="container is-fluid">
-    <h2 class="title is-3 has-text-centered mb-6">Interactive Data Explorer</h2>
-    <div class="container is-max-desktop content has-text-centered mb-5">
-      <p>
-        Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
-        compare across studies, and analyze shedding dynamics.
-      </p>
-    </div>
-    <div class="dashboard-container">
-      <iframe
-        id="dash-dashboard"
-        src="PLACEHOLDER_DASH_URL"
-        frameborder="0"
-        loading="lazy"
-        title="Shedding Hub Interactive Dashboard">
-      </iframe>
     </div>
   </div>
 </section>
