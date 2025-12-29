@@ -76,6 +76,60 @@
   </nav>
 
   {{ content }}
+
+  <style>
+    /* Card hover effect */
+    .dataset-card {
+      transition: box-shadow 0.2s ease;
+    }
+
+    .dataset-card:hover {
+      box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.15),
+                  0 0px 0 1px rgba(10, 10, 10, 0.02);
+    }
+
+    /* Hide cards when filtering */
+    .dataset-card.is-hidden {
+      display: none;
+    }
+
+    /* Filter controls */
+    .filter-controls {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: white;
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #dbdbdb;
+    }
+
+    .filter-controls .field.is-horizontal {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-controls .control {
+      flex: 0 1 auto;
+    }
+
+    .filter-controls .control:first-child {
+      flex: 1 1 300px;
+    }
+
+    /* Results count styling */
+    .filter-controls .help {
+      color: #363636 !important;
+      font-size: 1rem !important;
+    }
+
+    .filter-controls .help strong {
+      color: #363636 !important;
+    }
+  </style>
+
   <script>
     // Separate thousands by a comma if the element has the `separate-thousands` class.
     for (const element of document.getElementsByClassName("separate-thousands")) {
@@ -103,6 +157,109 @@
       }
     }
 
+    // Datasets Filter Module
+    const DatasetsFilter = {
+      init() {
+        this.cards = document.querySelectorAll('.dataset-card');
+        this.searchInput = document.getElementById('search-input');
+        this.biomarkerSelect = document.getElementById('biomarker-filter');
+        this.specimenSelect = document.getElementById('specimen-filter');
+        this.resultsCount = document.getElementById('results-count');
+
+        this.attachEventListeners();
+        this.populateFilterDropdowns();
+      },
+
+      attachEventListeners() {
+        // Debounced search
+        let searchTimeout;
+        if (this.searchInput) {
+          this.searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => this.applyFilters(), 300);
+          });
+        }
+
+        if (this.biomarkerSelect) {
+          this.biomarkerSelect.addEventListener('change', () => this.applyFilters());
+        }
+
+        if (this.specimenSelect) {
+          this.specimenSelect.addEventListener('change', () => this.applyFilters());
+        }
+      },
+
+      populateFilterDropdowns() {
+        const biomarkers = new Set();
+        const specimens = new Set();
+
+        this.cards.forEach(card => {
+          const biomarkerList = card.dataset.biomarkers?.split(',') || [];
+          const specimenList = card.dataset.specimens?.split(',') || [];
+
+          biomarkerList.forEach(b => biomarkers.add(b.trim()));
+          specimenList.forEach(s => specimens.add(s.trim()));
+        });
+
+        // Populate <select> options
+        this.populateSelect(this.biomarkerSelect, Array.from(biomarkers).sort());
+        this.populateSelect(this.specimenSelect, Array.from(specimens).sort());
+      },
+
+      populateSelect(selectEl, options) {
+        if (!selectEl) return;
+
+        options.forEach(opt => {
+          if (!opt) return; // Skip empty strings
+          const option = document.createElement('option');
+          option.value = opt;
+          option.textContent = opt;
+          selectEl.appendChild(option);
+        });
+      },
+
+      applyFilters() {
+        const searchTerm = this.searchInput?.value.toLowerCase() || '';
+        const biomarkerFilter = this.biomarkerSelect?.value || '';
+        const specimenFilter = this.specimenSelect?.value || '';
+
+        let visibleCount = 0;
+
+        this.cards.forEach(card => {
+          const title = card.querySelector('.title')?.textContent.toLowerCase() || '';
+          const description = card.querySelector('.content')?.textContent.toLowerCase() || '';
+          const biomarkers = card.dataset.biomarkers?.toLowerCase() || '';
+          const specimens = card.dataset.specimens?.toLowerCase() || '';
+
+          // Text search match
+          const searchMatch = !searchTerm ||
+                             title.includes(searchTerm) ||
+                             description.includes(searchTerm);
+
+          // Biomarker filter match
+          const biomarkerMatch = !biomarkerFilter ||
+                                biomarkers.includes(biomarkerFilter.toLowerCase());
+
+          // Specimen filter match
+          const specimenMatch = !specimenFilter ||
+                               specimens.includes(specimenFilter.toLowerCase());
+
+          // Show/hide card
+          if (searchMatch && biomarkerMatch && specimenMatch) {
+            card.classList.remove('is-hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('is-hidden');
+          }
+        });
+
+        // Update results count
+        if (this.resultsCount) {
+          this.resultsCount.textContent = visibleCount;
+        }
+      }
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
 
       // Get all "navbar-burger" elements
@@ -122,6 +279,11 @@
 
         });
       });
+
+      // Initialize new features
+      if (document.querySelector('.dataset-card')) {
+        DatasetsFilter.init();
+      }
 
     });
   </script>
