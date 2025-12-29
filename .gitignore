@@ -1,6 +1,7 @@
 _datasets/
 _site/
 .bundle/
+.claude/
 .DS_Store
 .jekyll-cache/
 .jekyll-metadata

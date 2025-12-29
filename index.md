@@ -28,10 +28,54 @@ title: Shedding Hub
   </div>
 </section>
 
-<section class="section">
+<!-- Search and Filter Controls -->
+<section class="filter-controls">
   <div class="container is-max-desktop">
+    <div class="field is-horizontal">
+      <!-- Search input -->
+      <div class="control has-icons-left">
+        <input class="input" type="search" id="search-input" placeholder="Search datasets...">
+        <span class="icon is-left">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+
+      <!-- Biomarker filter -->
+      <div class="control">
+        <div class="select">
+          <select id="biomarker-filter">
+            <option value="">All Biomarkers</option>
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Specimen filter -->
+      <div class="control">
+        <div class="select">
+          <select id="specimen-filter">
+            <option value="">All Specimens</option>
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Results count -->
+      <div class="control">
+        <p class="help">
+          <strong><span id="results-count">{{ site.datasets | size }}</span> datasets</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop" id="datasets-container">
     {% for dataset in site.datasets %}
-    <div class="card">
+    {% capture biomarkers %}{% for analyte in dataset.analytes %}{{analyte[1].biomarker}}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+    {% capture specimens %}{% for analyte in dataset.analytes %}{% if analyte[1].specimen.first %}{% for spec in analyte[1].specimen %}{{spec}}{% unless forloop.last %},{% endunless %}{% endfor %}{% else %}{{analyte[1].specimen}}{% endif %}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+    <div class="card dataset-card mb-5" data-biomarkers="{{ biomarkers }}" data-specimens="{{ specimens }}" data-slug="{{ dataset.slug }}">
       <div class="card-content">
         <p class="title has-text-primary">{{dataset.title}}</p>
         <div class="grid">
@@ -76,9 +120,7 @@ title: Shedding Hub
           <div class="cell has-text-centered">
             <div>
               <p class="heading">Biomarkers</p>
-              {% capture biomarkers %}{% for analyte in dataset.analytes %}{{analyte[1].biomarker}};{% endfor %}{%
-              endcapture %}
-              {% assign uniq_biomarkers = biomarkers | split: ';' | uniq %}
+              {% assign uniq_biomarkers = biomarkers | split: ',' | uniq %}
               {% for biomarker in uniq_biomarkers %}
               <span class="tag">{{ biomarker }}</span>
               {% endfor %}

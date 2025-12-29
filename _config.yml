@@ -1,5 +1,13 @@
 title: Shedding Hub
 strict_front_matter: true
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
+  - tmp/
+  - vendor/
+keep_files:
+  - _datasets
 collections:
   datasets:
     output: true
