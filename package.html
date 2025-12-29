@@ -1,0 +1,293 @@
+---
+layout: default
+title: Python Package - Shedding Hub
+---
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h1 class="title is-size-1">Python Package</h1>
+      <p class="subtitle is-size-4">
+        Access and analyze Shedding Hub data programmatically
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content">
+      <p class="is-size-5">
+        The <code>shedding-hub</code> Python package provides tools for loading datasets,
+        performing statistical analyses, and creating visualizations. Available on PyPI,
+        it enables reproducible research and seamless integration with your analysis workflows.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Installation Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Installation</h2>
+    <div class="content">
+      <p>Install the package using pip:</p>
+      <pre><code>pip install shedding-hub</code></pre>
+
+      <p>For the latest development version from GitHub:</p>
+      <pre><code>pip install git+https://github.com/shedding-hub/shedding-hub.git</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Quick Start Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Quick Start</h2>
+    <div class="content">
+      <h3>Load a Dataset</h3>
+      <pre><code>import shedding_hub
+
+# Load a specific dataset by identifier
+data = shedding_hub.load_dataset('woelfel2020virological')
+
+# Access dataset metadata
+print(data.title)
+print(data.description)
+print(data.analytes)</code></pre>
+
+      <h3>Analyze Shedding Patterns</h3>
+      <pre><code># Perform statistical analysis
+analysis = shedding_hub.analyze(data)
+
+# View summary statistics
+print(analysis.summary())
+
+# Get participant-level statistics
+participant_stats = analysis.by_participant()
+
+# Calculate time-course metrics
+time_metrics = analysis.time_course_metrics()</code></pre>
+
+      <h3>Create Visualizations</h3>
+      <pre><code>import shedding_hub.viz as viz
+
+# Plot shedding time-course for all participants
+viz.plot_time_course(data)
+
+# Create concentration distribution plots
+viz.plot_concentration_distribution(data, biomarker='SARS-CoV-2')
+
+# Generate summary dashboard
+viz.create_dashboard(data, output='dashboard.html')</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Features</h2>
+    <div class="content">
+      <div class="columns">
+        <div class="column is-6">
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-download"></i></span> Data Access</h4>
+          <ul>
+            <li>Load datasets directly from the Shedding Hub repository</li>
+            <li>Parse YAML data into Python objects</li>
+            <li>Automatic validation and type checking</li>
+            <li>Support for both local and remote data sources</li>
+          </ul>
+
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-calculator"></i></span> Analysis Tools</h4>
+          <ul>
+            <li>Statistical analysis of shedding dynamics</li>
+            <li>Time-course modeling utilities</li>
+            <li>Participant and population-level summaries</li>
+            <li>Detection limit handling</li>
+          </ul>
+        </div>
+        <div class="column is-6">
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-chart-bar"></i></span> Visualization</h4>
+          <ul>
+            <li>Time-course plots with customization options</li>
+            <li>Distribution and summary visualizations</li>
+            <li>Interactive HTML dashboards</li>
+            <li>Publication-ready figure export</li>
+          </ul>
+
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-file-export"></i></span> Export Formats</h4>
+          <ul>
+            <li>pandas DataFrame conversion</li>
+            <li>CSV and JSON export</li>
+            <li>Integration with R via reticulate</li>
+            <li>Stan/JAGS model data preparation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Resources Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Resources</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary">
+                  <i class="fab fa-python"></i>
+                </span>
+                <span>PyPI</span>
+              </span>
+            </h3>
+            <p>View package information, version history, and installation statistics.</p>
+            <a href="https://pypi.org/project/shedding-hub/" class="button is-primary mt-3" target="_blank" rel="noopener">
+              <span class="icon">
+                <i class="fa-solid fa-external-link-alt"></i>
+              </span>
+              <span>Visit PyPI</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </span>
+            </h3>
+            <p>Source code, issue tracking, and contribution guidelines.</p>
+            <a href="https://github.com/shedding-hub/shedding-hub" class="button is-link mt-3" target="_blank" rel="noopener">
+              <span class="icon">
+                <i class="fa-solid fa-external-link-alt"></i>
+              </span>
+              <span>View on GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary">
+                  <i class="fa-solid fa-book"></i>
+                </span>
+                <span>Documentation</span>
+              </span>
+            </h3>
+            <p>API reference, tutorials, and usage examples.</p>
+            <a href="https://shedding-hub.readthedocs.io/" class="button is-info mt-3" target="_blank" rel="noopener">
+              <span class="icon">
+                <i class="fa-solid fa-external-link-alt"></i>
+              </span>
+              <span>Read the Docs</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Examples Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Example Workflows</h2>
+    <div class="content">
+      <h4>Compare Shedding Across Multiple Studies</h4>
+      <pre><code>import shedding_hub
+
+# Load multiple datasets
+datasets = [
+    shedding_hub.load_dataset('woelfel2020virological'),
+    shedding_hub.load_dataset('han2020sequential'),
+    shedding_hub.load_dataset('kim2020viral')
+]
+
+# Perform comparative analysis
+comparison = shedding_hub.compare(datasets,
+                                  biomarker='SARS-CoV-2',
+                                  specimen='stool')
+
+# Generate comparison report
+comparison.report(output='comparison.html')</code></pre>
+
+      <h4>Prepare Data for Bayesian Modeling</h4>
+      <pre><code>import shedding_hub
+
+# Load dataset and filter for specific biomarker
+data = shedding_hub.load_dataset('woelfel2020virological')
+filtered = data.filter(biomarker='SARS-CoV-2', specimen='stool')
+
+# Export for Stan
+stan_data = filtered.to_stan(
+    response_var='concentration',
+    time_var='time_since_onset'
+)
+
+# Save for modeling
+import json
+with open('model_data.json', 'w') as f:
+    json.dump(stan_data, f)</code></pre>
+
+      <h4>Export to pandas for Custom Analysis</h4>
+      <pre><code>import shedding_hub
+import pandas as pd
+
+# Load and convert to DataFrame
+data = shedding_hub.load_dataset('woelfel2020virological')
+df = data.to_dataframe()
+
+# Perform custom analysis with pandas
+summary = df.groupby(['participant_id', 'biomarker']).agg({
+    'concentration': ['mean', 'max', 'count'],
+    'time': ['min', 'max']
+})
+
+print(summary)</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- Contributing Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Contributing</h2>
+    <div class="content">
+      <p>
+        We welcome contributions to the shedding-hub package! Whether you're fixing bugs,
+        adding new features, improving documentation, or suggesting enhancements, your help is appreciated.
+      </p>
+      <p>
+        Please visit our <a href="https://github.com/shedding-hub/shedding-hub/blob/main/CONTRIBUTING.md" target="_blank">Contributing Guidelines</a>
+        to get started. For major changes, please open an issue first to discuss what you would like to change.
+      </p>
+      <div class="buttons">
+        <a href="https://github.com/shedding-hub/shedding-hub/issues" class="button is-primary" target="_blank" rel="noopener">
+          <span class="icon">
+            <i class="fa-solid fa-bug"></i>
+          </span>
+          <span>Report an Issue</span>
+        </a>
+        <a href="https://github.com/shedding-hub/shedding-hub/pulls" class="button is-link" target="_blank" rel="noopener">
+          <span class="icon">
+            <i class="fa-solid fa-code-pull-request"></i>
+          </span>
+          <span>Submit a Pull Request</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

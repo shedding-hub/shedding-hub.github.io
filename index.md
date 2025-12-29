@@ -8,34 +8,144 @@ title: Shedding Hub
     <div class="container is-max-desktop">
       <h1 class="title is-size-1">Shedding Hub</h1>
       <p class="subtitle is-size-4">
-        Data and statistical models for biomarker shedding
+        To support global efforts to understand and model pathogen shedding dynamics, we provide curated data,
+        statistical models, and interactive tools for researchers and public health professionals.
       </p>
     </div>
   </div>
 </section>
 
+<!-- Highlights Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns">
+      <div class="column">
+        <div class="box has-background-light" style="height: 100%;">
+          <h3 class="title is-5">
+            <span class="icon-text">
+              <span class="icon has-text-primary">
+                <i class="fa-solid fa-database"></i>
+              </span>
+              <span>Curated Datasets</span>
+            </span>
+          </h3>
+          <p>Access standardized biomarker shedding data from published studies, spanning multiple pathogens and specimen types.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-background-light" style="height: 100%;">
+          <h3 class="title is-5">
+            <span class="icon-text">
+              <span class="icon has-text-primary">
+                <i class="fa-solid fa-chart-line"></i>
+              </span>
+              <span>Statistical Models</span>
+            </span>
+          </h3>
+          <p>Bayesian workflows and tutorials for modeling shedding dynamics, including time-course analysis and decay models.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-background-light" style="height: 100%;">
+          <h3 class="title is-5">
+            <span class="icon-text">
+              <span class="icon has-text-primary">
+                <i class="fa-solid fa-code"></i>
+              </span>
+              <span>Python Tools</span>
+            </span>
+          </h3>
+          <p>Programmatic access to data and analysis tools through our open-source Python package and interactive visualizations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Section -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="content">
+      <h2 class="title is-3">Why Focus on Shedding Data?</h2>
       <p>
-        Shedding Hub is a comprehensive platform for biomarker shedding data and statistical models.
-        We provide curated datasets from published studies, interactive visualization tools, and
-        statistical modeling tutorials to advance research in pathogen shedding dynamics.
+        Understanding pathogen shedding dynamics is critical for infectious disease transmission modeling,
+        wastewater-based epidemiology, and public health surveillance. However, shedding data is often
+        scattered across publications, stored in heterogeneous formats, and difficult to access for
+        meta-analysis and model development.
       </p>
       <p>
-        Our platform supports researchers, public health professionals, and data scientists working
-        on infectious disease transmission, wastewater-based epidemiology, and pathogen shedding patterns.
-        Explore our interactive dashboard below to visualize shedding data, or browse our
-        <a href="/datasets.html">datasets collection</a> and <a href="/model.html">modeling tutorials</a>.
+        Shedding Hub addresses these challenges by providing a centralized platform with standardized data,
+        statistical modeling resources, and interactive tools. Our platform enables researchers to explore
+        shedding patterns across studies, develop and validate models, and generate insights for
+        evidence-informed public health decision-making.
       </p>
     </div>
   </div>
 </section>
 
-<!-- Dash Dashboard Section -->
+<!-- Leadership Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-6">Leadership</h2>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-96x96">
+                  <img src="/assets/team/andrew.jpg" alt="Yuke (Andrew) Wang" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Yuke (Andrew) Wang</p>
+                <p class="subtitle is-6">{{ site.data.team.andrew.job }}</p>
+                <p class="subtitle is-7">{{ site.data.team.andrew.institution }}</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>{{ site.data.team.andrew.description | truncatewords: 50 }}</p>
+              <a href="/team.html#andrew">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-96x96">
+                  <img src="/assets/team/till.jpg" alt="Till Hoffmann" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Till Hoffmann</p>
+                <p class="subtitle is-6">{{ site.data.team.till.job }}</p>
+                <p class="subtitle is-7">{{ site.data.team.till.institution }}</p>
+              </div>
+            </div>
+            <div class="content">
+              <p>{{ site.data.team.till.description | truncatewords: 50 }}</p>
+              <a href="/team.html#till">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Data Explorer Section -->
 <section class="section">
   <div class="container is-fluid">
-    <h2 class="title has-text-centered">Interactive Data Explorer</h2>
+    <h2 class="title is-3 has-text-centered mb-6">Interactive Data Explorer</h2>
+    <div class="container is-max-desktop content has-text-centered mb-5">
+      <p>
+        Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
+        compare across studies, and analyze shedding dynamics.
+      </p>
+    </div>
     <div class="dashboard-container">
       <iframe
         id="dash-dashboard"
@@ -44,57 +154,6 @@ title: Shedding Hub
         loading="lazy"
         title="Shedding Hub Interactive Dashboard">
       </iframe>
-    </div>
-  </div>
-</section>
-
-<!-- Python Package Section -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title">Python Package</h2>
-    <div class="content">
-      <p>
-        Access and analyze Shedding Hub data programmatically with our Python package,
-        available on PyPI. The <code>shedding-hub</code> package provides tools for loading datasets,
-        performing statistical analyses, and creating visualizations.
-      </p>
-
-      <h3>Installation</h3>
-      <pre><code>pip install shedding-hub</code></pre>
-
-      <h3>Quick Start</h3>
-      <pre><code>import shedding_hub
-
-# Load a dataset
-data = shedding_hub.load_dataset('woelfel2020virological')
-
-# Analyze shedding patterns
-analysis = shedding_hub.analyze(data)
-print(analysis.summary())</code></pre>
-
-      <h3>Features</h3>
-      <ul>
-        <li>Load datasets directly from the Shedding Hub repository</li>
-        <li>Parse YAML data into Python objects</li>
-        <li>Statistical analysis tools for shedding dynamics</li>
-        <li>Visualization utilities</li>
-        <li>Export to common formats (CSV, JSON, pandas DataFrame)</li>
-      </ul>
-
-      <div class="buttons">
-        <a class="button is-primary" href="https://pypi.org/project/shedding-hub/" target="_blank" rel="noopener">
-          <span class="icon">
-            <i class="fab fa-python"></i>
-          </span>
-          <span>View on PyPI</span>
-        </a>
-        <a class="button is-link" href="https://github.com/shedding-hub/shedding-hub" target="_blank" rel="noopener">
-          <span class="icon">
-            <i class="fab fa-github"></i>
-          </span>
-          <span>Documentation</span>
-        </a>
-      </div>
     </div>
   </div>
 </section>
