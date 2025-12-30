@@ -103,7 +103,7 @@ title: Shedding Hub
     <div class="dashboard-container">
       <iframe
         id="dash-dashboard"
-        src="PLACEHOLDER_DASH_URL"
+        src="https://shedding-hub-dashboard-demo.onrender.com"
         frameborder="0"
         loading="lazy"
         title="Shedding Hub Interactive Dashboard">
