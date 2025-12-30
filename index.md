@@ -116,7 +116,7 @@ title: Shedding Hub
 <section class="section">
   <div class="container is-max-desktop">
     <div class="content">
-      <h2 class="title is-3">Why Focus on Shedding Data?</h2>
+      <h2 class="title is-3 has-text-centered">Why Focus on Shedding Data?</h2>
       <p>
         Understanding pathogen shedding dynamics is critical for infectious disease transmission modeling,
         wastewater-based epidemiology, and public health surveillance. However, shedding data is often
@@ -129,6 +129,79 @@ title: Shedding Hub
         shedding patterns across studies, develop and validate models, and generate insights for
         evidence-informed public health decision-making.
       </p>
+    </div>
+  </div>
+</section>
+
+<!-- Data Curation Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-5">Data Curation</h2>
+    <div class="content">
+      <p>
+        Shedding Hub provides high-quality, curated pathogen shedding data extracted from published scientific literature.
+        Since May 2024, our team of human biocurators has meticulously extracted biomarker shedding data from peer-reviewed
+        studies, with rigorous quality assurance and quality control processes ensuring data accuracy and consistency.
+      </p>
+      <p>
+        Beginning in June 2025, we enhanced our curation pipeline by integrating large language models (LLMs) to power
+        the data discovery and extraction process. This AI-assisted approach allows us to scale our efforts significantly
+        while maintaining the high quality standards established by our human curation workflow. All LLM-extracted data
+        undergoes expert review to ensure reliability and completeness.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Get Started Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-5">Get Started</h2>
+    <div class="content">
+      <p class="has-text-centered mb-5">
+        Access and analyze Shedding Hub data in just a few lines of Python code.
+      </p>
+
+      <div class="columns">
+        <div class="column is-half">
+          <h3 class="title is-5">
+            <span class="icon-text">
+              <span class="icon has-text-primary">
+                <i class="fa-solid fa-download"></i>
+              </span>
+              <span>Install the Package</span>
+            </span>
+          </h3>
+          <pre><code>pip install shedding-hub</code></pre>
+        </div>
+        <div class="column is-half">
+          <h3 class="title is-5">
+            <span class="icon-text">
+              <span class="icon has-text-primary">
+                <i class="fa-solid fa-code"></i>
+              </span>
+              <span>Load and Visualize Data</span>
+            </span>
+          </h3>
+          <pre><code>import shedding_hub
+
+# Load a dataset
+data = shedding_hub.load_dataset('woelfel2020virological')
+
+# Create visualization
+import shedding_hub.viz as viz
+viz.plot_time_course(data)</code></pre>
+        </div>
+      </div>
+
+      <div class="has-text-centered mt-5">
+        <a href="/package.html" class="button is-primary is-medium">
+          <span class="icon">
+            <i class="fa-solid fa-book"></i>
+          </span>
+          <span>View Full Documentation</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
