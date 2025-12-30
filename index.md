@@ -136,7 +136,7 @@ title: Shedding Hub
 <!-- Data Curation Section -->
 <section class="section has-background-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered mb-5">Data Curation</h2>
+    <h2 class="title is-3 has-text-centered mb-5">Our Approach for Data Curation</h2>
     <div class="content">
       <p>
         Shedding Hub provides high-quality, curated pathogen shedding data extracted from published scientific literature.
@@ -299,6 +299,31 @@ viz.plot_time_course(data)</code></pre>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contribute Data Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-5">Contribute Data</h2>
+    <div class="content has-text-centered">
+      <p class="mb-5">
+        Help expand the Shedding Hub database by contributing your pathogen shedding datasets.
+        We welcome data on biomarker shedding dynamics across various pathogens,
+        specimen types, and populations. Our team will work with you to ensure proper data formatting
+        and integration into the platform.
+      </p>
+      <p class="mb-5">
+        Whether you have data from a single subject or multiple studies, we're here to help.
+        Contributions undergo quality review and are credited appropriately in our database.
+      </p>
+      <a href="mailto:sheddinghub@gmail.com?subject=Dataset Contribution Inquiry" class="button is-primary is-large">
+        <span class="icon">
+          <i class="fa-solid fa-envelope"></i>
+        </span>
+        <span>Contact Us to Contribute</span>
+      </a>
     </div>
   </div>
 </section>
