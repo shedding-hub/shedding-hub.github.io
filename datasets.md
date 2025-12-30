@@ -3,27 +3,12 @@ layout: default
 title: Datasets - Shedding Hub
 ---
 <section class="hero is-light">
-  <!-- calculate the number of measurements, participants, and studies -->
-  {% assign num_measurements = 0 %}
-  {% assign num_participants = 0 %}
-  {% for dataset in site.datasets %}
-  {% assign temp = dataset.participants | size %}
-  {% assign num_participants = num_participants | plus: temp %}
-  {% for participant in dataset.participants %}
-  {% assign temp = participant.measurements | size %}
-  {% assign num_measurements = num_measurements | plus: temp %}
-  {% endfor %}
-  {% endfor %}
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <div class="is-size-1">
-        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ num_measurements }}</span>
-        biomarker measurements for
-        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ num_participants }}</span>
-        participants from
-        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ site.datasets | size }}</span>
-        studies. And counting.
-      </div>
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h1 class="title is-size-1 mb-4">Datasets</h1>
+      <p class="subtitle is-size-4">
+        Browse and explore our curated collection of biomarker shedding datasets from published studies.
+      </p>
     </div>
   </div>
 </section>

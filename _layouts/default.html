@@ -38,14 +38,6 @@
       </div>
       <div id="navMenu" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="/">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fa-solid fa-home"></i>
-              </span>
-              <span>Home</span>
-            </span>
-          </a>
           <a class="navbar-item" href="/datasets.html">
             <span class="icon-text">
               <span class="icon">
@@ -113,12 +105,12 @@
     /* CSS Variables for Theme System */
     :root {
       /* Light theme colors (default) */
-      --bg-primary: #ffffff;
-      --bg-secondary: #f5f5f5;
-      --bg-tertiary: #fafafa;
-      --bg-card: #ffffff;
-      --bg-hero: #f5f5f5;
-      --bg-section-alt: #f9f9f9;
+      --bg-primary: #F8FAFC;
+      --bg-secondary: #F1F5F9;
+      --bg-tertiary: #EDEFF3;
+      --bg-card: #FFFFFF;
+      --bg-hero: #f4f4f4;
+      --bg-section-alt: #f2f4fa;
 
       --text-primary: #363636;
       --text-secondary: #4a4a4a;
@@ -140,9 +132,9 @@
       --bg-primary: #1a1a1a;
       --bg-secondary: #242424;
       --bg-tertiary: #2e2e2e;
-      --bg-card: #2a2a2a;
+      --bg-card: #222121;
       --bg-hero: #1f1f1f;
-      --bg-section-alt: #252525;
+      --bg-section-alt: #1c1c1c;
 
       --text-primary: #e0e0e0;
       --text-secondary: #b0b0b0;
@@ -174,11 +166,9 @@
       background-color: var(--bg-primary);
     }
 
-    /* Add subtle background to dataset listing sections for better card contrast */
+    /* Dataset container styling */
     #datasets-container {
       padding: 2rem;
-      background-color: var(--bg-section-alt);
-      border-radius: 6px;
     }
 
     .has-background-white-ter,
@@ -190,19 +180,26 @@
       background-color: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-primary);
-      box-shadow: 0 0.125em 0.25em rgba(10, 10, 10, 0.05);
+      box-shadow: 0 0.125em 0.5em rgba(10, 10, 10, 0.15),
+                  0 0 0 1px rgba(10, 10, 10, 0.05);
       transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     [data-theme="dark"] .card {
-      box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.3),
+                  0 0 0 1px rgba(255, 255, 255, 0.1);
     }
 
     .box {
       background-color: var(--bg-card);
-      border-color: var(--border-color);
+      border: 1px solid var(--border-color);
       color: var(--text-primary);
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 0.125em 0.5em rgba(10, 10, 10, 0.1);
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    [data-theme="dark"] .box {
+      box-shadow: 0 0.125em 0.5em rgba(0, 0, 0, 0.25);
     }
 
     .navbar {

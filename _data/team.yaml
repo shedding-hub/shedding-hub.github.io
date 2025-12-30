@@ -1,14 +1,3 @@
-till:
-  first: Till
-  last: Hoffmann
-  job: Research Associate
-  institution: Harvard T.H. Chan School of Public Health
-  website: https://tillahoffmann.github.io/
-  github: tillahoffmann
-  description: |
-    I develop affordable, equitable public health monitoring solutions that impose a minimal burden on the population. My research connects models with complex, often messy real-world datasets, such as data not originally intended for research purposes. I am particularly interested in open and reproducible science based on data that adheres to the principle of privacy by design—without compromising the insights we can glean.
-
-    Previously, I was a Postdoctoral Research Associate at [Imperial College London](https://www.imperial.ac.uk/mathematics), Staff Research Scientist at [Spotify](https://research.atspotify.com), and Principal Research Scientist at [Sonalytic](https://techcrunch.com/2017/03/07/spotify-acquires-audio-detection-startup-sonalytic/). I received my PhD from Imperial College London under the supervision of [Nick S. Jones](https://www.imperial.ac.uk/people/nick.jones) and Master of Physics from the [University of Oxford](https://www.physics.ox.ac.uk).
 andrew:
   first: Yuke (Andrew)
   last: Wang
@@ -17,31 +6,51 @@ andrew:
   email: yuke[dot]wang[at]emory[dot]edu
   website: https://ywan446.github.io/
   github: YWAN446
+  bio: Yuke (Andrew) Wang sets the overall direction of the Shedding Hub project and leads the teams to build the AI-powered multi-agent system for data curation and develop analyhtical tools.
   description: |
     My research interests span the areas of exposure assessment, wastewater surveillance, and infectious disease transmission. A common thread in his research is in understanding the human-environment interface with respect to infectious diseases. I design, develop, and evaluate statistical and mathematical models to support evidence-informed public health decision-making in low- and middle-income countries (LMICs) and in the United States.
 
     I am an Investigator of the [Emory Center for Infectious Disease Modeling & Analytics and Training Hub (CIDMATH)](https://cidmath.org/) and a Core Investigator at the [Center for Global Safe Water, Sanitation, and Hygiene (CGSW)](https://www.cgswash.org/).
+till:
+  first: Till
+  last: Hoffmann
+  job: Research Associate
+  institution: Harvard T.H. Chan School of Public Health
+  website: https://tillahoffmann.github.io/
+  github: tillahoffmann
+  bio: Till Hoffmann sets the overall technology vision of the Shedding Hub project and oversees the technical implementation and software engineering.
+  description: |
+    I develop affordable, equitable public health monitoring solutions that impose a minimal burden on the population. My research connects models with complex, often messy real-world datasets, such as data not originally intended for research purposes. I am particularly interested in open and reproducible science based on data that adheres to the principle of privacy by design—without compromising the insights we can glean.
+
+    Previously, I was a Postdoctoral Research Associate at [Imperial College London](https://www.imperial.ac.uk/mathematics), Staff Research Scientist at [Spotify](https://research.atspotify.com), and Principal Research Scientist at [Sonalytic](https://techcrunch.com/2017/03/07/spotify-acquires-audio-detection-startup-sonalytic/). I received my PhD from Imperial College London under the supervision of [Nick S. Jones](https://www.imperial.ac.uk/people/nick.jones) and Master of Physics from the [University of Oxford](https://www.physics.ox.ac.uk).
 fiona:
   first: Fiona
   last: Xiao
   institution: Emory University
-  job: Bachelor's Student
+  job: PhD Student
   github: WenfeiXiao
-  description: Fiona is originally from Beijing, China, and is currently completing a Bachelor of Science in Quantitative Sciences and Biology at Emory University, with an expected graduation in 2025. She is passionate about infectious disease modeling and evolutionary biology.
+  description: Fiona is originally from Beijing, China, and is a first-year PhD student in the Population Biology, Ecology, and Evolution graduate program at Emory University. She earned her bachelor's degree in Quantitative Sciences and Biology from Emory University.
+haisu:
+  first: Haisu
+  last: Zhang
+  institution: Emory University
+  job: PhD Student
+  github: haisuzhang
+  description: Haisu is a third-year PhD student in the Gangarosa Department of Environmental Health at Emory University, where he also earned his MS in Epidemiology. His research focuses primarily on environmental epidemiology, with previous work exploring the health impacts of air pollution and extreme heat. He also wants to gain more experience in different statistical methods and data processing techniques.
 lejun:
   first: Lejun
   last: Shen
   institution: Emory University
   job: Master's Student
   github: lejuncathy
-  description: Lejun is a first-year master's student in the Department of Biostatistics and Bioinformatics at Emory University. She received her BS in Actuarial Science and Mathematics, with a minor in Computer Science. She is passionate about data analysis and statistical methodology, with a primary interest in generalized linear models, classification, and the application of deep learning techniques to public health and biomedical data.
+  description: Lejun is a second-year master's student in the Department of Biostatistics and Bioinformatics at Emory University. She received her BS in Actuarial Science and Mathematics, with a minor in Computer Science. She is passionate about data analysis and statistical methodology, with a primary interest in generalized linear models, classification, and the application of deep learning techniques to public health and biomedical data.
 zirui:
   first: Zirui
   last: Chen
   institution: Emory University
   job: Master's Student
   github: ReinaChenzr
-  description: Zirui is from Shenzhen, China, and is currently a first-year master's student in the department of Biostatistics and Bioinformatics at Emory University. She is passionate about bioinformatics and statistical analysis. She also used Bayesian analysis to complete some projects using public health and biological data.
+  description: Zirui is from Shenzhen, China, and is currently a second-year master's student in the department of Biostatistics and Bioinformatics at Emory University. She is passionate about bioinformatics and statistical analysis. She also used Bayesian analysis to complete some projects using public health and biological data.
 youwei:
   first: Youwei
   last: Hu
@@ -55,11 +64,4 @@ siyu:
   institution: Emory University
   job: Master's Student
   github: LivZHAI
-  description: Siyu is currently a first-year master's student in the Biostatistics department at the Rollins School of Public Health, Emory University. She earned her bachelor’s degree in Financial Mathematics from Suzhou, China. She is dedicated to advanced statistical analysis and methodologies, as well as the application of machine learning in the field of public health.
-haisu:
-  first: Haisu
-  last: Zhang
-  institution: Emory University
-  job: PhD Student
-  github: haisuzhang
-  description: Haisu is a second-year PhD student in the Gangarosa Department of Environmental Health at Emory University, where he also earned his MS in Epidemiology. His research focuses primarily on environmental epidemiology, with previous work exploring the health impacts of air pollution and extreme heat. He also wants to gain more experience in different statistical methods and data processing techniques.
+  description: Siyu is currently a second-year master's student in the Biostatistics department at the Rollins School of Public Health, Emory University. She earned her bachelor’s degree in Financial Mathematics from Suzhou, China. She is dedicated to advanced statistical analysis and methodologies, as well as the application of machine learning in the field of public health.

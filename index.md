@@ -16,12 +16,12 @@ title: Shedding Hub
 </section>
 
 <!-- Highlights Section -->
-<section class="section has-background-white-ter">
+<section class="section has-background-light">
   <div class="container is-max-desktop">
     <div class="columns">
       <div class="column">
-        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
-          <h3 class="title is-5 has-text-dark">
+        <div class="box" style="height: 100%;">
+          <h3 class="title is-5">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-database"></i>
@@ -29,12 +29,12 @@ title: Shedding Hub
               <span>Curated Datasets</span>
             </span>
           </h3>
-          <p class="has-text-dark">Access standardized biomarker shedding data from published studies, spanning multiple pathogens and specimen types.</p>
+          <p>Access standardized biomarker shedding data from published studies, spanning multiple pathogens and specimen types.</p>
         </div>
       </div>
       <div class="column">
-        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
-          <h3 class="title is-5 has-text-dark">
+        <div class="box" style="height: 100%;">
+          <h3 class="title is-5">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-chart-line"></i>
@@ -42,12 +42,12 @@ title: Shedding Hub
               <span>Statistical Models</span>
             </span>
           </h3>
-          <p class="has-text-dark">Bayesian workflows and tutorials for modeling shedding dynamics, including time-course analysis and decay models.</p>
+          <p>Bayesian workflows and tutorials for modeling shedding dynamics, including time-course analysis and decay models.</p>
         </div>
       </div>
       <div class="column">
-        <div class="box has-background-white" style="height: 100%; border: 1px solid #dbdbdb;">
-          <h3 class="title is-5 has-text-dark">
+        <div class="box" style="height: 100%;">
+          <h3 class="title is-5">
             <span class="icon-text">
               <span class="icon has-text-primary">
                 <i class="fa-solid fa-code"></i>
@@ -55,19 +55,47 @@ title: Shedding Hub
               <span>Python Tools</span>
             </span>
           </h3>
-          <p class="has-text-dark">Programmatic access to data and analysis tools through our open-source Python package and interactive visualizations.</p>
+          <p>Programmatic access to data and analysis tools through our open-source Python package and interactive visualizations.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- At a Glance Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered mb-5">At a Glance</h2>
+    <!-- calculate the number of measurements, participants, and studies -->
+    {% assign num_measurements = 0 %}
+    {% assign num_participants = 0 %}
+    {% for dataset in site.datasets %}
+    {% assign temp = dataset.participants | size %}
+    {% assign num_participants = num_participants | plus: temp %}
+    {% for participant in dataset.participants %}
+    {% assign temp = participant.measurements | size %}
+    {% assign num_measurements = num_measurements | plus: temp %}
+    {% endfor %}
+    {% endfor %}
+    <div class="content has-text-centered">
+      <div class="is-size-1">
+        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ num_measurements }}</span>
+        biomarker measurements for
+        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ num_participants }}</span>
+        participants from
+        <span class="has-text-primary has-text-weight-bold separate-thousands">{{ site.datasets | size }}</span>
+        studies. And counting.
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Interactive Data Explorer Section -->
-<section class="section has-background-primary">
+<section class="section has-background-light">
   <div class="container is-fluid">
-    <h2 class="title is-3 has-text-centered has-text-white mb-4">Interactive Data Explorer</h2>
+    <h2 class="title is-3 has-text-centered mb-4">Interactive Data Explorer</h2>
     <div class="container is-max-desktop content has-text-centered mb-5">
-      <p class="has-text-white">
+      <p>
         Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
         compare across studies, and analyze shedding dynamics.
       </p>
@@ -106,16 +134,19 @@ title: Shedding Hub
 </section>
 
 <!-- Leadership Section -->
-<section class="section has-background-primary">
+<section class="section has-background-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered has-text-white mb-6">Leadership</h2>
+    <h2 class="title is-3 has-text-centered mb-6">Leadership</h2>
+
+    <!-- Core Team -->
+    <h3 class="title is-4 has-text-centered mb-4">Core Team</h3>
     <div class="columns">
       <div class="column is-6">
         <div class="card">
           <div class="card-content">
             <div class="media">
               <div class="media-left">
-                <figure class="image is-96x96">
+                <figure class="image is-128x128">
                   <img src="/assets/team/andrew.jpg" alt="Yuke (Andrew) Wang" style="border-radius: 50%;">
                 </figure>
               </div>
@@ -137,7 +168,7 @@ title: Shedding Hub
           <div class="card-content">
             <div class="media">
               <div class="media-left">
-                <figure class="image is-96x96">
+                <figure class="image is-128x128">
                   <img src="/assets/team/till.jpg" alt="Till Hoffmann" style="border-radius: 50%;">
                 </figure>
               </div>
@@ -150,6 +181,47 @@ title: Shedding Hub
             <div class="content">
               <p>{{ site.data.team.till.bio | truncatewords: 50 }}</p>
               <a href="/team.html#till">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scientific Advisors -->
+    <h3 class="title is-4 has-text-centered mb-4 mt-6">Scientific Advisors</h3>
+    <div class="columns">
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img src="/assets/team/ChristineMoe.jpg" alt="Dr. Christine Moe" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Dr. Christine Moe</p>
+                <p class="subtitle is-6">Professor</p>
+                <p class="subtitle is-6">Rollins School of Public Health, Emory University</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img src="/assets/team/PeterTeunis.jpg" alt="Dr. Peter Teunis" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Dr. Peter Teunis</p>
+                <p class="subtitle is-6">Visiting Professor</p>
+                <p class="subtitle is-6">Rollins School of Public Health, Emory University</p>
+              </div>
             </div>
           </div>
         </div>
