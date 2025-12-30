@@ -6,7 +6,7 @@ title: Shedding Hub
 <section class="hero is-light">
   <div class="hero-body">
     <div class="container is-max-desktop">
-      <h1 class="title is-size-1">Shedding Hub</h1>
+      <h1 class="title is-size-1 mb-4">Shedding Hub</h1>
       <p class="subtitle is-size-4">
         To support global efforts to understand and model pathogen shedding dynamics, we provide curated data,
         statistical models, and interactive tools for researchers and public health professionals.
@@ -63,11 +63,11 @@ title: Shedding Hub
 </section>
 
 <!-- Interactive Data Explorer Section -->
-<section class="section">
+<section class="section has-background-primary">
   <div class="container is-fluid">
-    <h2 class="title is-3 has-text-centered has-text-dark mb-6">Interactive Data Explorer</h2>
+    <h2 class="title is-3 has-text-centered has-text-white mb-4">Interactive Data Explorer</h2>
     <div class="container is-max-desktop content has-text-centered mb-5">
-      <p>
+      <p class="has-text-white">
         Explore biomarker shedding data interactively through our dashboard. Visualize time-course patterns,
         compare across studies, and analyze shedding dynamics.
       </p>
@@ -106,9 +106,9 @@ title: Shedding Hub
 </section>
 
 <!-- Leadership Section -->
-<section class="section has-background-light">
+<section class="section has-background-primary">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered has-text-dark mb-6">Leadership</h2>
+    <h2 class="title is-3 has-text-centered has-text-white mb-6">Leadership</h2>
     <div class="columns">
       <div class="column is-6">
         <div class="card">
@@ -122,11 +122,11 @@ title: Shedding Hub
               <div class="media-content">
                 <p class="title is-5">Yuke (Andrew) Wang</p>
                 <p class="subtitle is-6">{{ site.data.team.andrew.job }}</p>
-                <p class="subtitle is-7">{{ site.data.team.andrew.institution }}</p>
+                <p class="subtitle is-6">{{ site.data.team.andrew.institution }}</p>
               </div>
             </div>
             <div class="content">
-              <p>{{ site.data.team.andrew.description | truncatewords: 50 }}</p>
+              <p>{{ site.data.team.andrew.bio | truncatewords: 50 }}</p>
               <a href="/team.html#andrew">View profile</a>
             </div>
           </div>
@@ -144,11 +144,11 @@ title: Shedding Hub
               <div class="media-content">
                 <p class="title is-5">Till Hoffmann</p>
                 <p class="subtitle is-6">{{ site.data.team.till.job }}</p>
-                <p class="subtitle is-7">{{ site.data.team.till.institution }}</p>
+                <p class="subtitle is-6">{{ site.data.team.till.institution }}</p>
               </div>
             </div>
             <div class="content">
-              <p>{{ site.data.team.till.description | truncatewords: 50 }}</p>
+              <p>{{ site.data.team.till.bio | truncatewords: 50 }}</p>
               <a href="/team.html#till">View profile</a>
             </div>
           </div>
