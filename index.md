@@ -165,8 +165,9 @@ title: Shedding Hub
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  background: #f5f5f5;
+  background: var(--bg-secondary);
   border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .dashboard-container::before {
@@ -175,7 +176,7 @@ title: Shedding Hub
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #7a7a7a;
+  color: var(--text-light);
   font-size: 1.2rem;
   z-index: -1;
 }
@@ -184,10 +185,11 @@ title: Shedding Hub
 #dash-dashboard {
   width: 100%;
   height: 800px;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
-  background: white;
+  background: var(--bg-card);
   display: block;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Tablet breakpoint */
@@ -218,8 +220,8 @@ title: Shedding Hub
   width: 50px;
   height: 50px;
   margin: -25px 0 0 -25px;
-  border: 4px solid #dbdbdb;
-  border-top-color: #485fc7;
+  border: 4px solid var(--border-color);
+  border-top-color: var(--primary-color);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
