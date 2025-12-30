@@ -244,9 +244,18 @@
       background-color: #2a4a8a !important;
     }
 
-    .has-background-primary .title,
-    .has-background-primary p {
+    /* Only apply white text to direct section headings and paragraphs in primary sections, not cards */
+    .has-background-primary > .container > .title,
+    .has-background-primary > .container > .content > p,
+    .has-background-primary .has-text-white {
       color: white !important;
+    }
+
+    /* Ensure cards inside primary sections use theme colors */
+    .has-background-primary .card .title,
+    .has-background-primary .card .subtitle,
+    .has-background-primary .card p {
+      color: var(--text-primary) !important;
     }
 
     /* Input and form elements */
