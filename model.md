@@ -1,11 +1,20 @@
 ---
 layout: default
-title: Model
+title: Models - Shedding Hub
 ---
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h1 class="title is-size-1 mb-4">Models</h1>
+      <p class="subtitle is-size-4">
+        Statistical models and tutorials for analyzing pathogen shedding dynamics.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop content">
-    <h2>Shedding Models and Tutorials</h2>
     <div class="card">
       <div class="card-content">
         <a class="title has-text-primary" href="https://shedding-hub.github.io/tutorials/Bayesian-workflow-Rstan.html">Bayesian Workflow for Modeling Shedding Dynamics using Rstan</a>

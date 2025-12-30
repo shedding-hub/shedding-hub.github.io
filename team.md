@@ -1,11 +1,20 @@
 ---
 layout: default
-title: Team
+title: Team - Shedding Hub
 ---
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h1 class="title is-size-1 mb-4">Team</h1>
+      <p class="subtitle is-size-4">
+        Meet the researchers and contributors behind the Shedding Hub platform.
+      </p>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop content">
-    <h2>Shedding Hub Team</h2>
     {% for person_hash in site.data.team %}
     {% assign person = person_hash[1] %}
     <div class="box">

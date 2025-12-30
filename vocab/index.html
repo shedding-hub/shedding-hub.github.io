@@ -12,42 +12,63 @@
     <meta property="og:image:height" content="1438">
     <style>
         :root {
-            --primary-color: #14161A;
+            /* Light theme colors (default) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #ffffff;
+            --text-primary: #363636;
+            --text-secondary: #4a4a4a;
+            --border-color: #dbdbdb;
+            --primary-color: #485fc7;
             --secondary-color: #6397f8;
-            --text-color: white;
             --accent-color: #e74c3c;
-            --light-bg: #1d1f25;
-            --border-color: #b9b9b9;
         }
-        
+
+        [data-theme="dark"] {
+            /* Dark theme colors */
+            --bg-primary: #14161A;
+            --bg-secondary: #1d1f25;
+            --bg-card: #1d1f25;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #b9b9b9;
+            --primary-color: #6397f8;
+            --secondary-color: #6397f8;
+            --accent-color: #e74c3c;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: white;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px 20px 20px;
-        }
-        
-        header {
-            background-color: var(--light-bg);
-            color: var(--text-color);
-            padding: 0 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         h1 {
-            margin: 20px 0 0 0;
             font-size: 2.2em;
         }
-        
+
+        .hero.is-light {
+            background-color: var(--bg-secondary) !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero .title,
+        .hero .subtitle {
+            color: var(--text-primary) !important;
+        }
+
         .metadata {
-            background-color: var(--light-bg);
+            background-color: var(--bg-secondary);
             padding: 15px;
             border-radius: 5px;
             margin: 20px 0;
             border-left: 4px solid var(--secondary-color);
+            transition: background-color 0.3s ease;
         }
         
         .metadata dl {
@@ -66,26 +87,27 @@
         }
         
         h2 {
-            color: var(--text-color);
+            color: var(--text-primary);
             font-size: 1.5em;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 10px;
             margin-top: 40px;
         }
-        
+
         h3 {
-            color: var(--text-color);
+            color: var(--text-primary);
             font-size: 1.3em;
             margin-top: 30px;
         }
-        
+
         .concept {
-            background-color: var(--light-bg);
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 5px;
             padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         
         .concept h4 {
@@ -112,28 +134,30 @@
         .relation-group h5 {
             margin: 0 0 5px 0;
             font-weight: 600;
-            color: var(--text-color);
+            color: var(--text-primary);
         }
-        
+
         .relation-group ul {
             margin: 0;
             padding-left: 20px;
         }
-        
+
         code {
-            background-color: var(--light-bg);
+            background-color: var(--bg-secondary);
             padding: 2px 5px;
             border-radius: 3px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.9em;
+            transition: background-color 0.3s ease;
         }
-        
+
         pre {
-            background-color: var(--light-bg);
+            background-color: var(--bg-secondary);
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
             border-left: 4px solid var(--secondary-color);
+            transition: background-color 0.3s ease;
         }
         
         .prefixes {
@@ -166,8 +190,9 @@
         .section-nav {
             margin: 20px 0;
             padding: 10px;
-            background-color: var(--light-bg);
+            background-color: var(--bg-secondary);
             border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
         
         .section-nav ul {
@@ -266,12 +291,12 @@
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-start">
-            <a class="navbar-item" href="/team.html">
+            <a class="navbar-item" href="/datasets.html">
                 <span class="icon-text">
                 <span class="icon">
-                    <i class="fa-solid fa-people-group"></i>
+                    <i class="fa-solid fa-database"></i>
                 </span>
-                <span>Team</span>
+                <span>Datasets</span>
                 </span>
             </a>
             <a class="navbar-item" href="/vocab/index.html">
@@ -287,10 +312,26 @@
                 <span class="icon">
                     <i class="fa-solid fa-chart-line"></i>
                 </span>
-                <span>Model</span>
+                <span>Models</span>
                 </span>
             </a>
-            <a class="navbar-item" href="https://github.com/shedding-hub/shedding-hub" target="_blank">
+            <a class="navbar-item" href="/package.html">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fab fa-python"></i>
+                </span>
+                <span>Package</span>
+                </span>
+            </a>
+            <a class="navbar-item" href="/team.html">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-people-group"></i>
+                </span>
+                <span>Team</span>
+                </span>
+            </a>
+            <a class="navbar-item" href="https://github.com/shedding-hub/shedding-hub" target="_blank" rel="noopener">
                 <span class="icon-text">
                 <span class="icon">
                     <i class="fab fa-github"></i>
@@ -298,15 +339,29 @@
                 <span>GitHub</span>
                 </span>
             </a>
+            <a class="navbar-item" id="theme-toggle" title="Toggle theme">
+                <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-solid fa-moon" id="theme-icon"></i>
+                </span>
+                <span id="theme-text">Dark</span>
+                </span>
+            </a>
             </div>
         </div>
         </div>
     </nav>
 
-    <header>
-        <h1>Shedding Hub Vocabulary</h1>
-        <p class="subtitle">A controlled vocabulary for studies with pathogen and biomarker shedding information (published at BioPortal: <a href="https://bioportal.bioontology.org/ontologies/SHEDDING-HUB">https://bioportal.bioontology.org/ontologies/SHEDDING-HUB</a>)</p>
-    </header>
+    <section class="hero is-light">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <h1 class="title is-size-1 mb-4">Vocabulary</h1>
+                <p class="subtitle is-size-4">
+                    A controlled vocabulary for studies with pathogen and biomarker shedding information (published at <a href="https://bioportal.bioontology.org/ontologies/SHEDDING-HUB">BioPortal</a>).
+                </p>
+            </div>
+        </div>
+    </section>
     
     <div class="metadata">
         <dl>
@@ -1410,3 +1465,86 @@
                 </div>
             </div>
         </div>
+
+<script>
+// Dark theme toggle implementation
+(function() {
+  const ThemeManager = {
+    STORAGE_KEY: 'shedding-hub-theme',
+    THEME_ATTR: 'data-theme',
+
+    init() {
+      this.toggleBtn = document.getElementById('theme-toggle');
+      this.themeIcon = document.getElementById('theme-icon');
+      this.themeText = document.getElementById('theme-text');
+
+      // Load saved theme or detect system preference
+      const savedTheme = this.getSavedTheme();
+      const systemPreference = this.getSystemPreference();
+      const initialTheme = savedTheme || systemPreference;
+
+      this.setTheme(initialTheme, false);
+      this.attachListeners();
+    },
+
+    getSavedTheme() {
+      return localStorage.getItem(this.STORAGE_KEY);
+    },
+
+    getSystemPreference() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    },
+
+    setTheme(theme, save = true) {
+      const isDark = theme === 'dark';
+
+      // Update DOM
+      document.documentElement.setAttribute(this.THEME_ATTR, theme);
+
+      // Update icon and text
+      if (this.themeIcon && this.themeText) {
+        this.themeIcon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        this.themeText.textContent = isDark ? 'Light' : 'Dark';
+      }
+
+      // Save to localStorage
+      if (save) {
+        localStorage.setItem(this.STORAGE_KEY, theme);
+      }
+    },
+
+    toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute(this.THEME_ATTR);
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      this.setTheme(newTheme);
+    },
+
+    attachListeners() {
+      if (this.toggleBtn) {
+        this.toggleBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.toggleTheme();
+        });
+      }
+
+      // Listen for system preference changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // Only apply if user hasn't set a preference
+        if (!this.getSavedTheme()) {
+          this.setTheme(e.matches ? 'dark' : 'light', false);
+        }
+      });
+    }
+  };
+
+  // Initialize on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => ThemeManager.init());
+  } else {
+    ThemeManager.init();
+  }
+})();
+</script>
+
+</body>
+</html>
