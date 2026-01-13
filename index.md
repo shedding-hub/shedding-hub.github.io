@@ -225,8 +225,8 @@ viz.plot_time_course(data)</code></pre>
               </div>
               <div class="media-content">
                 <p class="title is-5">Yuke (Andrew) Wang</p>
-                <p class="subtitle is-6">{{ site.data.team.andrew.job }}</p>
-                <p class="subtitle is-6">{{ site.data.team.andrew.institution }}</p>
+                <p class="subtitle is-6">Co-founder</p>
+                <p class="subtitle is-6">{{ site.data.team.andrew.job }}, {{ site.data.team.andrew.institution }}</p>
               </div>
             </div>
             <div class="content">
@@ -247,8 +247,8 @@ viz.plot_time_course(data)</code></pre>
               </div>
               <div class="media-content">
                 <p class="title is-5">Till Hoffmann</p>
-                <p class="subtitle is-6">{{ site.data.team.till.job }}</p>
-                <p class="subtitle is-6">{{ site.data.team.till.institution }}</p>
+                <p class="subtitle is-6">Co-founder</p>
+                <p class="subtitle is-6">{{ site.data.team.till.job }}, {{ site.data.team.till.institution }}</p>
               </div>
             </div>
             <div class="content">
@@ -262,9 +262,9 @@ viz.plot_time_course(data)</code></pre>
 
     <!-- Scientific Advisors -->
     <h3 class="title is-4 has-text-centered mb-4 mt-6">Scientific Advisors</h3>
-    <div class="columns">
+    <div class="columns is-multiline">
       <div class="column is-6">
-        <div class="card">
+        <div class="card" style="height: 100%;">
           <div class="card-content">
             <div class="media">
               <div class="media-left">
@@ -274,15 +274,17 @@ viz.plot_time_course(data)</code></pre>
               </div>
               <div class="media-content">
                 <p class="title is-5">Dr. Christine Moe</p>
-                <p class="subtitle is-6">Professor</p>
-                <p class="subtitle is-6">Rollins School of Public Health, Emory University</p>
+                <p class="subtitle is-6">Eugene J. Gangarosa Professor of Safe Water and Sanitation, Hubert Department of Global Health, Rollins School of Public Health, Emory University</p>
               </div>
+            </div>
+            <div class="content">
+              <a href="https://sph.emory.edu/profile/faculty/christine-moe">View profile</a>
             </div>
           </div>
         </div>
       </div>
       <div class="column is-6">
-        <div class="card">
+        <div class="card" style="height: 100%;">
           <div class="card-content">
             <div class="media">
               <div class="media-left">
@@ -292,9 +294,51 @@ viz.plot_time_course(data)</code></pre>
               </div>
               <div class="media-content">
                 <p class="title is-5">Dr. Peter Teunis</p>
-                <p class="subtitle is-6">Visiting Professor</p>
-                <p class="subtitle is-6">Rollins School of Public Health, Emory University</p>
+                <p class="subtitle is-6">Visiting Professor, Hubert Department of Global Health, Rollins School of Public Health, Emory University</p>
               </div>
+            </div>
+            <div class="content">
+              <a href="https://sph.emory.edu/profile/faculty/peter-teunis">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card" style="height: 100%;">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img src="/assets/team/BenLopman.jpg" alt="Dr. Benjamin Lopman" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Dr. Benjamin Lopman</p>
+                <p class="subtitle is-6">Professor, Department of Epidemiology, Rollins School of Public Health, Emory University, Director and Co-Principal Investigator, CIDMATH</p>
+              </div>
+            </div>
+            <div class="content">
+              <a href="https://sph.emory.edu/profile/faculty/benjamin-lopman">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card" style="height: 100%;">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img src="/assets/team/KatiaKoelle.jpg" alt="Dr. Katia Koelle" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Dr. Katia Koelle</p>
+                <p class="subtitle is-6">Professor, Department of Biology, College of Arts and Sciences, Emory University, Director of Scientific Initiatives and Co-Principal Investigator, CIDMATH</p>
+              </div>
+            </div>
+            <div class="content">
+              <a href="https://biology.emory.edu/people/bios/faculty/koelle-katia.html">View profile</a>
             </div>
           </div>
         </div>
@@ -323,6 +367,23 @@ viz.plot_time_course(data)</code></pre>
           <i class="fa-solid fa-envelope"></i>
         </span>
         <span>Contact Us to Contribute</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Funding Acknowledgment Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <h2 class="title is-4 mb-4">Funding</h2>
+      <p class="mb-4">
+        The Shedding Hub was made possible by the Insight Net cooperative agreement CDC-RFA-FT-23-0069 from the CDC’s Center for Forecasting and Outbreak Analytics. Its contents are solely the responsibility of the authors and do not necessarily represent the official views of the Centers for Disease Control and Prevention. Support for the Shedding Hub is provided by the Emory Center for Infectious Disease Modeling and Analytics & Training Hub (CIDMATH).
+      </p>
+      <a href="https://cidmath.org/" target="_blank" rel="noopener noreferrer">
+        <img src="/assets/logo/logo_emory_cidmath_dark_blue_2_no-tagline.svg"
+             alt="CIDMATH - Center for Infectious Disease Modeling and Analysis"
+             style="max-width: 400px; width: 100%; height: auto;">
       </a>
     </div>
   </div>
