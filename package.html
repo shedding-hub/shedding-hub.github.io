@@ -86,22 +86,19 @@ fig = sh.plot_clearance_curve(data, specimen='sputum')</code></pre>
   </div>
 </section>
 
-<!-- API Reference Section -->
+<!-- Function Reference Section -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">API Reference</h2>
+    <h2 class="title is-3">Function Reference</h2>
     <div class="content">
       <div class="columns">
         <div class="column is-6">
           <h4><span class="icon has-text-primary"><i class="fa-solid fa-download"></i></span> Data Loading</h4>
           <ul>
             <li><code>load_dataset(dataset, ref=None, pr=None, local=None)</code> - Load a dataset from GitHub or local directory</li>
-            <li><code>folded_str(text)</code> - Create YAML folded string</li>
-            <li><code>literal_str(text)</code> - Create YAML literal string</li>
-            <li><code>normalize_str(text)</code> - Normalize whitespace in text</li>
           </ul>
 
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-calculator"></i></span> Statistics Module</h4>
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-calculator"></i></span> Statistics</h4>
           <ul>
             <li><code>calc_shedding_summary(dataset)</code> - Per-participant summary (duration, peak, clearance)</li>
             <li><code>calc_detection_summary(dataset)</code> - Detection rate by time bin with Wilson CI</li>
@@ -110,9 +107,17 @@ fig = sh.plot_clearance_curve(data, specimen='sputum')</code></pre>
             <li><code>calc_dataset_summary(dataset)</code> - Basic dataset metadata</li>
             <li><code>compare_datasets(datasets)</code> - Cross-study comparison table</li>
           </ul>
+
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-clock"></i></span> Shedding Duration</h4>
+          <ul>
+            <li><code>calc_shedding_duration(dataset)</code> - Calculate duration statistics</li>
+            <li><code>calc_shedding_durations(dataset_ids)</code> - Batch calculate across studies</li>
+            <li><code>plot_shedding_duration(df)</code> - Plot individual durations</li>
+            <li><code>plot_shedding_durations(df)</code> - Compare durations across studies</li>
+          </ul>
         </div>
         <div class="column is-6">
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-chart-bar"></i></span> Visualization Module</h4>
+          <h4><span class="icon has-text-primary"><i class="fa-solid fa-chart-bar"></i></span> Visualization</h4>
           <ul>
             <li><code>plot_time_course(dataset)</code> - Individual shedding trajectories</li>
             <li><code>plot_time_courses(datasets)</code> - Compare trajectories across studies</li>
@@ -121,14 +126,6 @@ fig = sh.plot_clearance_curve(data, specimen='sputum')</code></pre>
             <li><code>plot_value_distribution_by_time(dataset)</code> - Box/violin plots by time</li>
             <li><code>plot_detection_probability(dataset)</code> - Detection rate over time</li>
             <li><code>plot_clearance_curve(dataset)</code> - Kaplan-Meier survival curve</li>
-          </ul>
-
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-clock"></i></span> Shedding Duration</h4>
-          <ul>
-            <li><code>calc_shedding_duration(dataset)</code> - Calculate duration statistics</li>
-            <li><code>calc_shedding_durations(dataset_ids)</code> - Batch calculate across studies</li>
-            <li><code>plot_shedding_duration(df)</code> - Plot individual durations</li>
-            <li><code>plot_shedding_durations(df)</code> - Compare durations across studies</li>
           </ul>
 
           <h4><span class="icon has-text-primary"><i class="fa-solid fa-arrow-up"></i></span> Shedding Peak</h4>
