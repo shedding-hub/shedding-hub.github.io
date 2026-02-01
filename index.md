@@ -160,38 +160,14 @@ title: Shedding Hub
     <div class="content">
       <p class="has-text-centered mb-5">
         Access and analyze Shedding Hub data in just a few lines of Python code.
+        Watch this quick tutorial to see how easy it is to get started.
       </p>
 
-      <div class="columns">
-        <div class="column is-half">
-          <h3 class="title is-5">
-            <span class="icon-text">
-              <span class="icon has-text-primary">
-                <i class="fa-solid fa-download"></i>
-              </span>
-              <span>Install the Package</span>
-            </span>
-          </h3>
-          <pre><code>pip install shedding-hub</code></pre>
-        </div>
-        <div class="column is-half">
-          <h3 class="title is-5">
-            <span class="icon-text">
-              <span class="icon has-text-primary">
-                <i class="fa-solid fa-code"></i>
-              </span>
-              <span>Load and Visualize Data</span>
-            </span>
-          </h3>
-          <pre><code>import shedding_hub
-
-# Load a dataset
-data = shedding_hub.load_dataset('woelfel2020virological')
-
-# Create visualization
-import shedding_hub.viz as viz
-viz.plot_time_course(data)</code></pre>
-        </div>
+      <div class="video-container">
+        <video autoplay muted loop controls playsinline preload="auto" style="width: 100%; max-width: 1280px; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+          <source src="/assets/videos/SheddingHubTutorial.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       <div class="has-text-centered mt-5">
