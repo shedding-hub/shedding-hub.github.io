@@ -165,7 +165,7 @@ title: Shedding Hub
 
       <div class="video-container">
         <video autoplay muted loop controls playsinline preload="auto" style="width: 100%; max-width: 1280px; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-          <source src="/assets/videos/SheddingHubTutorial.mp4" type="video/mp4">
+          <source src="/assets/videos/SheddingHubQuickStart.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
