@@ -319,6 +319,26 @@ title: Shedding Hub
           </div>
         </div>
       </div>
+      <div class="column is-6">
+        <div class="card" style="height: 100%;">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-128x128">
+                  <img src="/assets/team/jp.jpg" alt="Dr. Jukka-Pekka Onnela" style="border-radius: 50%;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">Dr. Jukka-Pekka Onnela</p>
+                <p class="subtitle is-6">Professor, Department of Biostatistics, Harvard T.H. Chan School of Public Health</p>
+              </div>
+            </div>
+            <div class="content">
+              <a href="https://hsph.harvard.edu/research/onnela-lab/">View profile</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
