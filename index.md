@@ -391,7 +391,7 @@ title: Shedding Hub
 /* Responsive iframe sizing */
 #dash-dashboard {
   width: 100%;
-  height: 800px;
+  height: 1000px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-card);
@@ -402,14 +402,14 @@ title: Shedding Hub
 /* Tablet breakpoint */
 @media screen and (max-width: 1024px) {
   #dash-dashboard {
-    height: 700px;
+    height: 850px;
   }
 }
 
 /* Mobile breakpoint */
 @media screen and (max-width: 768px) {
   #dash-dashboard {
-    height: 600px;
+    height: 700px;
   }
 
   .dashboard-container {
