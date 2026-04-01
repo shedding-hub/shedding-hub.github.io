@@ -71,3 +71,10 @@ siyu:
   job: Master's Student
   github: LivZHAI
   description: Siyu is currently a second-year master's student in the Biostatistics department at the Rollins School of Public Health, Emory University. She earned her bachelor’s degree in Financial Mathematics from Suzhou, China. She is dedicated to advanced statistical analysis and methodologies, as well as the application of machine learning in the field of public health.
+annie:
+  first: Annie
+  last: Wang
+  institution: Emory University
+  job: Master's Student
+  github: waangannie
+  description: Annie is currently a master’s student in the Epidemiology program at the Rollins School of Public Health, Emory University. She earned her Bachelor's in Health Studies and Statistical Sciences from the University of Toronto. Her academic and research interests focus on statistical analysis in public health, with experience in epidemiological research, data visualization, and applied health data science. She is particularly interested in leveraging quantitative methods to inform healthcare decision-making and improve population health outcomes.
