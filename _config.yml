@@ -1,4 +1,5 @@
 title: Shedding Hub
+url: https://shedding-hub.github.io
 strict_front_matter: true
 exclude:
   - Gemfile

@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shedding Hub Vocabulary</title>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <meta property="og:description" content="Data and statistical models for biomarker shedding.">
-    <meta property="og:image" content="https://unsplash.com/photos/Ac97OqAWDvg/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MTZ8fHdhc3Rld2F0ZXJ8ZW58MHx8fHwxNzI1NTUxODUyfDA&force=true&w=1920">
-    <meta property="og:image:width" content="1920">
-    <meta property="og:image:height" content="1438">
+    <meta property="og:image" content="https://shedding-hub.github.io/assets/logo/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <style>
         :root {
             /* Light theme colors (default) */
@@ -22,6 +26,7 @@
             --primary-color: #485fc7;
             --secondary-color: #6397f8;
             --accent-color: #e74c3c;
+            --logo-ink: #214A5B;
         }
 
         [data-theme="dark"] {
@@ -35,6 +40,7 @@
             --primary-color: #6397f8;
             --secondary-color: #6397f8;
             --accent-color: #e74c3c;
+            --logo-ink: #9CC7D8;
         }
 
         body {
@@ -263,6 +269,39 @@
         .hierarchy a:hover {
             text-decoration: underline;
         }
+
+        /* Brand lockup: curve mark + wordmark.
+           The mark is a single alpha mask tinted with --logo-ink, so it follows the
+           theme without shipping a second copy of the artwork. */
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .brand-mark {
+            display: block;
+            width: 4.5rem;
+            height: 2rem;
+            flex: none;
+        }
+
+        @supports ((-webkit-mask-image: url("")) or (mask-image: url(""))) {
+            .brand-mark {
+                background-color: var(--logo-ink);
+                -webkit-mask: url("/assets/logo/shedding-hub-mark-mask.png") center / contain no-repeat;
+                mask: url("/assets/logo/shedding-hub-mark-mask.png") center / contain no-repeat;
+            }
+        }
+
+        .brand-name {
+            margin-bottom: 0;
+            white-space: nowrap;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+        }
     </style>
 </head>
 <body>
@@ -271,15 +310,9 @@
     <nav class="navbar">
         <div class="container is-max-desktop">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-            <span class="subtitle">
-                <span class="icon-text">
-                <span class="icon has-text-primary">
-                    <i class="fa-solid fa-poop"></i>
-                </span>
-                <span>Shedding Hub</span>
-                </span>
-            </span>
+            <a class="navbar-item brand-link" href="/">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="subtitle brand-name">Shedding Hub</span>
             </a>
 
             <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">

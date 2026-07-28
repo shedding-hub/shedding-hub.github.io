@@ -3,11 +3,14 @@ layout: default
 title: Shedding Hub
 ---
 
-<section class="hero is-light">
+<section class="hero is-light hero-brand">
   <div class="hero-body">
-    <div class="container is-max-desktop">
-      <h1 class="title is-size-1 mb-4">Shedding Hub</h1>
-      <p class="subtitle is-size-4">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="hero-logo">
+        <span class="hero-logo-lockup" aria-hidden="true"></span>
+        <span class="is-sr-only">Shedding Hub</span>
+      </h1>
+      <p class="subtitle is-size-4 hero-lede">
         To support global efforts to understand and model pathogen shedding dynamics, we provide curated data,
         statistical models, and interactive tools for researchers and public health professionals.
       </p>
@@ -386,6 +389,70 @@ title: Shedding Hub
 </section>
 
 <style>
+/* Hero brand lockup */
+.hero-brand .hero-body {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+/* The lockup is the heading: the h1 keeps its text for assistive tech and search,
+   while the visible mark + wordmark come from a single alpha mask tinted with
+   --logo-ink, so one file serves both themes. */
+.hero-logo {
+  margin: 0 0 1.75rem;
+}
+
+.hero-logo-lockup {
+  display: block;
+  width: min(34rem, 84vw);
+  aspect-ratio: 1200 / 616;
+  margin: 0 auto;
+  /* Wipe left-to-right on load, the way a trajectory gets plotted */
+  animation: hero-logo-trace 1.2s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+@supports ((-webkit-mask-image: url("")) or (mask-image: url(""))) {
+  .hero-logo-lockup {
+    background-color: var(--logo-ink);
+    -webkit-mask: url("/assets/logo/shedding-hub-lockup-mask.png") center / contain no-repeat;
+    mask: url("/assets/logo/shedding-hub-lockup-mask.png") center / contain no-repeat;
+  }
+}
+
+@keyframes hero-logo-trace {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.35;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.hero-lede {
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .hero-logo {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-brand .hero-body {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-lockup {
+    animation: none;
+  }
+}
+
 /* Dashboard container */
 .dashboard-container {
   position: relative;
