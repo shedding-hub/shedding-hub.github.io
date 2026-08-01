@@ -8,8 +8,23 @@ title: Python Package - Shedding Hub
     <div class="container is-max-desktop">
       <h1 class="title is-size-1 mb-4">Python Package</h1>
       <p class="subtitle is-size-4">
-        Access and analyze Shedding Hub data programmatically
+        Load, visualise and model shedding data &mdash; and simulate shedding
+        kinetics from parameters estimated on real studies
       </p>
+      <div class="buttons">
+        <a href="https://shedding-hub.readthedocs.io/" class="button is-primary is-medium" target="_blank" rel="noopener">
+          <span class="icon">
+            <i class="fa-solid fa-book"></i>
+          </span>
+          <span>Read the documentation</span>
+        </a>
+        <a href="https://pypi.org/project/shedding-hub/" class="button is-medium" target="_blank" rel="noopener">
+          <span class="icon">
+            <i class="fab fa-python"></i>
+          </span>
+          <span>PyPI</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -18,177 +33,169 @@ title: Python Package - Shedding Hub
   <div class="container is-max-desktop">
     <div class="content">
       <p class="is-size-5">
-        The <code>shedding-hub</code> Python package provides tools for loading datasets,
-        performing statistical analyses, and creating visualizations. Available on PyPI,
-        it enables reproducible research and seamless integration with your analysis workflows.
+        The <code>shedding-hub</code> package is how you use this repository from Python.
+        It loads any curated dataset, summarises and plots it, fits shedding curves by
+        censored maximum likelihood, and simulates synthetic individuals from fitted
+        parameters &mdash; the input a transmission or wastewater model consumes.
       </p>
-    </div>
-  </div>
-</section>
-
-<!-- Installation Section -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Installation</h2>
-    <div class="content">
-      <p>Install the package using pip:</p>
       <pre><code>pip install shedding-hub</code></pre>
-
-      <p>For the latest development version from GitHub:</p>
-      <pre><code>pip install git+https://github.com/shedding-hub/shedding-hub.git</code></pre>
     </div>
   </div>
 </section>
 
-<!-- Quick Start Section -->
+<!-- What it does -->
 <section class="section has-background-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Quick Start</h2>
-    <div class="content">
-      <h3>Load a Dataset</h3>
-      <pre><code>import shedding_hub as sh
-
-# Load a specific dataset by identifier
-data = sh.load_dataset('woelfel2020virological')
-
-# Access dataset structure
-print(data['title'])
-print(data['analytes'].keys())
-print(f"Number of participants: {len(data['participants'])}")</code></pre>
-
-      <h3>Calculate Summary Statistics</h3>
-      <pre><code># Per-participant shedding summary
-summary = sh.calc_shedding_summary(data, specimen='sputum')
-print(summary[['participant_id', 'shedding_duration', 'peak_value', 'clearance_status']])
-
-# Detection rate over time
-detection = sh.calc_detection_summary(data, specimen='sputum', time_bin_size=7)
-print(detection[['time', 'n_tested', 'proportion', 'ci_lower', 'ci_upper']])
-
-# Basic dataset metadata
-info = sh.calc_dataset_summary(data)
-print(f"Biomarkers: {info['biomarkers']}")
-print(f"Specimens: {info['specimens']}")</code></pre>
-
-      <h3>Create Visualizations</h3>
-      <pre><code># Plot individual shedding trajectories
-fig = sh.plot_time_course(data, specimen='sputum')
-
-# Heatmap of shedding patterns
-fig = sh.plot_shedding_heatmap(data, specimen='sputum', value='concentration')
-
-# Aggregate trajectory with uncertainty bands
-fig = sh.plot_mean_trajectory(data, specimen='sputum', value='concentration')
-
-# Kaplan-Meier clearance curve
-fig = sh.plot_clearance_curve(data, specimen='sputum')</code></pre>
-    </div>
-  </div>
-</section>
-
-<!-- Function Reference Section -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Function Reference</h2>
-    <div class="content">
-      <div class="columns">
-        <div class="column is-6">
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-download"></i></span> Data Loading</h4>
-          <ul>
-            <li><code>load_dataset(dataset, ref=None, pr=None, local=None)</code> - Load a dataset from GitHub or local directory</li>
-          </ul>
-
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-calculator"></i></span> Statistics</h4>
-          <ul>
-            <li><code>calc_shedding_summary(dataset)</code> - Per-participant summary (duration, peak, clearance)</li>
-            <li><code>calc_detection_summary(dataset)</code> - Detection rate by time bin with Wilson CI</li>
-            <li><code>calc_clearance_summary(dataset)</code> - Kaplan-Meier clearance statistics</li>
-            <li><code>calc_value_summary(dataset)</code> - Value distribution by time bin</li>
-            <li><code>calc_dataset_summary(dataset)</code> - Basic dataset metadata</li>
-            <li><code>compare_datasets(datasets)</code> - Cross-study comparison table</li>
-          </ul>
-
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-clock"></i></span> Shedding Duration</h4>
-          <ul>
-            <li><code>calc_shedding_duration(dataset)</code> - Calculate duration statistics</li>
-            <li><code>calc_shedding_durations(dataset_ids)</code> - Batch calculate across studies</li>
-            <li><code>plot_shedding_duration(df)</code> - Plot individual durations</li>
-            <li><code>plot_shedding_durations(df)</code> - Compare durations across studies</li>
-          </ul>
+    <h2 class="title is-3">What it does</h2>
+    <div class="columns is-multiline">
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary"><i class="fa-solid fa-download"></i></span>
+                <span>Load</span>
+              </span>
+            </h3>
+            <p>
+              Any curated dataset by its identifier, pinned to a commit or pull request
+              when an analysis has to stay reproducible.
+            </p>
+          </div>
         </div>
-        <div class="column is-6">
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-chart-bar"></i></span> Visualization</h4>
-          <ul>
-            <li><code>plot_time_course(dataset)</code> - Individual shedding trajectories</li>
-            <li><code>plot_time_courses(datasets)</code> - Compare trajectories across studies</li>
-            <li><code>plot_shedding_heatmap(dataset)</code> - Heatmap of shedding patterns</li>
-            <li><code>plot_mean_trajectory(dataset)</code> - Aggregate trajectory with uncertainty</li>
-            <li><code>plot_value_distribution_by_time(dataset)</code> - Box/violin plots by time</li>
-            <li><code>plot_detection_probability(dataset)</code> - Detection rate over time</li>
-            <li><code>plot_clearance_curve(dataset)</code> - Kaplan-Meier survival curve</li>
-          </ul>
-
-          <h4><span class="icon has-text-primary"><i class="fa-solid fa-arrow-up"></i></span> Shedding Peak</h4>
-          <ul>
-            <li><code>calc_shedding_peak(dataset)</code> - Calculate peak statistics</li>
-            <li><code>calc_shedding_peaks(dataset_ids)</code> - Batch calculate across studies</li>
-            <li><code>plot_shedding_peak(df)</code> - Plot peak values</li>
-            <li><code>plot_shedding_peaks(df)</code> - Compare peaks across studies</li>
-          </ul>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary"><i class="fa-solid fa-chart-line"></i></span>
+                <span>Visualise</span>
+              </span>
+            </h3>
+            <p>
+              Time courses, heatmaps, clearance curves and per-participant panels,
+              returned as matplotlib figures you can restyle or save.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary"><i class="fa-solid fa-wave-square"></i></span>
+                <span>Model</span>
+              </span>
+            </h3>
+            <p>
+              Censored maximum-likelihood fits of rise-and-decay curves, handling
+              non-detects properly instead of dropping or substituting them. A catalog
+              of precomputed fits ships with the package.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">
+              <span class="icon-text">
+                <span class="icon has-text-primary"><i class="fa-solid fa-users"></i></span>
+                <span>Simulate</span>
+              </span>
+            </h3>
+            <p>
+              Monte Carlo trajectories for synthetic individuals, drawn from the fitted
+              parameter distributions so a cohort carries inter-individual variability
+              rather than tracing one average curve.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Common Parameters Section -->
-<section class="section has-background-light">
+<!-- Documentation -->
+<section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Common Parameters</h2>
+    <h2 class="title is-3">Documentation</h2>
     <div class="content">
-      <p>Most functions accept these filtering parameters:</p>
-      <table class="table is-striped is-fullwidth">
-        <thead>
-          <tr>
-            <th>Parameter</th>
-            <th>Description</th>
-            <th>Example</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>biomarker</code></td>
-            <td>Filter by specific biomarker</td>
-            <td><code>biomarker='SARS-CoV-2'</code></td>
-          </tr>
-          <tr>
-            <td><code>specimen</code></td>
-            <td>Filter by specimen type</td>
-            <td><code>specimen='sputum'</code></td>
-          </tr>
-          <tr>
-            <td><code>value</code></td>
-            <td>Filter by value type</td>
-            <td><code>value='concentration'</code> or <code>value='ct'</code></td>
-          </tr>
-          <tr>
-            <td><code>time_bin_size</code></td>
-            <td>Size of time bins in days</td>
-            <td><code>time_bin_size=7</code></td>
-          </tr>
-          <tr>
-            <td><code>time_range</code></td>
-            <td>Limit time range</td>
-            <td><code>time_range=(0, 30)</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <p>
+        Full documentation lives on Read the Docs, generated from the package source so
+        it cannot drift from the code. Every public function carries a worked example
+        that is executed as a test on every commit.
+      </p>
+    </div>
+    <div class="columns is-multiline">
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">Getting started</h3>
+            <p class="mb-3">
+              The whole arc in one page: load a study, summarise it, plot it, fit a
+              curve, and simulate a cohort.
+            </p>
+            <a href="https://shedding-hub.readthedocs.io/en/latest/getting-started/" class="button is-primary is-small" target="_blank" rel="noopener">
+              <span>Open</span>
+              <span class="icon"><i class="fa-solid fa-external-link-alt"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">Tutorial</h3>
+            <p class="mb-3">
+              Simulating shedding for synthetic individuals end to end, including
+              choosing between competing studies and overriding that choice.
+            </p>
+            <a href="https://shedding-hub.readthedocs.io/en/latest/tutorial/" class="button is-primary is-small" target="_blank" rel="noopener">
+              <span>Open</span>
+              <span class="icon"><i class="fa-solid fa-external-link-alt"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">Modeling methods</h3>
+            <p class="mb-3">
+              What the fitted estimates mean, and what they do not support. Read this
+              before publishing anything built on them.
+            </p>
+            <a href="https://shedding-hub.readthedocs.io/en/latest/modeling-methods/" class="button is-primary is-small" target="_blank" rel="noopener">
+              <span>Open</span>
+              <span class="icon"><i class="fa-solid fa-external-link-alt"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="card">
+          <div class="card-content">
+            <h3 class="title is-5">API reference</h3>
+            <p class="mb-3">
+              Every public function and class, with its full signature, arguments and a
+              runnable example.
+            </p>
+            <a href="https://shedding-hub.readthedocs.io/en/latest/reference/datasets/" class="button is-primary is-small" target="_blank" rel="noopener">
+              <span>Open</span>
+              <span class="icon"><i class="fa-solid fa-external-link-alt"></i></span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Resources Section -->
-<section class="section">
+<section class="section has-background-light">
   <div class="container is-max-desktop">
     <h2 class="title is-3">Resources</h2>
     <div class="columns">
@@ -234,74 +241,6 @@ fig = sh.plot_clearance_curve(data, specimen='sputum')</code></pre>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Examples Section -->
-<section class="section has-background-light">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Example Workflows</h2>
-    <div class="content">
-      <h4>Compare Shedding Across Multiple Studies</h4>
-      <pre><code>import shedding_hub as sh
-
-# Load multiple datasets
-data1 = sh.load_dataset('woelfel2020virological')
-data2 = sh.load_dataset('kim2020viral')
-data3 = sh.load_dataset('young2020epidemiologic')
-
-# Compare key statistics across studies
-comparison = sh.compare_datasets(
-    [data1, data2, data3],
-    specimen='sputum',
-    value='concentration'
-)
-print(comparison[['dataset_id', 'n_participants', 'median_shedding_duration',
-                  'median_peak_value', 'pct_cleared']])</code></pre>
-
-      <h4>Analyze Clearance Patterns</h4>
-      <pre><code>import shedding_hub as sh
-
-# Load dataset
-data = sh.load_dataset('woelfel2020virological')
-
-# Get Kaplan-Meier clearance statistics
-clearance = sh.calc_clearance_summary(data, specimen='sputum')
-print(f"Median clearance time: {clearance['median_clearance_time']} days")
-print(f"Clearance rate: {clearance['clearance_rate']*100:.1f}%")
-
-# Plot the survival curve
-fig = sh.plot_clearance_curve(data, specimen='sputum', show_ci=True)</code></pre>
-
-      <h4>Visualize Population-Level Shedding</h4>
-      <pre><code>import shedding_hub as sh
-import matplotlib.pyplot as plt
-
-# Load dataset
-data = sh.load_dataset('woelfel2020virological')
-
-# Create a multi-panel figure
-fig, axes = plt.subplots(2, 2, figsize=(12, 10))
-
-# Heatmap of individual trajectories
-plt.sca(axes[0, 0])
-sh.plot_shedding_heatmap(data, specimen='sputum', value='concentration')
-
-# Mean trajectory with 95% CI
-plt.sca(axes[0, 1])
-sh.plot_mean_trajectory(data, specimen='sputum', value='concentration')
-
-# Detection probability over time
-plt.sca(axes[1, 0])
-sh.plot_detection_probability(data, specimen='sputum')
-
-# Clearance curve
-plt.sca(axes[1, 1])
-sh.plot_clearance_curve(data, specimen='sputum')
-
-plt.tight_layout()
-plt.savefig('shedding_analysis.png', dpi=300)</code></pre>
     </div>
   </div>
 </section>
