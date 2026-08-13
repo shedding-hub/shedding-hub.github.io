@@ -1,4 +1,7 @@
 _datasets/
+# Fetched from the data repository by `make ^_datasets-yaml`, like _datasets.
+assets/figures/
+_data/figures.json
 _site/
 .bundle/
 .claude/
