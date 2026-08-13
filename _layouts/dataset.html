@@ -11,16 +11,86 @@ layout: default
 
     <h2 class="has-text-primary">Analytes</h2>
 
-    <div class="grid is-col-min-18">
+    {% comment %}
+    One analyte per row rather than a two-column grid: each panel carries a
+    figure whose legend lists every fitted parameter, and at half the container
+    width that legend is too small to read.
+    {% endcomment %}
+    <div>
       {% for analyte_hash in page.analytes %}
       {% assign analyte = analyte_hash[1] %}
-      <div class="cell">
+      <div class="mb-5">
         <div id="{{ analyte_hash[0] }}" class="panel is-primary">
           <p class="panel-heading"><code>{{ analyte_hash[0] }}</code></p>
 
           <div class="panel-block">
             {{ analyte.description | markdownify }}
           </div>
+
+          {% comment %}
+          Figures are built in the data repository by `make figures` and
+          unpacked here by `make ^_datasets-yaml`; this site has no Python to
+          regenerate them with. An analyte carries either one figure per fitted
+          model -- default first, richest model first -- or a single
+          observations-only figure where no fit exists, which is the case for 88
+          of the repository's 216 analytes.
+          {% endcomment %}
+          {% assign dataset_figures = site.data.figures[page.slug] %}
+          {% if dataset_figures %}
+          {% for entry in dataset_figures.analytes %}
+          {% if entry.analyte == analyte_hash[0] and entry.figures.size > 0 %}
+          <div class="panel-block is-block shedding-figure">
+
+            {% if entry.figures.size > 1 %}
+            <div class="tabs is-small is-toggle is-centered mb-2">
+              <ul>
+                {% for figure in entry.figures %}
+                <li{% if forloop.first %} class="is-active"{% endif %}>
+                  <a data-model="{{ figure.model }}">{{ figure.model | replace: "_", " " }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            {% comment %}
+            Linked to the full-size image because these panels sit two to a row:
+            at that width the legend, which carries every fitted parameter, is
+            too small to read. Opening in a new tab keeps the dataset page.
+            {% endcomment %}
+            {% for figure in entry.figures %}
+            {% assign figure_url = '/assets/figures/' | append: page.slug | append: '/' | append: figure.file | relative_url %}
+            <a href="{{ figure_url }}" target="_blank" rel="noopener"
+               class="figure-link" data-model="{{ figure.model }}" title="Open full size"
+               style="display: {% if forloop.first %}block{% else %}none{% endif %};">
+              <img src="{{ figure_url }}"
+                   alt="{{ figure.model | replace: '_', ' ' }} for {{ analyte_hash[0] }}"
+                   loading="lazy" style="width: 100%;">
+            </a>
+            {% endfor %}
+
+            <p class="is-size-7 has-text-grey mt-2">
+              {% if entry.figures.first.model == "observations" %}
+              Measurements only — no shedding model is fitted to this analyte,
+              usually because it is sampled once per participant, leaving no
+              trajectory to fit, or because nothing was ever detected. Open
+              triangles are non-detects, drawn at the assay's censoring limit.
+              {% else %}
+              Fitted by censored maximum likelihood. The red line is the median
+              individual; the shaded region is the full range of a simulated
+              cohort drawn from the fitted population, so it shows what
+              simulating from this dataset would produce rather than a
+              confidence interval, with dashed lines at the central 95%. Open
+              triangles are non-detects, drawn at the censoring limit and
+              entering the fit as "below this value" rather than being dropped.
+              {% endif %}
+              See the <a href="https://shedding-hub.readthedocs.io/en/latest/modeling-methods/">modelling
+              methods</a> for what these estimates do and do not support.
+            </p>
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
 
           <!-- calculate all the summary statistics in liquid -->
           {% assign num_participants = 0 %}
@@ -138,3 +208,27 @@ layout: default
 
   </div>
 </section>
+
+<script>
+  // Model selector for analytes with more than one fit. Scoped to each figure
+  // block so several analytes on one page switch independently -- a dataset can
+  // carry fourteen of them.
+  for (const block of document.querySelectorAll(".shedding-figure")) {
+    const tabs = block.querySelectorAll(".tabs a");
+    if (!tabs.length) continue;
+    for (const tab of tabs) {
+      tab.addEventListener("click", (event) => {
+        event.preventDefault();
+        const wanted = tab.dataset.model;
+        for (const other of tabs) {
+          other.parentElement.classList.toggle("is-active", other === tab);
+        }
+        // .figure-link, not a[data-model]: the tab anchors carry data-model
+        // too, so the looser selector hid every tab but the selected one.
+        for (const link of block.querySelectorAll("a.figure-link")) {
+          link.style.display = link.dataset.model === wanted ? "block" : "none";
+        }
+      });
+    }
+  }
+</script>
