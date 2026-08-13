@@ -490,22 +490,34 @@
 
         this.cards.forEach(card => {
           const title = card.querySelector('.title')?.textContent.toLowerCase() || '';
-          const description = card.querySelector('.content')?.textContent.toLowerCase() || '';
-          const biomarkers = card.dataset.biomarkers?.toLowerCase() || '';
-          const specimens = card.dataset.specimens?.toLowerCase() || '';
+          const slug = (card.dataset.slug || '').toLowerCase();
+          // Whole values rather than a substring of the joined list. Several
+          // biomarkers here contain another as a substring -- "rotavirus" sits
+          // inside both "rotavirus vaccine" and "Lanzhou lamb rotavirus
+          // vaccine", "SARS" inside "SARS-CoV-2" -- so a substring test handed
+          // vaccine-shedding studies to someone filtering for the virus, and
+          // nearly the whole repository to someone filtering for SARS.
+          // Specimens collide too: "rectal_swab" inside "anorectal_swab".
+          const biomarkers = (card.dataset.biomarkers || '')
+            .split(',').map(value => value.trim()).filter(Boolean);
+          const specimens = (card.dataset.specimens || '')
+            .split(',').map(value => value.trim()).filter(Boolean);
 
-          // Text search match
+          // Identifier or title, and deliberately not the description: that is
+          // a paragraph of prose which names related pathogens and methods, so
+          // searching it returned studies that merely mention a term alongside
+          // the ones actually about it.
           const searchMatch = !searchTerm ||
-                             title.includes(searchTerm) ||
-                             description.includes(searchTerm);
+                             slug.includes(searchTerm) ||
+                             title.includes(searchTerm);
 
-          // Biomarker filter match
+          // Exact and case-sensitive: both sides are the same YAML field, so
+          // folding case could only introduce a mismatch.
           const biomarkerMatch = !biomarkerFilter ||
-                                biomarkers.includes(biomarkerFilter.toLowerCase());
+                                biomarkers.includes(biomarkerFilter);
 
-          // Specimen filter match
           const specimenMatch = !specimenFilter ||
-                               specimens.includes(specimenFilter.toLowerCase());
+                               specimens.includes(specimenFilter);
 
           // Show/hide card
           if (searchMatch && biomarkerMatch && specimenMatch) {
