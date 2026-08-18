@@ -10,6 +10,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/logo/apple-touch-icon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E21FCTQSC6"></script>
   <script>
@@ -44,31 +48,77 @@
       </div>
       <div id="navMenu" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="/datasets.html">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fa-solid fa-database"></i>
+          <!-- Data and Package are the two most developed areas, so they lead and
+               carry the emphasis; each parent stays a real link to its own page. -->
+          <div class="navbar-item has-dropdown is-hoverable nav-group is-primary-area">
+            <a class="navbar-link" href="/datasets.html">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-solid fa-database"></i>
+                </span>
+                <span>Data</span>
               </span>
-              <span>Datasets</span>
-            </span>
-          </a>
-          <a class="navbar-item" href="/curation.html">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fa-solid fa-robot"></i>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/datasets.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-table-list"></i></span>
+                  <span>Browse datasets</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="/fits.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-chart-area"></i></span>
+                  <span>Fitted curves</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="/curation.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-robot"></i></span>
+                  <span>AI curation</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="/vocab/index.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-language"></i></span>
+                  <span>Vocabulary</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div class="navbar-item has-dropdown is-hoverable nav-group is-primary-area">
+            <a class="navbar-link" href="/package.html">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fab fa-python"></i>
+                </span>
+                <span>Package</span>
               </span>
-              <span>AI Curation</span>
-            </span>
-          </a>
-          <a class="navbar-item" href="/vocab/index.html">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fa-solid fa-language"></i>
-              </span>
-              <span>Vocabulary</span>
-            </span>
-          </a>
-          <a class="navbar-item" href="/model.html">
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/package.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-cube"></i></span>
+                  <span>Overview</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="https://shedding-hub.readthedocs.io/" target="_blank" rel="noopener">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-book"></i></span>
+                  <span>Documentation</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="https://pypi.org/project/shedding-hub/" target="_blank" rel="noopener">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-box-open"></i></span>
+                  <span>PyPI</span>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <a class="navbar-item nav-group" href="/model.html">
             <span class="icon-text">
               <span class="icon">
                 <i class="fa-solid fa-chart-line"></i>
@@ -76,30 +126,40 @@
               <span>Models</span>
             </span>
           </a>
-          <a class="navbar-item" href="/package.html">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fab fa-python"></i>
+
+          <div class="navbar-item has-dropdown is-hoverable nav-group">
+            <a class="navbar-link" href="/team.html">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa-solid fa-people-group"></i>
+                </span>
+                <span>About</span>
               </span>
-              <span>Package</span>
-            </span>
-          </a>
-          <a class="navbar-item" href="/team.html">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fa-solid fa-people-group"></i>
-              </span>
-              <span>Team</span>
-            </span>
-          </a>
-          <a class="navbar-item" href="https://github.com/shedding-hub/shedding-hub" target="_blank" rel="noopener">
-            <span class="icon-text">
-              <span class="icon">
-                <i class="fab fa-github"></i>
-              </span>
-              <span>GitHub</span>
-            </span>
-          </a>
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="/team.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-people-group"></i></span>
+                  <span>Team</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="https://github.com/shedding-hub/shedding-hub" target="_blank" rel="noopener">
+                <span class="icon-text">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>GitHub</span>
+                </span>
+              </a>
+              <a class="navbar-item" href="/terms.html">
+                <span class="icon-text">
+                  <span class="icon"><i class="fa-solid fa-file-contract"></i></span>
+                  <span>Terms of use</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="navbar-end">
           <a class="navbar-item" id="theme-toggle" title="Toggle theme" style="cursor: pointer;">
             <span class="icon-text">
               <span class="icon">
@@ -126,61 +186,175 @@
     /* CSS Variables for Theme System */
     :root {
       /* Light theme colors (default) */
-      --bg-primary: #F8FAFC;
-      --bg-secondary: #F1F5F9;
-      --bg-tertiary: #EDEFF3;
+      --bg-primary: #F7F9FA;
+      --bg-secondary: #EDF2F4;
+      --bg-tertiary: #E4EBEE;
       --bg-card: #FFFFFF;
-      --bg-hero: #f4f4f4;
-      --bg-section-alt: #f2f4fa;
+      --bg-hero: #EFF4F6;
+      --bg-section-alt: #EDF2F4;
 
-      --text-primary: #363636;
-      --text-secondary: #4a4a4a;
-      --text-light: #7a7a7a;
+      --text-primary: #1B2C33;
+      --text-secondary: #3D5560;
+      /* Darkened from #6B818B: eyebrows and stat labels measured 3.9-4.1:1 there,
+         under the 4.5:1 AA threshold for small text. */
+      --text-light: #566B75;
       --text-inverse: #ffffff;
 
-      --border-color: #dbdbdb;
-      --border-light: #f0f0f0;
+      --border-color: #D3DEE3;
+      --border-light: #E8EEF1;
 
-      --primary-color: #485fc7;
-      --primary-hover: #3e4eb8;
+      /* Tuned to the brand ink rather than Bulma's stock indigo, which fought
+         the teal logo on every page. */
+      --primary-color: #1F6F8B;
+      --primary-hover: #175972;
 
       --logo-ink: #214A5B;
 
-      --shadow: rgba(10, 10, 10, 0.1);
-      --shadow-hover: rgba(10, 10, 10, 0.2);
+      /* Bulma 1.x derives every is-primary component from these, so retuning them
+         here is what actually moves buttons and tags off the stock green. */
+      --bulma-primary-h: 196deg;
+      --bulma-primary-s: 64%;
+      --bulma-primary-l: 33%;
+      /* Inline text links run bluer than the brand teal. The teal is right for
+         buttons and chrome, but as body-copy link color it reads as ordinary
+         emphasis rather than something you can click. */
+      --link-color: #1565A8;
+      --link-hover: #0F4F85;
+      --bulma-link-h: 208deg;
+      --bulma-link-s: 78%;
+      --bulma-link-l: 37%;
+      /* Pinned: Bulma derives link-text by lightening the link color, which put
+         body links at 2.25:1 on this near-white page. */
+      --bulma-link-text: #1565A8;
+
+      --shadow: rgba(20, 40, 50, 0.1);
+      --shadow-hover: rgba(20, 40, 50, 0.2);
+
+      /* Typography */
+      --font-display: 'Archivo', system-ui, -apple-system, sans-serif;
+      --font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
     }
 
     [data-theme="dark"] {
       /* Dark theme colors */
-      --bg-primary: #1a1a1a;
-      --bg-secondary: #242424;
-      --bg-tertiary: #2e2e2e;
-      --bg-card: #222121;
-      --bg-hero: #1f1f1f;
-      --bg-section-alt: #1c1c1c;
+      --bg-primary: #12181B;
+      --bg-secondary: #1A2226;
+      --bg-tertiary: #232D32;
+      --bg-card: #1B2429;
+      --bg-hero: #151D21;
+      --bg-section-alt: #1A2226;
 
-      --text-primary: #e0e0e0;
-      --text-secondary: #b0b0b0;
-      --text-light: #909090;
-      --text-inverse: #1a1a1a;
+      --text-primary: #DFE7EA;
+      --text-secondary: #AFC0C7;
+      --text-light: #8598A0;
+      --text-inverse: #12181B;
 
-      --border-color: #404040;
-      --border-light: #353535;
+      --border-color: #2E3A40;
+      --border-light: #263136;
 
-      --primary-color: #6397f8;
-      --primary-hover: #4f85e6;
+      --primary-color: #6FB3CC;
+      --primary-hover: #8AC5DA;
 
       --logo-ink: #9CC7D8;
 
-      --shadow: rgba(0, 0, 0, 0.3);
-      --shadow-hover: rgba(0, 0, 0, 0.5);
+      --bulma-primary-h: 196deg;
+      --bulma-primary-s: 48%;
+      --bulma-primary-l: 62%;
+      --link-color: #7FB8EC;
+      --link-hover: #9FCCF5;
+      --bulma-link-h: 208deg;
+      --bulma-link-s: 75%;
+      --bulma-link-l: 71%;
+      --bulma-link-text: #7FB8EC;
+
+      --shadow: rgba(0, 0, 0, 0.35);
+      --shadow-hover: rgba(0, 0, 0, 0.55);
     }
 
     /* Apply theme variables to global elements */
     body {
       background-color: var(--bg-primary);
       color: var(--text-primary);
+      font-family: var(--font-body);
       transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .title,
+    .subtitle,
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-display);
+      letter-spacing: -0.015em;
+    }
+
+    .title {
+      font-weight: 700;
+    }
+
+    /* Every count and identifier is a measured quantity, so it is set in mono with
+       tabular figures: columns line up and numbers read as data, not prose. */
+    code,
+    pre,
+    .separate-thousands,
+    .is-data {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum" 1;
+    }
+
+    /* Bulma sets inline code in red, which fought the teal once code became a
+       prominent mono face rather than an incidental one. */
+    code {
+      background-color: var(--bg-secondary);
+      color: var(--text-secondary);
+    }
+
+    pre {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    pre code {
+      background-color: transparent;
+    }
+
+    /* Inline links in running text. Scoped to prose so it never repaints the
+       navbar, buttons, or cards that are themselves the click target. */
+    .content a,
+    .hero-caption a {
+      color: var(--link-color);
+    }
+
+    .content a:hover,
+    .hero-caption a:hover {
+      color: var(--link-hover);
+    }
+
+    .hero-caption a {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+
+    /* Section eyebrows are set like axis labels on a figure. */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* The limit-of-detection motif: below this line a measurement is censored
+       rather than zero. It divides the page the way it divides a shedding plot. */
+    .lod-rule {
+      height: 0;
+      margin: 0;
+      border: 0;
+      border-top: 1px dashed var(--border-color);
+      opacity: 0.9;
     }
 
     .hero.is-light {
@@ -242,6 +416,55 @@
       background-color: var(--bg-secondary) !important;
     }
 
+    .nav-group > .navbar-link,
+    a.navbar-item.nav-group {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    /* Data and Package are where the work is; the underline says so without
+       shouting, and only on the two of them. */
+    .nav-group.is-primary-area > .navbar-link,
+    a.navbar-item.nav-group.is-primary-area {
+      color: var(--primary-color);
+    }
+
+    .nav-group.is-primary-area > .navbar-link::after {
+      border-color: var(--primary-color);
+    }
+
+    .navbar-dropdown {
+      background-color: var(--bg-card);
+      border-top-color: var(--primary-color);
+      box-shadow: 0 0.5em 1.25em var(--shadow);
+      /* Bulma sizes the dropdown to its parent, which is narrower than the
+         longest label. */
+      min-width: max-content;
+    }
+
+    .navbar-dropdown .navbar-item {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Bulma's .icon-text wraps by default, which broke the icon onto its own
+       line above the label inside the dropdown. */
+    .navbar-item .icon-text,
+    .navbar-link .icon-text {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .navbar-dropdown .navbar-item:hover {
+      color: var(--primary-color);
+    }
+
+    .navbar-link:not(.is-arrowless)::after {
+      border-color: currentColor;
+    }
+
     /* Brand lockup: curve mark + wordmark.
        The mark is a single alpha mask tinted with --logo-ink, so it follows the
        theme without shipping a second copy of the artwork. */
@@ -301,14 +524,34 @@
       border-color: var(--border-color);
     }
 
-    [data-theme="dark"] .button.is-primary {
-      background-color: var(--primary-color);
-      color: white;
+    /* Bulma picked near-black as the invert for the light-theme primary, giving
+       3.22:1. White on this teal measures 5.8:1. */
+    :root:not([data-theme="dark"]) .button.is-primary {
+      color: #ffffff;
     }
 
-    /* Primary background section overrides */
+    /* The dark-theme primary is a light blue, so it takes dark text. White here
+       measured 2.33:1, below the AA threshold. */
+    [data-theme="dark"] .button.is-primary {
+      background-color: var(--primary-color);
+      color: var(--text-inverse);
+    }
+
+    [data-theme="dark"] .button.is-primary:hover {
+      background-color: var(--primary-hover);
+      color: var(--text-inverse);
+    }
+
+    /* Primary background section overrides. Kept in the brand's teal family so
+       full-bleed primary bands do not fall back to Bulma's stock hue. */
     [data-theme="dark"] .has-background-primary {
-      background-color: #2a4a8a !important;
+      background-color: #17414F !important;
+    }
+
+    /* Scoped away from the dark rule: both carry !important, and at equal
+       specificity source order alone would decide the winner. */
+    :root:not([data-theme="dark"]) .has-background-primary {
+      background-color: #1F6F8B !important;
     }
 
     /* Only apply white text to direct section headings and paragraphs in primary sections, not cards */
@@ -422,15 +665,112 @@
 
     // Datasets Filter Module
     const DatasetsFilter = {
+      // Cards are filtered in the browser rather than paginated on the server, so
+      // a search always covers every dataset instead of only the current page.
+      PAGE_SIZE: 24,
+
       init() {
         this.cards = document.querySelectorAll('.dataset-card');
         this.searchInput = document.getElementById('search-input');
         this.biomarkerSelect = document.getElementById('biomarker-filter');
         this.specimenSelect = document.getElementById('specimen-filter');
         this.resultsCount = document.getElementById('results-count');
+        this.emptyNotice = document.getElementById('datasets-empty');
+        this.pager = document.getElementById('datasets-pager');
+        this.pagerPages = document.getElementById('pager-pages');
+        this.pagerPrev = document.getElementById('pager-prev');
+        this.pagerNext = document.getElementById('pager-next');
+
+        this.matching = Array.from(this.cards);
+        this.page = 1;
 
         this.attachEventListeners();
+        this.attachPagerListeners();
         this.populateFilterDropdowns();
+        this.applyFilters();
+      },
+
+      attachPagerListeners() {
+        if (this.pagerPrev) {
+          this.pagerPrev.addEventListener('click', () => this.goToPage(this.page - 1));
+        }
+        if (this.pagerNext) {
+          this.pagerNext.addEventListener('click', () => this.goToPage(this.page + 1));
+        }
+      },
+
+      totalPages() {
+        return Math.max(1, Math.ceil(this.matching.length / this.PAGE_SIZE));
+      },
+
+      goToPage(page) {
+        const total = this.totalPages();
+        this.page = Math.min(Math.max(1, page), total);
+        this.render();
+        // Return to the top of the list rather than leaving the reader stranded
+        // wherever the previous page happened to end.
+        const container = document.getElementById('datasets-container');
+        if (container) {
+          const top = container.getBoundingClientRect().top + window.scrollY - 140;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      },
+
+      // Shows every card that both matches the filters and falls on the current
+      // page. Hiding is a single pass over all cards so no card can be left
+      // visible from a previous state.
+      render() {
+        const start = (this.page - 1) * this.PAGE_SIZE;
+        const end = start + this.PAGE_SIZE;
+        const onPage = new Set(this.matching.slice(start, end));
+
+        this.cards.forEach(card => {
+          card.classList.toggle('is-hidden', !onPage.has(card));
+        });
+
+        if (this.resultsCount) {
+          this.resultsCount.textContent = this.matching.length;
+        }
+        if (this.emptyNotice) {
+          this.emptyNotice.hidden = this.matching.length !== 0;
+        }
+        this.renderPager();
+      },
+
+      renderPager() {
+        if (!this.pager) return;
+        const total = this.totalPages();
+
+        this.pager.hidden = this.matching.length <= this.PAGE_SIZE;
+        this.pagerPrev.disabled = this.page <= 1;
+        this.pagerNext.disabled = this.page >= total;
+
+        this.pagerPages.innerHTML = '';
+        // Below the threshold every page is listed. Collapsing a single page
+        // behind an ellipsis costs the same width and just hides where you are.
+        const shown = total <= 7
+          ? new Set(Array.from({ length: total }, (_, i) => i + 1))
+          : new Set([1, total, this.page, this.page - 1, this.page + 1]);
+        let previous = 0;
+        for (let n = 1; n <= total; n++) {
+          if (!shown.has(n)) continue;
+          if (n - previous > 1) {
+            const gap = document.createElement('span');
+            gap.className = 'pager-ellipsis';
+            gap.textContent = '…';
+            this.pagerPages.appendChild(gap);
+          }
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'pager-page';
+          button.textContent = n;
+          if (n === this.page) {
+            button.setAttribute('aria-current', 'page');
+          }
+          button.addEventListener('click', () => this.goToPage(n));
+          this.pagerPages.appendChild(button);
+          previous = n;
+        }
       },
 
       attachEventListeners() {
@@ -486,7 +826,7 @@
         const biomarkerFilter = this.biomarkerSelect?.value || '';
         const specimenFilter = this.specimenSelect?.value || '';
 
-        let visibleCount = 0;
+        const matching = [];
 
         this.cards.forEach(card => {
           const title = card.querySelector('.title')?.textContent.toLowerCase() || '';
@@ -519,19 +859,16 @@
           const specimenMatch = !specimenFilter ||
                                specimens.includes(specimenFilter);
 
-          // Show/hide card
           if (searchMatch && biomarkerMatch && specimenMatch) {
-            card.classList.remove('is-hidden');
-            visibleCount++;
-          } else {
-            card.classList.add('is-hidden');
+            matching.push(card);
           }
         });
 
-        // Update results count
-        if (this.resultsCount) {
-          this.resultsCount.textContent = visibleCount;
-        }
+        // A narrower filter can leave fewer pages than the one being viewed, so
+        // every filter change returns to the first page of the new result set.
+        this.matching = matching;
+        this.page = 1;
+        this.render();
       }
     };
 

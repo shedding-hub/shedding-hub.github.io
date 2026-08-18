@@ -20,7 +20,7 @@ bundle exec jekyll serve
 The site uses a Makefile to fetch and process dataset YAML files from the main shedding-hub repository:
 
 ```bash
-# Download dataset YAML files from shedding-hub repository
+# Download dataset YAMLs, figures, and the fitted-parameter catalog
 make ^_datasets-yaml
 
 # Convert YAML files to markdown for Jekyll collection
@@ -29,6 +29,12 @@ make _datasets
 # Clean generated files
 make clean
 ```
+
+The `_datasets/%.md` rule builds front matter with `printf`, not `echo`. Only some
+shells expand `\n` in `echo`; the ones that do not (Git Bash, for one) write a
+literal `---\n`, which Jekyll reads as malformed front matter and then drops every
+dataset from the collection **silently** — a site that builds cleanly with an empty
+catalog. If the dataset count ever renders as zero, check that first.
 
 By default, datasets are fetched from the `main` branch. To use a different branch:
 
@@ -59,10 +65,62 @@ The workflow triggers on:
 
 ### Site Structure
 
-- `index.md`: Homepage displaying all datasets with summary statistics (measurements, participants, studies)
+- `index.md`: Homepage. Every catalog figure it shows (studies, participants, measurements, pathogens, specimen types) is computed in Liquid from `site.datasets` at build time, so pushing datasets updates the page with no edits.
 - `team.md`: Team member profiles pulled from `_data/team.yaml`
 - `model.md`: Shedding models and tutorials (Bayesian workflows, time-course modeling)
+- `datasets.html`: The catalog. Cards are rendered for every dataset and then filtered and paginated **in the browser** (`DatasetsFilter` in the default layout, 24 per page). Pagination is deliberately not server-side: the search and biomarker/specimen filters must cover every dataset, not just the page being viewed. Any filter change resets to page one, since a narrower result set can have fewer pages than the one on screen.
+- `fits.html`: One row per fitted analyte, from `_data/shedding_catalog.yaml`, with client-side filtering and column sorting.
+- `curation.html`: AI curation pipeline
 - `vocab/`: Controlled vocabulary for shedding studies (SKOS-based ontology published at BioPortal)
+
+### Derived Counts
+
+Manual biocuration closed at a fixed number of studies; everything curated since is
+AI-assisted. `manual_curated_count` in `_config.yml` holds that constant, and both
+`index.md` and `curation.html` derive the AI-curated count as
+`site.datasets | size | minus: site.manual_curated_count`. Do not hardcode either
+number in a page — bump the constant only if the manual benchmark itself changes.
+
+### Two Sources of Fit Data
+
+There are two, they disagree, and that is expected:
+
+- `_data/figures.json` — the figure index, rebuilt whenever datasets land, so it
+  **leads**. Counts fitted curve images. Has no parameters. Use it for headline
+  counts of how much is fitted.
+- `_data/shedding_catalog.yaml` — the catalog the Python package ships, rebuilt at
+  each package release, so it **lags**. The only source of fit parameters (peak,
+  sigma, censoring limit, AIC, subject and measurement counts).
+
+At the time of writing the index held 197 curves across 68 studies while the catalog
+held 144 fits across 48 studies. `fits.html` states both rather than picking one, so
+neither the coverage nor the parameter table misrepresents the other. Do not "fix"
+the gap by making one number match the other.
+
+### Homepage Hero
+
+The hero plots real measurements from a reference dataset rather than decorative
+artwork. `tools/make_hero_trace.py` reads one study out of `_datasets/` and writes
+normalized SVG coordinates to `_data/hero_trace.yaml`, which `index.md` renders as
+paths. The output is committed because CI builds with Ruby only and has no Python;
+regenerate with `make hero-trace` after `make ^_datasets-yaml`, and only when
+changing the featured study or the plot geometry.
+
+### Design Tokens
+
+`_layouts/default.html` defines the palette, typography, and theme variables for the
+whole site. Two things there are easy to break:
+
+- Bulma 1.x derives `is-primary` and `is-link` components from its own
+  `--bulma-*-h/s/l` variables, so retuning `--primary-color` alone does not move
+  buttons or tags off Bulma's stock hue. Both sets are defined together.
+- `--bulma-link-text` and the primary button text colors are pinned explicitly.
+  Bulma's automatic derivations produced link and button contrast below the WCAG AA
+  4.5:1 threshold against this palette.
+
+Light-theme rules that override a `[data-theme="dark"]` rule must be scoped
+`:root:not([data-theme="dark"])`. At equal specificity with matching `!important`,
+source order alone decides the winner and the dark theme silently loses.
 
 ### Layouts
 

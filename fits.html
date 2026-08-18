@@ -1,0 +1,409 @@
+---
+layout: default
+title: Fitted Curves - Shedding Hub
+---
+
+{%- comment -%}
+  Two sources, deliberately. The figure index is rebuilt whenever datasets land,
+  so it leads. The catalog is rebuilt when the Python package is released, so it
+  lags but is the only place fit parameters live. The page reports both rather
+  than picking one and quietly under- or over-stating coverage.
+{%- endcomment -%}
+{% assign catalog = site.data.shedding_catalog.fits %}
+{% assign num_catalog = catalog | size %}
+{% assign catalog_datasets = catalog | map: "dataset_id" | uniq | size %}
+{% assign num_exponential = catalog | where: "model", "exponential" | size %}
+{% assign num_gamma = catalog | where: "model", "gamma" | size %}
+{% assign num_gamma_shifted = catalog | where: "model", "gamma_shifted" | size %}
+
+{% assign num_curves = 0 %}
+{% assign curve_datasets_raw = "" %}
+{% if site.data.figures %}
+  {% capture curve_datasets_raw %}{% for entry in site.data.figures %}{% assign has_fit = false %}{% for analyte in entry[1].analytes %}{% assign fitted = analyte.figures | where_exp: "figure", "figure.model != 'observations'" %}{% assign n = fitted | size %}{% assign num_curves = num_curves | plus: n %}{% if n > 0 %}{% assign has_fit = true %}{% endif %}{% endfor %}{% if has_fit %}{{ entry[0] }},{% endif %}{% endfor %}{% endcapture %}
+{% endif %}
+{% assign curve_datasets = curve_datasets_raw | split: "," | size %}
+
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h1 class="title is-size-1 mb-4">Fitted curves</h1>
+      <p class="subtitle is-size-4">
+        Rise-and-decay models fitted to every analyte with enough data, with the
+        parameters a transmission or wastewater model consumes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <span class="eyebrow">How to read this</span>
+    <h2 class="title is-4">What is in the table</h2>
+    <div class="content">
+      <p>
+        One row per fitted analyte. Each fit is a censored maximum-likelihood fit of a
+        shedding curve to one biomarker in one specimen from one study, so the same study
+        appears once per analyte and once per model.
+      </p>
+      <ul>
+        <li><strong>Peak</strong> is the population mean peak concentration, log<sub>10</sub> of the analyte's own unit.</li>
+        <li><strong>&sigma;</strong> is the residual scale &mdash; larger means the individual measurements scatter further from the fitted curve.</li>
+        <li><strong>Limit</strong> is the censoring limit, below which a measurement counts as a non-detect rather than a number.</li>
+        <li><strong>AIC</strong> compares models fitted to the <em>same</em> analyte. Lower is better. It is meaningless across different analytes.</li>
+      </ul>
+      <p>
+        To see a fit plotted against the underlying measurements, open the study with
+        <strong>Explore dataset</strong> from the <a href="/datasets.html">datasets page</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <span class="eyebrow">Coverage</span>
+    <h2 class="title is-4 mb-5">How much is fitted</h2>
+    {% if num_catalog == 0 %}
+    <div class="stat-grid">
+      <div class="stat">
+        <p class="stat-value is-data">{{ num_curves }}</p>
+        <p class="stat-label">Curves plotted</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value is-data">{{ curve_datasets }}</p>
+        <p class="stat-label">Studies covered</p>
+      </div>
+    </div>
+    {% else %}
+    <div class="stat-grid">
+      <div class="stat">
+        <p class="stat-value is-data">{{ num_catalog }}</p>
+        <p class="stat-label">Fits with parameters</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value is-data">{{ num_exponential }}</p>
+        <p class="stat-label">Exponential</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value is-data">{{ num_gamma }}</p>
+        <p class="stat-label">Gamma</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value is-data">{{ num_gamma_shifted }}</p>
+        <p class="stat-label">Gamma shifted</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value is-data">{{ catalog_datasets }}</p>
+        <p class="stat-label">Studies covered</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if num_curves > num_catalog and num_catalog > 0 %}
+    <div class="content mt-5">
+      <p class="is-size-7 has-text-grey">
+        The repository currently renders <strong>{{ num_curves }}</strong> fitted curves across
+        <strong>{{ curve_datasets }}</strong> studies. The {{ num_catalog }} rows below are the
+        subset whose parameters ship in the released Python package; the catalog is rebuilt at
+        each release, so studies added since then have plotted curves on their dataset pages but
+        no published parameters yet.
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if num_catalog == 0 %}
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="notification is-warning is-light">
+      <p>
+        <strong>The fitted-parameter catalog is not available in this build.</strong>
+      </p>
+      <p class="mt-2">
+        It is fetched from the data repository by <code>make ^_datasets-yaml</code>, which
+        copies <code>shedding_hub/data/shedding_catalog.yaml</code> into <code>_data/</code>.
+        A <code>DATA_REF</code> that predates the catalog will not have it.
+        {% if num_curves > 0 %}
+        The fitted curves themselves are unaffected &mdash; {{ num_curves }} of them are
+        plotted on their <a href="/datasets.html">dataset pages</a>.
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</section>
+{% else %}
+<section class="section">
+  <!-- Wider than the prose sections: at desktop width all twelve columns fit
+       without sideways scrolling, which is the point of the table. -->
+  <div class="container fits-container">
+    <div class="field is-horizontal fits-filters">
+      <div class="control">
+        <div class="select">
+          <select id="fits-biomarker"><option value="">All biomarkers</option></select>
+        </div>
+      </div>
+      <div class="control">
+        <div class="select">
+          <select id="fits-specimen"><option value="">All specimens</option></select>
+        </div>
+      </div>
+      <div class="control">
+        <div class="select">
+          <select id="fits-model"><option value="">All models</option></select>
+        </div>
+      </div>
+      <div class="control">
+        <p class="help"><strong><span id="fits-count">{{ num_catalog }}</span> fits</strong></p>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table class="table is-fullwidth is-striped is-narrow fits-table" id="fits-table">
+        <thead>
+          <tr>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="0">Study</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="1">Biomarker</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="2">Specimen</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="3">Gene</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="4">Model</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="5">Peak</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="6">&sigma;</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="7">Limit</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="8">Subjects</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="9">Meas.</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="10">Cens.</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="11">AIC</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fit in catalog %}
+          {%- comment -%}
+            peak_log10 sits at a different index in each model's coordinate vector,
+            so it is looked up by name rather than by position.
+          {%- endcomment -%}
+          {% assign peak = nil %}
+          {% for coord in fit.population_coords %}
+            {% if coord == "peak_log10" %}
+              {% assign peak = fit.population_mean[forloop.index0] %}
+            {% endif %}
+          {% endfor %}
+          <tr class="fits-row"
+              data-biomarker="{{ fit.biomarker }}"
+              data-specimen="{{ fit.specimen }}"
+              data-model="{{ fit.model }}">
+            <td><a href="/datasets/{{ fit.dataset_id }}.html"><code>{{ fit.dataset_id }}</code></a></td>
+            <td>{{ fit.biomarker }}</td>
+            <td>{{ fit.specimen }}</td>
+            <td>{% if fit.gene_target %}{{ fit.gene_target }}{% else %}<span class="has-text-grey">&mdash;</span>{% endif %}</td>
+            <td><span class="tag model-tag model-{{ fit.model }}">{{ fit.model | replace: "_", " " }}</span></td>
+            <td class="has-text-right is-data">{% if peak %}{{ peak | round: 2 }}{% else %}&mdash;{% endif %}</td>
+            <td class="has-text-right is-data">{{ fit.sigma | round: 2 }}</td>
+            <td class="has-text-right is-data">{{ fit.censoring_limit | round: 2 }}</td>
+            <td class="has-text-right is-data">{{ fit.n_subjects }}</td>
+            <td class="has-text-right is-data">{{ fit.n_measurements }}</td>
+            <td class="has-text-right is-data">{{ fit.n_censored }}</td>
+            <td class="has-text-right is-data">{{ fit.aic | round: 1 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <p id="fits-empty" class="notification is-light mt-4" hidden>
+      No fits match those filters. Clear one to widen the search.
+    </p>
+  </div>
+</section>
+{% endif %}
+
+<style>
+.fits-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.fits-filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.fits-filters .help {
+  color: var(--text-primary) !important;
+  font-size: 1rem !important;
+}
+
+/* The table is wider than a phone; it scrolls inside its own box rather than
+   making the whole page scroll sideways. */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.fits-table {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+}
+
+/* Text columns wrap so the numeric ones stay on screen; numbers and the model
+   tag never wrap, since a split figure is harder to read than a tall row. */
+.fits-table .has-text-right,
+.fits-table .model-tag {
+  white-space: nowrap;
+}
+
+.fits-table td:first-child {
+  word-break: break-all;
+}
+
+.fits-table td,
+.fits-table th {
+  padding: 0.45rem 0.6rem;
+}
+
+.fits-table thead th {
+  background-color: var(--bg-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.th-sort {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.th-sort:hover {
+  color: var(--primary-color);
+}
+
+.th-sort[aria-sort="ascending"]::after {
+  content: " \2191";
+  color: var(--primary-color);
+}
+
+.th-sort[aria-sort="descending"]::after {
+  content: " \2193";
+  color: var(--primary-color);
+}
+
+.fits-table td,
+.fits-table th {
+  border-color: var(--border-color) !important;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.fits-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.fits-table code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.model-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.fits-row.is-hidden {
+  display: none;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const table = document.getElementById('fits-table');
+  if (!table) return;
+
+  const rows = Array.from(table.querySelectorAll('.fits-row'));
+  const tbody = table.querySelector('tbody');
+  const count = document.getElementById('fits-count');
+  const empty = document.getElementById('fits-empty');
+  const selects = {
+    biomarker: document.getElementById('fits-biomarker'),
+    specimen: document.getElementById('fits-specimen'),
+    model: document.getElementById('fits-model')
+  };
+
+  // Options come from the rows themselves, so a filter can never offer a value
+  // that matches nothing.
+  Object.keys(selects).forEach(function (key) {
+    const values = Array.from(new Set(rows.map(function (row) {
+      return row.dataset[key];
+    }))).filter(Boolean).sort();
+    values.forEach(function (value) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value.replace(/_/g, ' ');
+      selects[key].appendChild(option);
+    });
+    selects[key].addEventListener('change', applyFilters);
+  });
+
+  function applyFilters() {
+    let visible = 0;
+    rows.forEach(function (row) {
+      const match = Object.keys(selects).every(function (key) {
+        return !selects[key].value || row.dataset[key] === selects[key].value;
+      });
+      row.classList.toggle('is-hidden', !match);
+      if (match) visible++;
+    });
+    count.textContent = visible;
+    empty.hidden = visible !== 0;
+  }
+
+  // Sorting acts on the full row set and reapplies filters afterwards, so a
+  // sort never resurrects a filtered-out row.
+  let sortColumn = null;
+  let ascending = true;
+
+  table.querySelectorAll('.th-sort').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const column = parseInt(button.dataset.column, 10);
+      const numeric = button.dataset.sort === 'number';
+      ascending = sortColumn === column ? !ascending : true;
+      sortColumn = column;
+
+      table.querySelectorAll('.th-sort').forEach(function (other) {
+        other.removeAttribute('aria-sort');
+      });
+      button.setAttribute('aria-sort', ascending ? 'ascending' : 'descending');
+
+      const sorted = rows.slice().sort(function (a, b) {
+        const x = a.children[column].textContent.trim();
+        const y = b.children[column].textContent.trim();
+        if (numeric) {
+          const nx = parseFloat(x);
+          const ny = parseFloat(y);
+          // Rows without a value sort last in both directions rather than
+          // pretending to be zero.
+          if (isNaN(nx) && isNaN(ny)) return 0;
+          if (isNaN(nx)) return 1;
+          if (isNaN(ny)) return -1;
+          return ascending ? nx - ny : ny - nx;
+        }
+        return ascending ? x.localeCompare(y) : y.localeCompare(x);
+      });
+
+      sorted.forEach(function (row) { tbody.appendChild(row); });
+      applyFilters();
+    });
+  });
+});
+</script>

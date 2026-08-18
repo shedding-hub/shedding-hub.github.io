@@ -29,8 +29,9 @@ title: AI Curation - Shedding Hub
           <span class="icon">
             <i class="fa-solid fa-check-circle"></i>
           </span>
-          <span><strong>Now Available:</strong> Three batches of AI-extracted datasets (45 in total) have been released!
-          Explore pathogen shedding data curated by our multi-agent system with human expert validation.</span>
+          <span><strong>Now Available:</strong> {{ site.datasets | size | minus: site.manual_curated_count }} AI-extracted
+          datasets have been released. Explore pathogen shedding data curated by our multi-agent system with
+          human expert validation.</span>
         </span>
       </div>
     </div>
@@ -397,7 +398,7 @@ title: AI Curation - Shedding Hub
           <tr>
             <td><strong>Manual Curated Benchmarks</strong></td>
             <td><span class="tag is-success">Completed</span></td>
-            <td>39 studies, 27,328 participants, 60,617 measurements</td>
+            <td>{{ site.manual_curated_count }} studies extracted by hand, the benchmark the pipeline is measured against</td>
           </tr>
           <tr>
             <td><strong>Controlled Vocabulary</strong></td>
@@ -422,7 +423,7 @@ title: AI Curation - Shedding Hub
           <tr>
             <td><strong>AI-Extracted Datasets</strong></td>
             <td><span class="tag is-success">Released</span></td>
-            <td>45 datasets across three batches, curated with AI assistance and human validation</td>
+            <td>{{ site.datasets | size | minus: site.manual_curated_count }} datasets curated with AI assistance and human validation</td>
           </tr>
         </tbody>
       </table>
