@@ -53,6 +53,15 @@ title: Fitted Curves - Shedding Hub
         shedding curve to one biomarker in one specimen from one study, so the same study
         appears once per analyte and once per model.
       </p>
+      {% if num_ct > 0 %}
+      <p>
+        The table opens on analytes reported as <strong>concentrations</strong>. Analytes
+        reported as <strong>cycle thresholds</strong> are here too, behind the first filter:
+        a Ct peak is measured in cycles below a reference rather than as a
+        log<sub>10</sub> concentration, so the two are never shown together unless you
+        ask for it.
+      </p>
+      {% else %}
       <p>
         The table covers analytes reported as <strong>concentrations</strong>. Analytes
         reported as <strong>cycle thresholds</strong> are fitted too &mdash; their curves are on
@@ -60,6 +69,7 @@ title: Fitted Curves - Shedding Hub
         rather than as a log<sub>10</sub> concentration, so they are kept in a separate
         catalog rather than mixed into these columns.
       </p>
+      {% endif %}
       <ul>
         <li>
           <strong>Analyte</strong> is what makes a row unique, and it is the identifier the
@@ -161,11 +171,20 @@ title: Fitted Curves - Shedding Hub
     <div class="content mt-5">
       <p class="is-size-7 has-text-grey">
         The repository renders <strong>{{ num_curves }}</strong> fitted curves across
-        <strong>{{ curve_datasets }}</strong> studies. The {{ num_catalog }} rows below are the
-        concentration fits, whose parameters ship in the Python package. The remainder are
-        cycle-threshold analytes: their peak is measured in cycles below a reference rather than
-        as a log<sub>10</sub> concentration, so they are fitted to a separate catalog that the
-        package does not ship. Their curves are still plotted on their dataset pages.
+        <strong>{{ curve_datasets }}</strong> studies.
+        {% if num_ct > 0 %}
+        The figure above counts the <strong>{{ num_catalog }}</strong> concentration fits, whose
+        parameters ship in the Python package. A further <strong>{{ num_ct }}</strong>
+        cycle-threshold fits are in the table behind the value-type filter; the package does not
+        ship those, because their peak is measured in cycles below a reference rather than as a
+        log<sub>10</sub> concentration.
+        {% else %}
+        The {{ num_catalog }} rows below are the concentration fits, whose parameters ship in the
+        Python package. The remainder are cycle-threshold analytes: their peak is measured in
+        cycles below a reference rather than as a log<sub>10</sub> concentration, so they are
+        fitted to a separate catalog that the package does not ship. Their curves are still
+        plotted on their dataset pages.
+        {% endif %}
       </p>
     </div>
     {% endif %}
