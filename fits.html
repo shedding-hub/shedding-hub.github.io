@@ -11,6 +11,14 @@ title: Fitted Curves - Shedding Hub
 {%- endcomment -%}
 {% assign catalog = site.data.shedding_catalog.fits %}
 {% assign num_catalog = catalog | size %}
+{%- comment -%}
+  Cycle-threshold fits, when the data repository publishes them. Kept as a
+  separate list rather than merged: a Ct peak is cycles below a reference, so it
+  shares the column with a log10 concentration but not the meaning, and the
+  value-type filter defaults to concentration so the two never mix unasked.
+{%- endcomment -%}
+{% assign ct_catalog = site.data.shedding_catalog_ct.fits %}
+{% assign num_ct = ct_catalog | size %}
 {% assign catalog_datasets = catalog | map: "dataset_id" | uniq | size %}
 {% assign num_exponential = catalog | where: "model", "exponential" | size %}
 {% assign num_gamma = catalog | where: "model", "gamma" | size %}
@@ -28,8 +36,8 @@ title: Fitted Curves - Shedding Hub
     <div class="container is-max-desktop">
       <h1 class="title is-size-1 mb-4">Fitted curves</h1>
       <p class="subtitle is-size-4">
-        Rise-and-decay models fitted to every analyte with enough data, with the
-        parameters a transmission or wastewater model consumes.
+        Rise-and-decay models fitted to every concentration analyte with enough data,
+        with the parameters a transmission or wastewater model consumes.
       </p>
     </div>
   </div>
@@ -45,15 +53,40 @@ title: Fitted Curves - Shedding Hub
         shedding curve to one biomarker in one specimen from one study, so the same study
         appears once per analyte and once per model.
       </p>
+      <p>
+        The table covers analytes reported as <strong>concentrations</strong>. Analytes
+        reported as <strong>cycle thresholds</strong> are fitted too &mdash; their curves are on
+        their dataset pages &mdash; but a Ct peak is measured in cycles below a reference
+        rather than as a log<sub>10</sub> concentration, so they are kept in a separate
+        catalog rather than mixed into these columns.
+      </p>
       <ul>
-        <li><strong>Peak</strong> is the population mean peak concentration, log<sub>10</sub> of the analyte's own unit.</li>
+        <li>
+          <strong>Analyte</strong> is what makes a row unique, and it is the identifier the
+          package uses. A study can measure the same pathogen in the same specimen several
+          ways &mdash; a different vaccine dose, gene target, assay, or patient subgroup &mdash;
+          and those differ only in this column.
+        </li>
+        <li>
+          <strong>Day 0</strong> is the event every time in the fit is measured from.
+          Studies anchor to symptom onset, enrollment, vaccination, inoculation and
+          others, so curves are only directly comparable when this matches.
+        </li>
+        <li>
+          <strong>Peak</strong> is the population mean peak concentration, log<sub>10</sub> of
+          the unit in the next column. Peaks in different units are not comparable.
+        </li>
         <li><strong>&sigma;</strong> is the residual scale &mdash; larger means the individual measurements scatter further from the fitted curve.</li>
         <li><strong>Limit</strong> is the censoring limit, below which a measurement counts as a non-detect rather than a number.</li>
         <li><strong>AIC</strong> compares models fitted to the <em>same</em> analyte. Lower is better. It is meaningless across different analytes.</li>
       </ul>
       <p>
+        Rows are sorted by study and analyte to begin with; any column header re-sorts,
+        and clicking it again reverses. Sorting keeps the current filters applied.
+      </p>
+      <p>
         To see a fit plotted against the underlying measurements, open the study with
-        <strong>Explore dataset</strong> from the <a href="/datasets.html">datasets page</a>.
+        <strong>Explore</strong> from the <a href="/datasets.html">datasets page</a>.
       </p>
     </div>
   </div>
@@ -75,37 +108,64 @@ title: Fitted Curves - Shedding Hub
       </div>
     </div>
     {% else %}
-    <div class="stat-grid">
-      <div class="stat">
-        <p class="stat-value is-data">{{ num_catalog }}</p>
-        <p class="stat-label">Fits with parameters</p>
+    {%- comment -%}
+      A headline figure with a part-to-whole bar rather than five equal boxes: the
+      model counts are shares of one total, and equal boxes hide that relationship.
+      One hue in three ordered steps, not three categorical hues, so the models
+      never read as pathogen colours from the tags elsewhere on the page.
+    {%- endcomment -%}
+    {% assign pct_exp = num_exponential | times: 100.0 | divided_by: num_catalog %}
+    {% assign pct_gam = num_gamma | times: 100.0 | divided_by: num_catalog %}
+    {% assign pct_gs = num_gamma_shifted | times: 100.0 | divided_by: num_catalog %}
+    <div class="coverage">
+      <div class="coverage-headline">
+        <p class="coverage-number is-data">{{ num_catalog }}</p>
+        <p class="coverage-caption">
+          fits carry published parameters, across
+          <strong class="is-data">{{ catalog_datasets }}</strong> studies
+        </p>
       </div>
-      <div class="stat">
-        <p class="stat-value is-data">{{ num_exponential }}</p>
-        <p class="stat-label">Exponential</p>
-      </div>
-      <div class="stat">
-        <p class="stat-value is-data">{{ num_gamma }}</p>
-        <p class="stat-label">Gamma</p>
-      </div>
-      <div class="stat">
-        <p class="stat-value is-data">{{ num_gamma_shifted }}</p>
-        <p class="stat-label">Gamma shifted</p>
-      </div>
-      <div class="stat">
-        <p class="stat-value is-data">{{ catalog_datasets }}</p>
-        <p class="stat-label">Studies covered</p>
+
+      <div class="coverage-breakdown">
+        <p class="coverage-title">By model</p>
+        <div class="model-bar" role="img"
+             aria-label="Exponential {{ num_exponential }} fits, gamma {{ num_gamma }}, gamma shifted {{ num_gamma_shifted }}">
+          <span class="model-seg seg-1" style="width: {{ pct_exp }}%"></span>
+          <span class="model-seg seg-2" style="width: {{ pct_gam }}%"></span>
+          <span class="model-seg seg-3" style="width: {{ pct_gs }}%"></span>
+        </div>
+        <ul class="model-key">
+          <li>
+            <span class="key-swatch seg-1"></span>
+            <span class="key-name">Exponential</span>
+            <span class="key-value is-data">{{ num_exponential }}</span>
+            <span class="key-pct is-data">{{ pct_exp | round }}%</span>
+          </li>
+          <li>
+            <span class="key-swatch seg-2"></span>
+            <span class="key-name">Gamma</span>
+            <span class="key-value is-data">{{ num_gamma }}</span>
+            <span class="key-pct is-data">{{ pct_gam | round }}%</span>
+          </li>
+          <li>
+            <span class="key-swatch seg-3"></span>
+            <span class="key-name">Gamma shifted</span>
+            <span class="key-value is-data">{{ num_gamma_shifted }}</span>
+            <span class="key-pct is-data">{{ pct_gs | round }}%</span>
+          </li>
+        </ul>
       </div>
     </div>
     {% endif %}
     {% if num_curves > num_catalog and num_catalog > 0 %}
     <div class="content mt-5">
       <p class="is-size-7 has-text-grey">
-        The repository currently renders <strong>{{ num_curves }}</strong> fitted curves across
+        The repository renders <strong>{{ num_curves }}</strong> fitted curves across
         <strong>{{ curve_datasets }}</strong> studies. The {{ num_catalog }} rows below are the
-        subset whose parameters ship in the released Python package; the catalog is rebuilt at
-        each release, so studies added since then have plotted curves on their dataset pages but
-        no published parameters yet.
+        concentration fits, whose parameters ship in the Python package. The remainder are
+        cycle-threshold analytes: their peak is measured in cycles below a reference rather than
+        as a log<sub>10</sub> concentration, so they are fitted to a separate catalog that the
+        package does not ship. Their curves are still plotted on their dataset pages.
       </p>
     </div>
     {% endif %}
@@ -137,6 +197,17 @@ title: Fitted Curves - Shedding Hub
        without sideways scrolling, which is the point of the table. -->
   <div class="container fits-container">
     <div class="field is-horizontal fits-filters">
+      {% if num_ct > 0 %}
+      <div class="control">
+        <div class="select">
+          <select id="fits-valuetype">
+            <option value="concentration" selected>Concentration</option>
+            <option value="ct">Cycle threshold</option>
+            <option value="">Both</option>
+          </select>
+        </div>
+      </div>
+      {% endif %}
       <div class="control">
         <div class="select">
           <select id="fits-biomarker"><option value="">All biomarkers</option></select>
@@ -145,6 +216,11 @@ title: Fitted Curves - Shedding Hub
       <div class="control">
         <div class="select">
           <select id="fits-specimen"><option value="">All specimens</option></select>
+        </div>
+      </div>
+      <div class="control">
+        <div class="select">
+          <select id="fits-day0"><option value="">Any day 0</option></select>
         </div>
       </div>
       <div class="control">
@@ -159,20 +235,39 @@ title: Fitted Curves - Shedding Hub
 
     <div class="table-scroll">
       <table class="table is-fullwidth is-striped is-narrow fits-table" id="fits-table">
+        <!-- Explicit widths with table-layout: fixed. Left to itself the browser
+             sized columns by content, so one 38-character specimen widened that
+             column while "SARS-CoV-2" was squeezed into two lines. -->
+        <colgroup>
+          <col class="col-id">
+          <col class="col-biomarker">
+          <col class="col-specimen">
+          <col class="col-day0">
+          <col class="col-model">
+          <col class="col-num">
+          <col class="col-unit">
+          <col class="col-num">
+          <col class="col-num">
+          <col class="col-num">
+          <col class="col-num">
+          <col class="col-num">
+          <col class="col-aic">
+        </colgroup>
         <thead>
           <tr>
-            <th><button type="button" class="th-sort" data-sort="text" data-column="0">Study</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="0">Study / analyte</button></th>
             <th><button type="button" class="th-sort" data-sort="text" data-column="1">Biomarker</button></th>
             <th><button type="button" class="th-sort" data-sort="text" data-column="2">Specimen</button></th>
-            <th><button type="button" class="th-sort" data-sort="text" data-column="3">Gene</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="3">Day 0</button></th>
             <th><button type="button" class="th-sort" data-sort="text" data-column="4">Model</button></th>
             <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="5">Peak</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="6">&sigma;</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="7">Limit</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="8">Subjects</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="9">Meas.</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="10">Cens.</button></th>
-            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="11">AIC</button></th>
+            <th><button type="button" class="th-sort" data-sort="text" data-column="6">Unit</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="7">&sigma;</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="8">Limit</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="9">Subj.</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="10">Meas.</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="11">Cens.</button></th>
+            <th class="has-text-right"><button type="button" class="th-sort" data-sort="number" data-column="12">AIC</button></th>
           </tr>
         </thead>
         <tbody>
@@ -188,15 +283,75 @@ title: Fitted Curves - Shedding Hub
             {% endif %}
           {% endfor %}
           <tr class="fits-row"
+              data-valuetype="concentration"
               data-biomarker="{{ fit.biomarker }}"
               data-specimen="{{ fit.specimen }}"
+              data-day0="{{ fit.reference_event }}"
               data-model="{{ fit.model }}">
-            <td><a href="/datasets/{{ fit.dataset_id }}.html"><code>{{ fit.dataset_id }}</code></a></td>
+            {%- comment -%}
+              Study and analyte share a cell. The analyte is what makes a row unique:
+              68 of the 144 rows share study, biomarker, specimen and model with a
+              sibling, separated only by dose, gene target, assay, or subgroup. Given
+              its own column it squeezed the study identifier down to a shredded
+              column of fragments.
+            {%- endcomment -%}
+            <td class="id-cell">
+              <a href="/datasets/{{ fit.dataset_id }}.html"><code>{{ fit.dataset_id }}</code></a>
+              <span class="analyte-sub"><code>{{ fit.analyte }}</code></span>
+            </td>
             <td>{{ fit.biomarker }}</td>
             <td>{{ fit.specimen }}</td>
-            <td>{% if fit.gene_target %}{{ fit.gene_target }}{% else %}<span class="has-text-grey">&mdash;</span>{% endif %}</td>
+            {%- comment -%}
+              Day zero. Every time in the fit is measured from this event, so a peak
+              day is meaningless without it, and three studies fit the same analyte
+              against two different reference events.
+            {%- endcomment -%}
+            <td class="ref-cell">{{ fit.reference_event }}</td>
             <td><span class="tag model-tag model-{{ fit.model }}">{{ fit.model | replace: "_", " " }}</span></td>
             <td class="has-text-right is-data">{% if peak %}{{ peak | round: 2 }}{% else %}&mdash;{% endif %}</td>
+            {%- comment -%}
+              Peak is log10 of this analyte's own unit, and eight different units are
+              in play, so the unit sits beside it: a gc/mL peak and a pfu/mL peak are
+              not comparable numbers.
+            {%- endcomment -%}
+            <td class="unit-cell">{{ fit.unit }}</td>
+            <td class="has-text-right is-data">{{ fit.sigma | round: 2 }}</td>
+            <td class="has-text-right is-data">{{ fit.censoring_limit | round: 2 }}</td>
+            <td class="has-text-right is-data">{{ fit.n_subjects }}</td>
+            <td class="has-text-right is-data">{{ fit.n_measurements }}</td>
+            <td class="has-text-right is-data">{{ fit.n_censored }}</td>
+            <td class="has-text-right is-data">{{ fit.aic | round: 1 }}</td>
+          </tr>
+          {% endfor %}
+
+          {%- comment -%}
+            Cycle-threshold rows. Same columns, but the peak coordinate is
+            peak_cycles rather than peak_log10, and the unit column reads
+            "cycle threshold" so a Ct peak is never mistaken for a concentration.
+          {%- endcomment -%}
+          {% for fit in ct_catalog %}
+          {% assign peak = nil %}
+          {% for coord in fit.population_coords %}
+            {% if coord == "peak_cycles" %}
+              {% assign peak = fit.population_mean[forloop.index0] %}
+            {% endif %}
+          {% endfor %}
+          <tr class="fits-row"
+              data-valuetype="ct"
+              data-biomarker="{{ fit.biomarker }}"
+              data-specimen="{{ fit.specimen }}"
+              data-day0="{{ fit.reference_event }}"
+              data-model="{{ fit.model }}">
+            <td class="id-cell">
+              <a href="/datasets/{{ fit.dataset_id }}.html"><code>{{ fit.dataset_id }}</code></a>
+              <span class="analyte-sub"><code>{{ fit.analyte }}</code></span>
+            </td>
+            <td>{{ fit.biomarker }}</td>
+            <td>{{ fit.specimen }}</td>
+            <td class="ref-cell">{{ fit.reference_event }}</td>
+            <td><span class="tag model-tag model-{{ fit.model }}">{{ fit.model | replace: "_", " " }}</span></td>
+            <td class="has-text-right is-data">{% if peak %}{{ peak | round: 2 }}{% else %}&mdash;{% endif %}</td>
+            <td class="unit-cell">cycles below {{ fit.ct_reference | round }}</td>
             <td class="has-text-right is-data">{{ fit.sigma | round: 2 }}</td>
             <td class="has-text-right is-data">{{ fit.censoring_limit | round: 2 }}</td>
             <td class="has-text-right is-data">{{ fit.n_subjects }}</td>
@@ -220,6 +375,119 @@ title: Fitted Curves - Shedding Hub
 .fits-container {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+/* Coverage: one headline figure beside a part-to-whole bar. */
+.coverage {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) 2fr;
+  gap: 2.5rem;
+  align-items: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .coverage {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    padding: 1.5rem;
+  }
+}
+
+.coverage-number {
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: var(--primary-color);
+}
+
+.coverage-caption {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  max-width: 18rem;
+}
+
+.coverage-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+
+/* Segments are separated by a surface-coloured gap rather than a border, so the
+   bar reads as parts of one quantity instead of three stacked objects. */
+.model-bar {
+  display: flex;
+  gap: 2px;
+  height: 2.25rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.model-seg {
+  display: block;
+  height: 100%;
+}
+
+/* One hue, three ordered steps: the models are shares of a single total, and an
+   ordered ramp says that where three separate hues would not. */
+.seg-1 { background-color: #175972; }
+.seg-2 { background-color: #3E8CA6; }
+.seg-3 { background-color: #8FC2D3; }
+
+[data-theme="dark"] .seg-1 { background-color: #9CCADB; }
+[data-theme="dark"] .seg-2 { background-color: #5F9DB5; }
+[data-theme="dark"] .seg-3 { background-color: #35667C; }
+
+.model-key {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.model-key li {
+  display: grid;
+  grid-template-columns: 0.75rem 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.key-swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 2px;
+}
+
+.key-name {
+  color: var(--text-primary);
+}
+
+.key-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.key-pct {
+  color: var(--text-light);
+  min-width: 3ch;
+  text-align: right;
+}
+
+.unit-cell {
+  color: var(--text-light);
+  font-size: 0.72rem;
+  white-space: nowrap;
 }
 
 .fits-filters {
@@ -255,8 +523,38 @@ title: Fitted Curves - Shedding Hub
   white-space: nowrap;
 }
 
-.fits-table td:first-child {
-  word-break: break-all;
+/* Column widths. They sum to 100% under table-layout: fixed, so every column is
+   on screen and none can be starved by a long value in another. */
+.fits-table { table-layout: fixed; }
+
+.col-id        { width: 16%; }
+.col-biomarker { width: 10%; }
+.col-specimen  { width: 12%; }
+.col-day0      { width: 9.5%; }
+.col-model     { width: 9%; }
+.col-unit      { width: 7.5%; }
+.col-num       { width: 5%; }
+.col-aic       { width: 6%; }
+
+/* The only genuinely long values; they break anywhere rather than forcing the
+   column wider than its share. */
+.fits-table td:nth-child(3) {
+  overflow-wrap: anywhere;
+}
+
+.id-cell code {
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+}
+
+.analyte-sub {
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.analyte-sub code {
+  color: var(--text-light);
+  font-size: 0.7rem;
 }
 
 .fits-table td,
@@ -334,9 +632,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const tbody = table.querySelector('tbody');
   const count = document.getElementById('fits-count');
   const empty = document.getElementById('fits-empty');
+  // Keys match the row's data-* attributes, so adding a filter is one entry here
+  // plus the matching attribute on the row.
   const selects = {
     biomarker: document.getElementById('fits-biomarker'),
     specimen: document.getElementById('fits-specimen'),
+    day0: document.getElementById('fits-day0'),
     model: document.getElementById('fits-model')
   };
 
@@ -354,6 +655,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     selects[key].addEventListener('change', applyFilters);
   });
+
+  // Value type is authored rather than derived: its options are fixed and it
+  // opens on "concentration" instead of showing everything, because Ct peaks and
+  // concentration peaks are different quantities in the same column. Present
+  // only when the Ct catalog shipped.
+  const valueType = document.getElementById('fits-valuetype');
+  if (valueType) {
+    selects.valuetype = valueType;
+    valueType.addEventListener('change', applyFilters);
+  }
 
   function applyFilters() {
     let visible = 0;
@@ -373,11 +684,12 @@ document.addEventListener('DOMContentLoaded', function () {
   let sortColumn = null;
   let ascending = true;
 
-  table.querySelectorAll('.th-sort').forEach(function (button) {
-    button.addEventListener('click', function () {
+  function applySort(button, toggle) {
       const column = parseInt(button.dataset.column, 10);
       const numeric = button.dataset.sort === 'number';
-      ascending = sortColumn === column ? !ascending : true;
+      if (toggle) {
+        ascending = sortColumn === column ? !ascending : true;
+      }
       sortColumn = column;
 
       table.querySelectorAll('.th-sort').forEach(function (other) {
@@ -403,7 +715,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
       sorted.forEach(function (row) { tbody.appendChild(row); });
       applyFilters();
-    });
+  }
+
+  table.querySelectorAll('.th-sort').forEach(function (button) {
+    button.addEventListener('click', function () { applySort(button, true); });
   });
+
+  // Sort explicitly on load rather than inheriting whatever order the catalog
+  // file happens to have, so the header arrow always states the real order.
+  // applySort ends by calling applyFilters, which is what puts the default
+  // value-type filter into effect before the reader touches anything.
+  applySort(table.querySelector('.th-sort[data-column="0"]'), false);
 });
 </script>

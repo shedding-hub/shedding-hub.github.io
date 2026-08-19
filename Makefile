@@ -45,6 +45,16 @@ ${DATASETS_MD} : _datasets/%.md : _datasets/%.yaml
 	else \
 	  echo "no shedding_catalog.yaml in ${DATA_REF}; the fits table will be empty" ; \
 	fi
+	# The cycle-threshold catalog, if the data repository publishes one. It is
+	# gitignored there today, so this is normally absent and the fits page shows
+	# concentration fits only; when it appears the value-type filter turns on by
+	# itself. Ct peaks are cycles below a reference, not log10 concentrations.
+	rm -f _data/shedding_catalog_ct.yaml
+	if [ -f tmp/shedding-hub-${DATA_REF}/shedding_catalog_ct.yaml ]; then \
+	  cp tmp/shedding-hub-${DATA_REF}/shedding_catalog_ct.yaml _data/shedding_catalog_ct.yaml ; \
+	else \
+	  echo "no shedding_catalog_ct.yaml in ${DATA_REF}; fits page shows concentration fits only" ; \
+	fi
 
 tmp/shedding-hub.zip :
 	mkdir -p tmp

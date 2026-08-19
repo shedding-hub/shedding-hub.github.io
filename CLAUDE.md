@@ -97,6 +97,20 @@ held 144 fits across 48 studies. `fits.html` states both rather than picking one
 neither the coverage nor the parameter table misrepresents the other. Do not "fix"
 the gap by making one number match the other.
 
+**The gap is not staleness.** The catalog is rebuilt in the same commit as a data
+drop. The figures are rendered from the concentration catalog *and* a
+cycle-threshold catalog, and Ct analytes are deliberately excluded from the shipped
+package because their peak is measured in cycles below a reference rather than as a
+log10 concentration. 45 studies are concentration-only, 20 Ct-only, 3 have both.
+
+`_data/shedding_catalog_ct.yaml` is copied by `make ^_datasets-yaml` when the data
+repository publishes one. It is gitignored *there* today, so the file is normally
+absent and the fits page shows concentration fits with no value-type filter. When it
+appears, the filter turns on by itself and defaults to concentration — a Ct peak and
+a concentration peak share the Peak column but not its meaning, so they must never be
+mixed without the reader asking. The Ct rows read their peak from `peak_cycles`
+rather than `peak_log10`.
+
 ### Homepage Hero
 
 The hero plots real measurements from a reference dataset rather than decorative

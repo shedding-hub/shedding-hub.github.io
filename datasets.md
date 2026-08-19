@@ -14,7 +14,7 @@ title: Datasets - Shedding Hub
 </section>
 
 <!-- How to use this page -->
-<section class="section pb-0">
+<section class="section">
   <div class="container is-max-desktop">
     <span class="eyebrow">How to use this page</span>
     <div class="columns is-variable is-6 mt-2">
@@ -35,9 +35,9 @@ title: Datasets - Shedding Hub
       <div class="column">
         <h3 class="title is-6">3. Open a study</h3>
         <p class="is-size-7">
-          <strong>Explore dataset</strong> opens the study page, where every analyte's
+          <strong>Explore</strong> opens the study page, where every analyte's
           fitted shedding curve is plotted against its measurements.
-          <strong>View source</strong> goes to the original paper.
+          <strong>Source</strong> goes to the original paper.
         </p>
       </div>
     </div>
@@ -52,16 +52,20 @@ title: Datasets - Shedding Hub
 <!-- Search and Filter Controls -->
 <section class="filter-controls">
   <div class="container is-max-desktop">
-    <div class="field is-horizontal">
-      <div class="control has-icons-left">
-        <input class="input" type="search" id="search-input" placeholder="Search datasets...">
-        <span class="icon is-left">
-          <i class="fas fa-search"></i>
-        </span>
+    <!-- Same three-column grid as the how-to block above, so the controls line
+         up with it exactly rather than each sizing to its own content. -->
+    <div class="columns is-variable is-6 mb-0">
+      <div class="column">
+        <div class="control has-icons-left">
+          <input class="input" type="search" id="search-input" placeholder="Search datasets...">
+          <span class="icon is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
       </div>
 
-      <div class="control">
-        <div class="select">
+      <div class="column">
+        <div class="select is-fullwidth">
           <select id="biomarker-filter">
             <option value="">All Biomarkers</option>
             <!-- Populated by JavaScript -->
@@ -69,21 +73,18 @@ title: Datasets - Shedding Hub
         </div>
       </div>
 
-      <div class="control">
-        <div class="select">
+      <div class="column">
+        <div class="select is-fullwidth">
           <select id="specimen-filter">
             <option value="">All Specimens</option>
             <!-- Populated by JavaScript -->
           </select>
         </div>
       </div>
-
-      <div class="control">
-        <p class="help">
-          <strong><span id="results-count">{{ site.datasets | size }}</span> datasets</strong>
-        </p>
-      </div>
     </div>
+    <p class="filter-count">
+      <strong><span id="results-count">{{ site.datasets | size }}</span> datasets</strong>
+    </p>
   </div>
 </section>
 
@@ -119,7 +120,7 @@ title: Datasets - Shedding Hub
           <div class="dataset-tags">
             {% assign uniq_biomarkers = biomarkers | split: ',' | uniq %}
             {% for biomarker in uniq_biomarkers %}
-            <span class="tag">{{ biomarker }}</span>
+            <span class="tag pathogen-tag pathogen-{{ biomarker | slugify }}">{{ biomarker }}</span>
             {% endfor %}
           </div>
         </div>
@@ -141,7 +142,7 @@ title: Datasets - Shedding Hub
           </a>
           <a href="{{ dataset.url }}" class="card-footer-item is-explore" title="Open the study page with its fitted curves">
             <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
-            <span>Explore dataset</span>
+            <span>Explore</span>
           </a>
         </footer>
       </article>
@@ -190,7 +191,7 @@ title: Datasets - Shedding Hub
             censored observations rather than dropped.
           </p>
           <p>
-            Open any study with <strong>Explore dataset</strong> to see its own curves, or
+            Open any study with <strong>Explore</strong> to see its own curves, or
             compare the fitted parameters across every study in one table.
           </p>
           <a href="/fits.html" class="button is-primary">
@@ -282,6 +283,9 @@ title: Datasets - Shedding Hub
   border-color: var(--border-color);
   flex-direction: column;
   gap: 0.2rem;
+  /* Column flex centres the label as a block; without this its text still sets
+     ragged-left whenever it wraps to a second line. */
+  text-align: center;
 }
 
 .dataset-card .card-footer-item .icon {

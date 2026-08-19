@@ -347,6 +347,31 @@
       margin-bottom: 0.75rem;
     }
 
+    /* Pathogen identity colors.
+       Four hues, and only four: validated for all-pairs colorblind separation
+       (worst CVD ΔE 9.2, worst normal-vision ΔE 16.3). Every candidate fifth hue
+       collided with the orange — red, yellow, magenta, brown and green all fell
+       under the normal-vision floor — so the long tail of rare pathogens stays
+       neutral rather than taking generated hues nobody can distinguish.
+       Colour is redundant here: each tag always carries its pathogen name. */
+    .pathogen-tag {
+      --tag-ink: var(--text-secondary);
+      --tag-wash: var(--bg-secondary);
+      background-color: var(--tag-wash) !important;
+      color: var(--tag-ink) !important;
+      border: 1px solid currentColor;
+    }
+
+    .pathogen-sars-cov-2 { --tag-ink: #1B5AA8; --tag-wash: #E9F1FC; }
+    .pathogen-influenza  { --tag-ink: #A2441B; --tag-wash: #FBEDE5; }
+    .pathogen-rsv        { --tag-ink: #0E6949; --tag-wash: #E3F5ED; }
+    .pathogen-norovirus  { --tag-ink: #3B2E86; --tag-wash: #ECEAF8; }
+
+    [data-theme="dark"] .pathogen-sars-cov-2 { --tag-ink: #8FBDF2; --tag-wash: #14283F; }
+    [data-theme="dark"] .pathogen-influenza  { --tag-ink: #F0996F; --tag-wash: #3A2115; }
+    [data-theme="dark"] .pathogen-rsv        { --tag-ink: #5FC7A0; --tag-wash: #10322A; }
+    [data-theme="dark"] .pathogen-norovirus  { --tag-ink: #A79BF0; --tag-wash: #221F44; }
+
     /* The limit-of-detection motif: below this line a measurement is censored
        rather than zero. It divides the page the way it divides a shedding plot. */
     .lod-rule {
@@ -610,29 +635,23 @@
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
-    .filter-controls .field.is-horizontal {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      align-items: center;
+    /* The controls sit on the page's column grid, so each is the same width and
+       aligns with the section above rather than sizing to its own content. */
+    .filter-controls .column {
+      padding-top: 0.4rem;
+      padding-bottom: 0.4rem;
     }
 
+    .filter-controls .select,
+    .filter-controls .select select,
     .filter-controls .control {
-      flex: 0 1 auto;
+      width: 100%;
     }
 
-    .filter-controls .control:first-child {
-      flex: 1 1 300px;
-    }
-
-    /* Results count styling */
-    .filter-controls .help {
-      color: var(--text-primary) !important;
-      font-size: 1rem !important;
-    }
-
-    .filter-controls .help strong {
-      color: var(--text-primary) !important;
+    .filter-count {
+      margin-top: 0.5rem;
+      color: var(--text-primary);
+      font-size: 0.95rem;
     }
   </style>
 
@@ -807,6 +826,29 @@
         // Populate <select> options
         this.populateSelect(this.biomarkerSelect, Array.from(biomarkers).sort());
         this.populateSelect(this.specimenSelect, Array.from(specimens).sort());
+        this.applyUrlFilters();
+      },
+
+      // Lets a link arrive pre-filtered, e.g. /datasets.html?biomarker=norovirus
+      // from a pathogen tag. Runs after the options exist, and ignores a value
+      // no dataset carries rather than showing an empty list.
+      applyUrlFilters() {
+        const params = new URLSearchParams(window.location.search);
+        const preset = [
+          [this.biomarkerSelect, params.get('biomarker')],
+          [this.specimenSelect, params.get('specimen')],
+          [this.searchInput, params.get('q')]
+        ];
+
+        preset.forEach(([field, value]) => {
+          if (!field || !value) return;
+          if (field.tagName === 'SELECT') {
+            const match = Array.from(field.options).find(o => o.value === value);
+            if (match) field.value = value;
+          } else {
+            field.value = value;
+          }
+        });
       },
 
       populateSelect(selectEl, options) {

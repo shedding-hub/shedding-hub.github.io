@@ -181,7 +181,11 @@ title: Shedding Hub
       </div>
     </div>
     <div class="biomarker-tags">
-      {% for biomarker in biomarkers %}<a class="tag" href="/datasets.html">{{ biomarker }}</a>{% endfor %}
+      {%- comment -%}
+        Carries the pathogen through as a query parameter so the datasets page opens
+        already filtered to it, rather than dropping the reader into all 84 studies.
+      {%- endcomment -%}
+      {% for biomarker in biomarkers %}<a class="tag pathogen-tag pathogen-{{ biomarker | slugify }}" href="/datasets.html?biomarker={{ biomarker | uri_escape }}" title="Show {{ biomarker }} datasets">{{ biomarker }}</a>{% endfor %}
     </div>
   </div>
 </section>
@@ -195,7 +199,6 @@ title: Shedding Hub
       <div class="content mb-5">
         <p>
           Plot time courses, compare studies, and inspect shedding dynamics without writing code.
-          The dashboard runs on a free instance, so the first load takes a moment to wake up.
         </p>
       </div>
     </div>
@@ -203,7 +206,7 @@ title: Shedding Hub
       <button type="button" class="dashboard-launch" id="dashboard-launch">
         <span class="icon is-large"><i class="fa-solid fa-circle-play fa-2x"></i></span>
         <span class="dashboard-launch-label">Load the dashboard</span>
-        <span class="dashboard-launch-note">Opens in place &middot; may take up to a minute to start</span>
+        <span class="dashboard-launch-note">Opens in place</span>
       </button>
     </div>
   </div>
@@ -220,15 +223,14 @@ title: Shedding Hub
         <h2 class="title is-4">Shedding data is scattered by default</h2>
         <div class="content">
           <p>
-            How much pathogen a person sheds, and for how long, drives transmission models,
-            wastewater surveillance, and testing policy. Yet the measurements sit in
-            supplementary spreadsheets, in figures rather than tables, and in units that
-            differ from one paper to the next.
+            How much pathogen a person sheds, and for how long, drives biomedical research,
+            transmission models, wastewater surveillance, and public health policy. Yet the
+            measurements sit in supplementary spreadsheets, in figures and tables with various
+            formats, and in lab methods and units that differ from one paper to the next.
           </p>
           <p>
             Shedding Hub puts them in one schema, under version control, with the source
-            paper and the extraction script attached to every study. Nothing here is a
-            number you have to take on faith.
+            paper attached to every study. Nothing here is a number you have to take on faith.
           </p>
         </div>
       </div>

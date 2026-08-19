@@ -3,6 +3,7 @@ _datasets/
 assets/figures/
 _data/figures.json
 _data/shedding_catalog.yaml
+_data/shedding_catalog_ct.yaml
 _site/
 .bundle/
 .claude/
