@@ -19,10 +19,35 @@ title: Fitted Curves - Shedding Hub
 {%- endcomment -%}
 {% assign ct_catalog = site.data.shedding_catalog_ct.fits %}
 {% assign num_ct = ct_catalog | size %}
+
 {% assign catalog_datasets = catalog | map: "dataset_id" | uniq | size %}
 {% assign num_exponential = catalog | where: "model", "exponential" | size %}
 {% assign num_gamma = catalog | where: "model", "gamma" | size %}
 {% assign num_gamma_shifted = catalog | where: "model", "gamma_shifted" | size %}
+
+{%- comment -%}
+  Coverage totals span both value types when the Ct catalog is present, so the
+  card describes the table it sits above rather than only part of it. Must come
+  after the per-model counts above: Liquid treats an unassigned variable as nil,
+  so reading them earlier silently produced the Ct counts alone.
+{%- endcomment -%}
+{% assign total_fits = num_catalog %}
+{% assign total_exponential = num_exponential %}
+{% assign total_gamma = num_gamma %}
+{% assign total_gamma_shifted = num_gamma_shifted %}
+{% assign total_studies = catalog_datasets %}
+{% if num_ct > 0 %}
+  {% assign total_fits = num_catalog | plus: num_ct %}
+  {% assign ct_exponential = ct_catalog | where: "model", "exponential" | size %}
+  {% assign ct_gamma = ct_catalog | where: "model", "gamma" | size %}
+  {% assign ct_gamma_shifted = ct_catalog | where: "model", "gamma_shifted" | size %}
+  {% assign total_exponential = num_exponential | plus: ct_exponential %}
+  {% assign total_gamma = num_gamma | plus: ct_gamma %}
+  {% assign total_gamma_shifted = num_gamma_shifted | plus: ct_gamma_shifted %}
+  {% assign conc_ids = catalog | map: "dataset_id" %}
+  {% assign ct_ids = ct_catalog | map: "dataset_id" %}
+  {% assign total_studies = conc_ids | concat: ct_ids | uniq | size %}
+{% endif %}
 
 {% assign num_curves = 0 %}
 {% assign curve_datasets_raw = "" %}
@@ -83,11 +108,23 @@ title: Fitted Curves - Shedding Hub
           others, so curves are only directly comparable when this matches.
         </li>
         <li>
-          <strong>Peak</strong> is the population mean peak concentration, log<sub>10</sub> of
-          the unit in the next column. Peaks in different units are not comparable.
+          <strong>Peak</strong> is the population mean peak, always read against the unit in
+          the next column. For a concentration fit it is a log<sub>10</sub> concentration.
+          {% if num_ct > 0 %}
+          For a cycle-threshold fit it is cycles <em>below</em> the reference, so a peak of
+          14 against a reference of 40 is a peak Ct of 26. Higher means more shedding on both
+          scales, but the two are different quantities and never comparable to each other.
+          {% else %}
+          Peaks in different units are not comparable.
+          {% endif %}
         </li>
         <li><strong>&sigma;</strong> is the residual scale &mdash; larger means the individual measurements scatter further from the fitted curve.</li>
-        <li><strong>Limit</strong> is the censoring limit, below which a measurement counts as a non-detect rather than a number.</li>
+        <li>
+          <strong>Limit</strong> is the censoring limit, below which a measurement counts as a
+          non-detect rather than a number. It is on the same scale as Peak, so on a
+          cycle-threshold fit it is also cycles below the reference &mdash; a limit of 3 against
+          a reference of 40 means the assay stopped counting at Ct 37.
+        </li>
         <li><strong>AIC</strong> compares models fitted to the <em>same</em> analyte. Lower is better. It is meaningless across different analytes.</li>
       </ul>
       <p>
@@ -124,16 +161,23 @@ title: Fitted Curves - Shedding Hub
       One hue in three ordered steps, not three categorical hues, so the models
       never read as pathogen colours from the tags elsewhere on the page.
     {%- endcomment -%}
-    {% assign pct_exp = num_exponential | times: 100.0 | divided_by: num_catalog %}
-    {% assign pct_gam = num_gamma | times: 100.0 | divided_by: num_catalog %}
-    {% assign pct_gs = num_gamma_shifted | times: 100.0 | divided_by: num_catalog %}
+    {% assign pct_exp = total_exponential | times: 100.0 | divided_by: total_fits %}
+    {% assign pct_gam = total_gamma | times: 100.0 | divided_by: total_fits %}
+    {% assign pct_gs = total_gamma_shifted | times: 100.0 | divided_by: total_fits %}
     <div class="coverage">
       <div class="coverage-headline">
-        <p class="coverage-number is-data">{{ num_catalog }}</p>
+        <p class="coverage-number is-data">{{ total_fits }}</p>
         <p class="coverage-caption">
           fits carry published parameters, across
-          <strong class="is-data">{{ catalog_datasets }}</strong> studies
+          <strong class="is-data">{{ total_studies }}</strong> studies
         </p>
+        {% if num_ct > 0 %}
+        <p class="coverage-split">
+          <span class="is-data">{{ num_catalog }}</span> concentration
+          &middot;
+          <span class="is-data">{{ num_ct }}</span> cycle threshold
+        </p>
+        {% endif %}
       </div>
 
       <div class="coverage-breakdown">
@@ -148,19 +192,19 @@ title: Fitted Curves - Shedding Hub
           <li>
             <span class="key-swatch seg-1"></span>
             <span class="key-name">Exponential</span>
-            <span class="key-value is-data">{{ num_exponential }}</span>
+            <span class="key-value is-data">{{ total_exponential }}</span>
             <span class="key-pct is-data">{{ pct_exp | round }}%</span>
           </li>
           <li>
             <span class="key-swatch seg-2"></span>
             <span class="key-name">Gamma</span>
-            <span class="key-value is-data">{{ num_gamma }}</span>
+            <span class="key-value is-data">{{ total_gamma }}</span>
             <span class="key-pct is-data">{{ pct_gam | round }}%</span>
           </li>
           <li>
             <span class="key-swatch seg-3"></span>
             <span class="key-name">Gamma shifted</span>
-            <span class="key-value is-data">{{ num_gamma_shifted }}</span>
+            <span class="key-value is-data">{{ total_gamma_shifted }}</span>
             <span class="key-pct is-data">{{ pct_gs | round }}%</span>
           </li>
         </ul>
@@ -173,11 +217,11 @@ title: Fitted Curves - Shedding Hub
         The repository renders <strong>{{ num_curves }}</strong> fitted curves across
         <strong>{{ curve_datasets }}</strong> studies.
         {% if num_ct > 0 %}
-        The figure above counts the <strong>{{ num_catalog }}</strong> concentration fits, whose
-        parameters ship in the Python package. A further <strong>{{ num_ct }}</strong>
-        cycle-threshold fits are in the table behind the value-type filter; the package does not
-        ship those, because their peak is measured in cycles below a reference rather than as a
-        log<sub>10</sub> concentration.
+        Of the {{ total_fits }} fitted here, the <strong>{{ num_catalog }}</strong> concentration
+        fits are the ones whose parameters ship in the Python package. The
+        <strong>{{ num_ct }}</strong> cycle-threshold fits are published separately, because
+        their peak is measured in cycles below a reference rather than as a log<sub>10</sub>
+        concentration; the table opens on concentration so the two are never mixed unasked.
         {% else %}
         The {{ num_catalog }} rows below are the concentration fits, whose parameters ship in the
         Python package. The remainder are cycle-threshold analytes: their peak is measured in
@@ -428,6 +472,15 @@ title: Fitted Curves - Shedding Hub
   margin-top: 0.6rem;
   font-size: 0.9rem;
   color: var(--text-secondary);
+  max-width: 18rem;
+}
+
+.coverage-split {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.8rem;
+  color: var(--text-light);
   max-width: 18rem;
 }
 
