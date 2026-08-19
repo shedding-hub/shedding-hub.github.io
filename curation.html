@@ -22,11 +22,10 @@ title: AI Curation - Shedding Hub
   <div class="container is-max-desktop">
     <div class="content">
       <p class="is-size-5">
-        Reading a shedding study by hand takes a curator hours: find the paper, pull the
-        measurements out of tables and figures, reconcile the units, and check every number
-        against what the authors actually wrote. The agents do the first pass of that work
-        and hand a curator a set of proposals to accept or reject &mdash; never a finished
-        dataset to rubber-stamp.
+        Reading a shedding study takes a curator hours: find the paper, pull the measurements
+        out of tables and figures, reconcile the units, and check every number against the
+        source. The agents do the first pass of that work and hand a curator a set of
+        proposals to accept or reject &mdash; never a finished dataset to rubber-stamp.
       </p>
     </div>
   </div>
@@ -296,26 +295,32 @@ title: AI Curation - Shedding Hub
 <section class="section">
   <div class="container is-max-desktop">
     <span class="eyebrow">Get involved</span>
-    <h2 class="title is-3 mb-4">Work on this with us</h2>
+    <h2 class="title is-3 mb-4">Work with us</h2>
     <div class="content">
       <p>
-        The agents are open source, and the parts most worth attacking are the ones a
-        curator still does by hand. If you have found an extraction that is wrong, that is
-        the most useful thing you can send us.
+        The agents themselves are internal. What they produce is not: every dataset, the
+        schema each one is validated against, and the Python package that reads them are
+        public, and the data is released under <a href="/terms.html">CC BY 4.0</a>.
+      </p>
+      <p>
+        So the most useful thing you can send us is <strong>an extraction that is wrong</strong>.
+        A curator can correct the dataset, and the correction shapes how the agents are
+        prompted for the next study &mdash; which is the part of this you can affect without
+        access to the pipeline. A study you think belongs in here is the next most useful.
       </p>
     </div>
     <div class="buttons">
-      <a href="https://github.com/shedding-hub" class="button is-primary" target="_blank" rel="noopener">
-        <span class="icon"><i class="fab fa-github"></i></span>
-        <span>View on GitHub</span>
-      </a>
-      <a href="https://github.com/shedding-hub/shedding-hub/issues" class="button" target="_blank" rel="noopener">
+      <a href="https://github.com/shedding-hub/shedding-hub/issues" class="button is-primary" target="_blank" rel="noopener">
         <span class="icon"><i class="fa-solid fa-flag"></i></span>
-        <span>Report a data issue</span>
+        <span>Report a wrong extraction</span>
       </a>
-      <a href="/team.html" class="button">
-        <span class="icon"><i class="fa-solid fa-people-group"></i></span>
-        <span>Meet the team</span>
+      <a href="mailto:sheddinghub@gmail.com?subject=A%20study%20for%20Shedding%20Hub&body=Study%20(DOI%20or%20PMID)%3A%0AWhy%20it%20belongs%3A%0A" class="button">
+        <span class="icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+        <span>Suggest a study</span>
+      </a>
+      <a href="mailto:sheddinghub@gmail.com?subject=Collaborating%20on%20curation&body=Institution%3A%0AWhat%20you%27re%20working%20on%3A%0A" class="button">
+        <span class="icon"><i class="fa-solid fa-handshake"></i></span>
+        <span>Collaborate</span>
       </a>
     </div>
   </div>
