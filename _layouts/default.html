@@ -26,6 +26,19 @@
   <meta property="og:image" content="{{ site.url }}/assets/logo/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <!-- Theme is stamped here, before the body paints, rather than on
+       DOMContentLoaded. Dark is the default, so applying it later meant a white
+       page flashing on every load. A saved choice still wins. -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('shedding-hub-theme');
+        document.documentElement.setAttribute('data-theme', saved || 'dark');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 
 <body>
@@ -601,6 +614,19 @@
       color: #ffffff;
     }
 
+    /* is-link buttons take their text from --bulma-link-text, which is pinned
+       above to fix body-link contrast -- which made the label the same colour as
+       the button it sits on: 1.02:1, invisible. Set both ends explicitly. */
+    :root:not([data-theme="dark"]) .button.is-link {
+      background-color: var(--link-color);
+      color: #ffffff;
+    }
+
+    [data-theme="dark"] .button.is-link {
+      background-color: var(--link-color);
+      color: var(--text-inverse);
+    }
+
     /* The dark-theme primary is a light blue, so it takes dark text. White here
        measured 2.33:1, below the AA threshold. */
     [data-theme="dark"] .button.is-primary {
@@ -1000,21 +1026,19 @@
         this.themeIcon = document.getElementById('theme-icon');
         this.themeText = document.getElementById('theme-text');
 
-        // Load saved theme or detect system preference
-        const savedTheme = this.getSavedTheme();
-        const systemPreference = this.getSystemPreference();
-        const initialTheme = savedTheme || systemPreference;
+        // The head script already stamped the attribute; read it back rather
+        // than deciding again, so the two cannot disagree and re-trigger a flash.
+        // Dark is the default when nobody has chosen.
+        const current = document.documentElement.getAttribute(this.THEME_ATTR)
+          || this.getSavedTheme()
+          || 'dark';
 
-        this.setTheme(initialTheme, false);
+        this.setTheme(current, false);
         this.attachListeners();
       },
 
       getSavedTheme() {
         return localStorage.getItem(this.STORAGE_KEY);
-      },
-
-      getSystemPreference() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       },
 
       setTheme(theme, save = true) {
@@ -1049,13 +1073,10 @@
           });
         }
 
-        // Listen for system preference changes
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-          // Only apply if user hasn't set a preference
-          if (!this.getSavedTheme()) {
-            this.setTheme(e.matches ? 'dark' : 'light', false);
-          }
-        });
+        // No system-preference listener. It used to switch an unsaved visitor to
+        // match the OS, which would now pull them straight off the dark default
+        // the moment their machine reported light. The toggle remains the only
+        // thing that changes the theme.
       }
     };
 
