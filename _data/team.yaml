@@ -1,4 +1,5 @@
 andrew:
+  group: leadership
   first: Yuke (Andrew)
   last: Wang
   job: Assistant Research Professor
@@ -16,6 +17,7 @@ andrew:
 
     I am an Investigator of the [Emory Center for Infectious Disease Modeling & Analytics and Training Hub (CIDMATH)](https://cidmath.org/) and a Core Investigator at the [Center for Global Safe Water, Sanitation, and Hygiene (CGSW)](https://www.cgswash.org/).
 till:
+  group: leadership
   first: Till
   last: Hoffmann
   job: Research Associate
@@ -28,12 +30,14 @@ till:
 
     Previously, I was a Postdoctoral Research Associate at [Imperial College London](https://www.imperial.ac.uk/mathematics), Staff Research Scientist at [Spotify](https://research.atspotify.com), and Principal Research Scientist at [Sonalytic](https://techcrunch.com/2017/03/07/spotify-acquires-audio-detection-startup-sonalytic/). I received my PhD from Imperial College London under the supervision of [Nick S. Jones](https://www.imperial.ac.uk/people/nick.jones) and Master of Physics from the [University of Oxford](https://www.physics.ox.ac.uk).
 marina:
+  group: staff
   first: Marina
   last: Bruck
   institution: Emory University
   job: Project Manager
   description: Marina is the CIDMATH Project Manager and supports logistic and regulatory needs of the Shedding Hub. She received her Master’s in Public Health in Epidemiology from the Rollins School of Public Health and continues her education at Rollins as a Doctor of Public Health student in Implementation and Evaluation Sciences. Her interests lie in program management, disease surveillance and infection control.
 fiona:
+  group: student
   first: Fiona
   last: Xiao
   institution: Emory University
@@ -41,6 +45,7 @@ fiona:
   github: WenfeiXiao
   description: Fiona is originally from Beijing, China, and is a first-year PhD student in the Population Biology, Ecology, and Evolution graduate program at Emory University. She earned her bachelor's degree in Quantitative Sciences and Biology from Emory University.
 haisu:
+  group: student
   first: Haisu
   last: Zhang
   institution: Emory University
@@ -48,6 +53,7 @@ haisu:
   github: haisuzhang
   description: Haisu is a third-year PhD student in the Gangarosa Department of Environmental Health at Emory University, where he also earned his MS in Epidemiology. His research focuses primarily on environmental epidemiology, with previous work exploring the health impacts of air pollution and extreme heat. He also wants to gain more experience in different statistical methods and data processing techniques.
 lejun:
+  group: alumni
   first: Lejun
   last: Shen
   institution: Emory University
@@ -55,6 +61,7 @@ lejun:
   github: lejuncathy
   description: Lejun is a second-year master's student in the Department of Biostatistics and Bioinformatics at Emory University. She received her BS in Actuarial Science and Mathematics, with a minor in Computer Science. She is passionate about data analysis and statistical methodology, with a primary interest in generalized linear models, classification, and the application of deep learning techniques to public health and biomedical data.
 zirui:
+  group: alumni
   first: Zirui
   last: Chen
   institution: Emory University
@@ -62,13 +69,15 @@ zirui:
   github: ReinaChenzr
   description: Zirui is from Shenzhen, China, and is currently a second-year master's student in the department of Biostatistics and Bioinformatics at Emory University. She is passionate about bioinformatics and statistical analysis. She also used Bayesian analysis to complete some projects using public health and biological data.
 youwei:
+  group: staff
   first: Youwei
   last: Hu
   institution: Emory University
-  job: Master's Student
+  job: Research Assistant
   github: hww228
-  description: Youwei, originally from Suzhou, China, is currently pursuing a graduate degree in Biostatistics at Emory University, with an expected graduation in 2026. She holds a Bachelor of Science in Financial Mathematics from the Department of Mathematics and Physics. Her interests include data science and machine learning, where she is driven by a passion for applying analytical techniques to solve complex problems.
+  description: Youwei, originally from Suzhou, China, completed her graduate degree in Biostatistics at Emory University and now supports the project as a research assistant. She holds a Bachelor of Science in Financial Mathematics from the Department of Mathematics and Physics. Her interests include data science and machine learning, where she is driven by a passion for applying analytical techniques to solve complex problems.
 siyu:
+  group: alumni
   first: Siyu
   last: Zhai
   institution: Emory University
@@ -76,6 +85,7 @@ siyu:
   github: LivZHAI
   description: Siyu is currently a second-year master's student in the Biostatistics department at the Rollins School of Public Health, Emory University. She earned her bachelor’s degree in Financial Mathematics from Suzhou, China. She is dedicated to advanced statistical analysis and methodologies, as well as the application of machine learning in the field of public health.
 annie:
+  group: student
   first: Annie
   last: Wang
   institution: Emory University
