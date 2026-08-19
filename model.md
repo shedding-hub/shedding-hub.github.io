@@ -163,7 +163,15 @@ title: Models - Shedding Hub
       </div>
 
       <div class="column is-6">
-        <a class="tutorial-card" href="/tutorials/Time-course-of-fecal-shedding-using-JAGS_Teunis/shed-mod.html">
+        {%- comment -%}
+          Deliberately GitHub rather than a page here. The write-up delimits its
+          maths with $...$ and \[...\], which GitHub renders; kramdown's maths
+          delimiter is $$ alone, so it treats those spans as ordinary markdown and
+          eats the underscores as emphasis -- U_{n,k} came out as "U_n, k".
+          Rendering it on-site would mean rewriting ~150 expressions in an author's
+          own document.
+        {%- endcomment -%}
+        <a class="tutorial-card" href="https://github.com/shedding-hub/shedding-hub.github.io/blob/main/tutorials/Time-course-of-fecal-shedding-using-JAGS_Teunis/shed-mod.md" target="_blank" rel="noopener">
           <p class="tutorial-tool is-data">R &middot; JAGS</p>
           <h3 class="title is-5">Time course of fecal shedding</h3>
           <p>
@@ -174,7 +182,7 @@ title: Models - Shedding Hub
           <p class="tutorial-authors">
             Peter F. M. Teunis
           </p>
-          <span class="tutorial-link">Open the tutorial <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="tutorial-link">Read on GitHub <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
         </a>
       </div>
     </div>
