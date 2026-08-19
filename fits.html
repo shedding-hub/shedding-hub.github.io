@@ -610,8 +610,17 @@ title: Fitted Curves - Shedding Hub
 }
 
 /* Column widths. They sum to 100% under table-layout: fixed, so every column is
-   on screen and none can be starved by a long value in another. */
-.fits-table { table-layout: fixed; }
+   on screen and none can be starved by a long value in another.
+
+   min-width is what makes that safe on a phone. Without it the percentages
+   resolve against a 380px viewport and thirteen columns crush together into an
+   unreadable smear; with it the table keeps a legible width and .table-scroll
+   scrolls it instead. On a desktop the container is wider, so is-fullwidth's
+   100% wins and this floor never applies. */
+.fits-table {
+  table-layout: fixed;
+  min-width: 62rem;
+}
 
 .col-id        { width: 16%; }
 .col-biomarker { width: 10%; }
