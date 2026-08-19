@@ -11,7 +11,7 @@ Add a Terms of Use page to the Shedding Hub website. The page is concise, plain-
 
 - **Legal entity:** The Shedding Hub project (not Emory University or CIDMATH specifically)
 - **License:** CC BY — free for any use including commercial, with attribution required
-- **Contact:** sheddinghub@gmail.com
+- **Contact:** sheddinghub@emory.edu
 - **Approach:** Minimal (~300 words), plain-language, no legal jargon
 
 ## Page Structure
@@ -24,7 +24,7 @@ Five sections:
 2. **Data & Attribution (CC BY)** — Data freely available for any purpose. Users must credit original published studies and cite Shedding Hub. Include a suggested citation format.
 3. **Third-Party Content** — Datasets are derived from peer-reviewed publications; Shedding Hub does not own the underlying data. Users should also comply with original publication terms.
 4. **Disclaimer** — Data provided "as is" without warranty of accuracy or completeness.
-5. **Contact** — Questions to sheddinghub@gmail.com.
+5. **Contact** — Questions to sheddinghub@emory.edu.
 
 ## Navigation
 

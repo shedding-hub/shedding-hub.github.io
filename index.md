@@ -295,7 +295,7 @@ title: Shedding Hub
             the work on this site.
           </p>
           <a class="button is-primary"
-             href="mailto:sheddinghub@gmail.com?subject=How%20I%20use%20Shedding%20Hub&body=Institution%3A%0AWhat%20I%27m%20working%20on%3A%0ADatasets%20I%20used%3A%0AWhat%20I%20wish%20existed%3A%0A">
+             href="mailto:sheddinghub@emory.edu?subject=How%20I%20use%20Shedding%20Hub&body=Institution%3A%0AWhat%20I%27m%20working%20on%3A%0ADatasets%20I%20used%3A%0AWhat%20I%20wish%20existed%3A%0A">
             <span class="icon"><i class="fa-solid fa-comment-dots"></i></span>
             <span>Share your use case</span>
           </a>
@@ -309,7 +309,7 @@ title: Shedding Hub
             package ships something that affects your analysis. No other mail.
           </p>
           <a class="button"
-             href="mailto:sheddinghub@gmail.com?subject=Subscribe%20to%20Shedding%20Hub%20updates&body=Please%20add%20me%20to%20the%20Shedding%20Hub%20update%20list.%0A%0AName%3A%0AInstitution%3A%0A">
+             href="mailto:sheddinghub@emory.edu?subject=Subscribe%20to%20Shedding%20Hub%20updates&body=Please%20add%20me%20to%20the%20Shedding%20Hub%20update%20list.%0A%0AName%3A%0AInstitution%3A%0A">
             <span class="icon"><i class="fa-solid fa-envelope"></i></span>
             <span>Subscribe to updates</span>
           </a>
@@ -352,7 +352,7 @@ title: Shedding Hub
       </p>
     </div>
     <div class="buttons">
-      <a href="mailto:sheddinghub@gmail.com?subject=Contributing%20a%20dataset&body=What%20the%20data%20measures%20%28pathogen%2C%20specimen%29%3A%0AStudy%20or%20cohort%20it%20comes%20from%3A%0APublished%3F%20DOI%20or%20PMID%2C%20or%20say%20unpublished%3A%0ARoughly%20how%20many%20participants%20and%20measurements%3A%0AWhat%20form%20it%20is%20in%20%28spreadsheet%2C%20database%20export%2C%20figures%20only%29%3A%0AAnything%20unusual%20about%20how%20it%20was%20collected%20or%20reported%3A%0A%0AYour%20name%20and%20institution%3A%0A" class="button is-primary is-medium">
+      <a href="mailto:sheddinghub@emory.edu?subject=Contributing%20a%20dataset&body=What%20the%20data%20measures%20%28pathogen%2C%20specimen%29%3A%0AStudy%20or%20cohort%20it%20comes%20from%3A%0APublished%3F%20DOI%20or%20PMID%2C%20or%20say%20unpublished%3A%0ARoughly%20how%20many%20participants%20and%20measurements%3A%0AWhat%20form%20it%20is%20in%20%28spreadsheet%2C%20database%20export%2C%20figures%20only%29%3A%0AAnything%20unusual%20about%20how%20it%20was%20collected%20or%20reported%3A%0A%0AYour%20name%20and%20institution%3A%0A" class="button is-primary is-medium">
         <span class="icon"><i class="fa-solid fa-envelope"></i></span>
         <span>Contribute a dataset</span>
       </a>

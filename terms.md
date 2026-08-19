@@ -57,7 +57,7 @@ title: Terms of Use - Shedding Hub
       <h2>Contact</h2>
       <p>
         Questions about these Terms of Use? Contact us at
-        <a href="mailto:sheddinghub@gmail.com">sheddinghub@gmail.com</a>.
+        <a href="mailto:sheddinghub@emory.edu">sheddinghub@emory.edu</a>.
       </p>
 
     </div>
