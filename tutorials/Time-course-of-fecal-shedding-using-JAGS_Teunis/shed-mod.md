@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Time Course of Fecal Shedding
 author: Peter F.M. Teunis
 ---

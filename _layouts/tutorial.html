@@ -1,0 +1,86 @@
+---
+layout: default
+---
+<!-- Wraps a tutorial's markdown in the site chrome. Without it the page renders
+     as bare <h1>/<p> at full bleed, since the source files carry only a title
+     and an author in their front matter. -->
+<section class="hero is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <span class="eyebrow">Tutorial</span>
+      <h1 class="title is-size-2 mb-3">{{ page.title }}</h1>
+      {% if page.author %}
+      <p class="subtitle is-6 is-data tutorial-author">{{ page.author }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="content tutorial-body">
+      {{ content }}
+    </div>
+    <hr class="lod-rule">
+    <p class="mt-5">
+      <a href="/model.html">&larr; Back to models and tutorials</a>
+    </p>
+  </div>
+</section>
+
+<!-- These write-ups are largely mathematics. GitHub rendered their LaTeX, so
+     serving them here without a math engine would show raw \begin{align*} source
+     and be a step backwards from the link this page replaced. Loaded per tutorial
+     rather than site-wide: no other page carries maths. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    // Code samples are left alone: these tutorials print R and JAGS, where a $
+    // is a list accessor, not the start of an equation.
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+  .tutorial-author {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem !important;
+    color: var(--text-light);
+  }
+
+  /* A 700-line methods write-up: give the prose a comfortable measure and let
+     the figures and equations use the full column. */
+  .tutorial-body {
+    max-width: 46rem;
+  }
+
+  .tutorial-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.5rem;
+  }
+
+  .tutorial-body pre {
+    overflow-x: auto;
+  }
+
+  /* Wide tables scroll in place rather than pushing the page sideways. */
+  .tutorial-body table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+</style>

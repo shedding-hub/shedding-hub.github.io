@@ -125,7 +125,21 @@ title: Fitted Curves - Shedding Hub
           cycle-threshold fit it is also cycles below the reference &mdash; a limit of 3 against
           a reference of 40 means the assay stopped counting at Ct 37.
         </li>
-        <li><strong>AIC</strong> compares models fitted to the <em>same</em> analyte. Lower is better. It is meaningless across different analytes.</li>
+        {%- comment -%}
+          This bullet used to read "AIC compares models fitted to the same analyte,
+          lower is better" -- which told readers to do the one comparison the
+          modelling methods rule out. The three models are fitted to different
+          observation sets: gamma drops every reading at t <= 0, gamma-shifted
+          keeps the detected ones, so their AICs are not commensurable even within
+          one analyte. Hence the pointer to the measurement count beside it.
+        {%- endcomment -%}
+        <li>
+          <strong>AIC</strong> is <em>not</em> how to choose between the three models.
+          They are fitted to different observation sets &mdash; gamma discards every
+          reading at <code>t&nbsp;&le;&nbsp;0</code> &mdash; and AIC only compares fits to
+          the same data, so check <strong>Meas.</strong> before reading anything into it.
+          Across different analytes it means nothing at all.
+        </li>
       </ul>
       <p>
         Rows are sorted by study and analyte to begin with; any column header re-sorts,
