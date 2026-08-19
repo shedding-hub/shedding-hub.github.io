@@ -102,6 +102,27 @@ title: AI Curation - Shedding Hub
       </li>
     </ol>
 
+    {%- comment -%}
+      The diagram is the phase-2 target, not the current pipeline: it draws the
+      discovery agent, the API and the evaluation loops as though they run. The
+      caption says so, and names which boxes are live, so the page does not
+      re-acquire in a picture the overclaiming its text just shed.
+    {%- endcomment -%}
+    <figure class="architecture">
+      <picture>
+        <source srcset="/assets/diagrams/curation-phase2-architecture.webp" type="image/webp">
+        <img src="/assets/diagrams/curation-phase2-architecture.jpg"
+             alt="Pipeline schematic. A literature discovery agent fetches a paper and passes a query and prompt to a data extraction agent, which reads a schema and controlled vocabulary and extracts to a data review agent; the review agent feeds corrections back to extraction and emits curated YAML. Above them, a librarian-built review benchmark trains discovery, and human review and a usability study feed back into extraction and review. An API exposes the curated data."
+             loading="lazy" width="2000" height="1506">
+      </picture>
+      <figcaption>
+        The phase-2 architecture. <strong>Extraction and review run today</strong>, along
+        with the schema and controlled vocabulary they read and the curated YAML they
+        produce. Literature discovery, the API, and the benchmark and usability loops
+        around them are the target, not the current state.
+      </figcaption>
+    </figure>
+
     <div class="branch">
       <span class="eyebrow">Optional branch</span>
       <h3 class="title is-6">When the paper needs a word the schema doesn't have</h3>
@@ -382,6 +403,33 @@ title: AI Curation - Shedding Hub
   margin-top: 0.5rem;
   font-size: 0.8rem !important;
   color: var(--text-light) !important;
+}
+
+/* The diagram is drawn on a light ground, so it keeps a light surface in dark
+   mode rather than glaring out of the page as a bare white rectangle. */
+.architecture {
+  margin: 2rem 0 2.5rem;
+}
+
+.architecture picture {
+  display: block;
+  padding: 0.75rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.architecture img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.architecture figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-light);
 }
 
 .branch {
