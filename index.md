@@ -385,11 +385,17 @@ title: Shedding Hub
     </div>
 
     <ul class="people-track" id="people-track" tabindex="0" aria-label="Project leadership and scientific advisors">
+      {%- comment -%}
+        Built like the advisor cards below: the same markup, and an outward link
+        to the person's own profile rather than back into this site. Falls back
+        to the personal site for anyone without an institutional page.
+      {%- endcomment -%}
       {% assign founder_keys = "andrew,till" | split: "," %}
       {% for key in founder_keys %}
       {% assign person = site.data.team[key] %}
+      {% assign founder_url = person.profile | default: person.website %}
       <li class="person-card">
-        <a href="/team.html#{{ key }}">
+        <a href="{{ founder_url }}" target="_blank" rel="noopener">
           <img class="person-photo" src="/assets/team/{{ key }}.jpg" alt="" loading="lazy">
           <p class="person-name">Dr. {{ person.first }} {{ person.last }}</p>
           <p class="person-role">Co-founder</p>
