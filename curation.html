@@ -118,7 +118,7 @@ title: AI Curation - Shedding Hub
       <figcaption>
         The phase-2 architecture. <strong>Extraction and review run today</strong>, along
         with the schema and controlled vocabulary they read and the curated YAML they
-        produce. Literature discovery, the API, and the benchmark and usability loops
+        produce. Literature discovery, the web API, and the benchmark and usability loops
         around them are the target, not the current state.
       </figcaption>
     </figure>
@@ -290,7 +290,12 @@ title: AI Curation - Shedding Hub
       </div>
       <div class="column is-6">
         <div class="planned">
-          <h3 class="title is-6">An API</h3>
+          {%- comment -%}
+            "A web API", not "an API": the Package page already documents the
+            library's API reference, which exists. Sharing the bare word made the
+            roadmap read as though that were unbuilt too.
+          {%- endcomment -%}
+          <h3 class="title is-6">A web API</h3>
           <p>
             Query the catalogue over HTTP rather than downloading it, for pipelines that
             want a slice rather than the whole repository.
