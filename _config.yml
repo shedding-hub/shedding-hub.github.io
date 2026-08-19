@@ -1,11 +1,15 @@
 title: Shedding Hub
 url: https://shedding-hub.github.io
 strict_front_matter: true
+# Manual biocuration closed at 39 studies; everything curated since is AI-assisted,
+# so the AI-curated count is the collection size minus this constant.
+manual_curated_count: 39
 exclude:
   - Gemfile
   - Gemfile.lock
   - Makefile
   - tmp/
+  - tools/
   - vendor/
 keep_files:
   - _datasets
