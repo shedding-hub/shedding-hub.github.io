@@ -391,7 +391,7 @@ title: Shedding Hub
       <li class="person-card">
         <a href="/team.html#{{ key }}">
           <img class="person-photo" src="/assets/team/{{ key }}.jpg" alt="" loading="lazy">
-          <p class="person-name">{{ person.first }} {{ person.last }}</p>
+          <p class="person-name">Dr. {{ person.first }} {{ person.last }}</p>
           <p class="person-role">Co-founder</p>
           <p class="person-affil">{{ person.institution }}</p>
         </a>

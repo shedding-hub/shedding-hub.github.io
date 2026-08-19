@@ -1,5 +1,10 @@
 # Scientific advisors. Kept separate from team.yaml, which holds people who work on
 # the project day to day and have full profiles on the Team page.
+- key: BenLopman
+  name: Dr. Benjamin Lopman
+  role: Professor of Epidemiology; Director and Co-PI, CIDMATH
+  institution: Rollins School of Public Health, Emory University
+  url: https://sph.emory.edu/profile/faculty/benjamin-lopman
 - key: ChristineMoe
   name: Dr. Christine Moe
   role: Eugene J. Gangarosa Professor of Safe Water and Sanitation
@@ -10,11 +15,6 @@
   role: Visiting Professor, Hubert Department of Global Health
   institution: Rollins School of Public Health, Emory University
   url: https://sph.emory.edu/profile/faculty/peter-teunis
-- key: BenLopman
-  name: Dr. Benjamin Lopman
-  role: Professor of Epidemiology; Director and Co-PI, CIDMATH
-  institution: Rollins School of Public Health, Emory University
-  url: https://sph.emory.edu/profile/faculty/benjamin-lopman
 - key: KatiaKoelle
   name: Dr. Katia Koelle
   role: Professor of Biology; Director of Scientific Initiatives and Co-PI, CIDMATH
