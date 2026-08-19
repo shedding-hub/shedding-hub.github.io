@@ -372,6 +372,47 @@
     [data-theme="dark"] .pathogen-rsv        { --tag-ink: #5FC7A0; --tag-wash: #10322A; }
     [data-theme="dark"] .pathogen-norovirus  { --tag-ink: #A79BF0; --tag-wash: #221F44; }
 
+    /* Stat grid. Shared rather than page-local: the homepage, the fits page's
+       no-catalog fallback and the curation page all use it, and the fallback was
+       rendering unstyled because the rules lived in index.md. */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+      gap: 1px;
+      background-color: var(--border-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat {
+      background-color: var(--bg-card);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.055em;
+      color: var(--primary-color);
+    }
+
+    .stat-label {
+      margin-top: 0.35rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-light);
+    }
+
+    @media screen and (max-width: 640px) {
+      .stat-value { font-size: 1.6rem; }
+    }
+
     /* The limit-of-detection motif: below this line a measurement is censored
        rather than zero. It divides the page the way it divides a shedding plot. */
     .lod-rule {
@@ -533,7 +574,12 @@
       color: var(--text-primary) !important;
     }
 
-    /* Bulma color helper overrides for dark mode */
+    /* Bulma's own grey measures 4.44:1 on this page background, just under the AA
+       threshold; the palette's muted ink clears it. */
+    .has-text-grey {
+      color: var(--text-light) !important;
+    }
+
     [data-theme="dark"] .has-text-grey {
       color: var(--text-secondary) !important;
     }

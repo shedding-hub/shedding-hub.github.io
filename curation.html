@@ -3,457 +3,436 @@ layout: default
 title: AI Curation - Shedding Hub
 ---
 
+{% assign num_studies = site.datasets | size %}
+{% assign num_ai = num_studies | minus: site.manual_curated_count %}
+
 <section class="hero is-light">
   <div class="hero-body">
     <div class="container is-max-desktop">
-      <h1 class="title is-size-1 mb-4">AI-Powered Curation</h1>
+      <h1 class="title is-size-1 mb-4">AI-powered curation</h1>
       <p class="subtitle is-size-4">
-        Scaling biomarker data curation with intelligent multi-agent systems
+        Two agents on two different providers turn a paper into a reviewed dataset.
+        A curator decides what lands.
       </p>
     </div>
   </div>
 </section>
 
-<!-- Introduction Section -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="content">
       <p class="is-size-5">
-        With over 1.5 million biomedical articles published annually, traditional manual curation cannot keep pace
-        with the exponential growth of biomarker data. We are developing an <strong>AI-powered multi-agent system</strong>
-        that automates literature discovery, data extraction, and quality assurance while maintaining scientific rigor
-        through human-in-the-loop validation.
+        Reading a shedding study by hand takes a curator hours: find the paper, pull the
+        measurements out of tables and figures, reconcile the units, and check every number
+        against what the authors actually wrote. The agents do the first pass of that work
+        and hand a curator a set of proposals to accept or reject &mdash; never a finished
+        dataset to rubber-stamp.
       </p>
-      <div class="notification is-success is-light">
-        <span class="icon-text">
-          <span class="icon">
-            <i class="fa-solid fa-check-circle"></i>
-          </span>
-          <span><strong>Now Available:</strong> {{ site.datasets | size | minus: site.manual_curated_count }} AI-extracted
-          datasets have been released. Explore pathogen shedding data curated by our multi-agent system with
-          human expert validation.</span>
-        </span>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- Multi-Agent Architecture Section -->
-<section class="section has-background-light">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Multi-Agent Architecture</h2>
-    <p class="subtitle is-5 mb-5">Three specialized AI agents work in concert across the entire curation workflow</p>
+<hr class="lod-rule">
 
-    <div class="columns">
-      <div class="column">
-        <div class="card" style="height: 100%;">
-          <div class="card-content">
-            <div class="has-text-centered mb-4">
-              <span class="icon is-large has-text-info">
-                <i class="fa-solid fa-magnifying-glass fa-3x"></i>
-              </span>
-            </div>
-            <h3 class="title is-4 has-text-centered">Discovery Agent</h3>
-            <p>
-              Implements <strong>PRISMA-guided systematic discovery</strong> to identify relevant biomarker studies
-              across multiple databases including PubMed, Embase, Web of Science, and clinical trial registries.
-            </p>
-            <ul class="mt-3">
-              <li>Systematic review integration</li>
-              <li>Comprehensive database searching</li>
-              <li>Metadata-based screening with confidence scoring</li>
-              <li>Full-text retrieval and processing</li>
-              <li>Eligibility assessment</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="card" style="height: 100%;">
-          <div class="card-content">
-            <div class="has-text-centered mb-4">
-              <span class="icon is-large has-text-success">
-                <i class="fa-solid fa-file-import fa-3x"></i>
-              </span>
-            </div>
-            <h3 class="title is-4 has-text-centered">Extraction Agent</h3>
-            <p>
-              Processes <strong>heterogeneous document formats</strong> with structured schema validation,
-              extracting biomarker data from tables, text, and figures.
-            </p>
-            <ul class="mt-3">
-              <li>Multi-format parsing (XML, HTML, PDF)</li>
-              <li>Structured output with schema validation</li>
-              <li>Supplementary materials processing</li>
-              <li>Controlled vocabulary integration</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="card" style="height: 100%;">
-          <div class="card-content">
-            <div class="has-text-centered mb-4">
-              <span class="icon is-large has-text-warning">
-                <i class="fa-solid fa-shield-halved fa-3x"></i>
-              </span>
-            </div>
-            <h3 class="title is-4 has-text-centered">Review Agent</h3>
-            <p>
-              Provides <strong>cross-model quality assurance</strong> using different LLM APIs to reduce
-              systematic biases inherent in single-model systems.
-            </p>
-            <ul class="mt-3">
-              <li>Independent validation of extractions</li>
-              <li>Cross-model verification</li>
-              <li>Source verification to eliminate hallucinations</li>
-              <li>Confidence score calibration</li>
-              <li>Human expert triage for uncertain cases</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Quality Assurance Section -->
+<!-- Pipeline -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Two-Stage Quality Control</h2>
-    <div class="content">
+    <span class="eyebrow">The pipeline</span>
+    <h2 class="title is-3 mb-2">How a study becomes a dataset</h2>
+    <p class="subtitle is-6 mb-5">Numbered because it genuinely is a sequence &mdash; each step consumes the last one's output.</p>
+
+    <ol class="pipeline">
+      <li class="stage">
+        <span class="stage-number is-data">01</span>
+        <div class="stage-body">
+          <h3 class="title is-6">Fetch and freeze</h3>
+          <p>
+            From a PubMed identifier, the agent tries PMC first (XML, then HTML, then a
+            browser for JavaScript-heavy pages), falls back to the publisher's site, and
+            finally to metadata alone. Whatever it retrieves is written to an
+            <strong>evidence bundle</strong> and never fetched again, so every later step
+            reads exactly the same source.
+          </p>
+          <p class="stage-note">
+            Open-access sources only. The browser step handles scripted pages; it is not a
+            way around a paywall.
+          </p>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="stage-number is-data">02</span>
+        <div class="stage-body">
+          <h3 class="title is-6">Extract</h3>
+          <p>
+            A preprocessing pass resolves the awkward parts &mdash; notably turning the
+            paper's dates into days since the reference event &mdash; and a second pass
+            emits the dataset against the schema as structured output. Digitized figure
+            measurements are read in from CSV alongside the text and tables.
+          </p>
+          <p class="stage-note">Runs on OpenAI.</p>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="stage-number is-data">03</span>
+        <div class="stage-body">
+          <h3 class="title is-6">Review</h3>
+          <p>
+            A structural pass checks the dataset against the canonical schema with no model
+            involved at all. A paper-grounded pass then reads the frozen evidence and reports
+            what disagrees with it, sorted into three kinds: the data is wrong, the schema has
+            no way to express what the paper says, or something about the modeling deserves a
+            human's judgement.
+          </p>
+          <p class="stage-note">Runs on Anthropic's Claude &mdash; a different provider from extraction, on purpose.</p>
+        </div>
+      </li>
+
+      <li class="stage">
+        <span class="stage-number is-data">04</span>
+        <div class="stage-body">
+          <h3 class="title is-6">A curator decides</h3>
+          <p>
+            Every finding is a proposal. The curator accepts, edits, or rejects each one, and
+            accepted fixes are applied and the dataset re-reviewed. The review pass is tuned to
+            raise anything worth a second look rather than to stay quiet, which only works
+            because a person is the gate.
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="branch">
+      <span class="eyebrow">Optional branch</span>
+      <h3 class="title is-6">When the paper needs a word the schema doesn't have</h3>
       <p>
-        Our framework advances beyond traditional binary classification by implementing
-        <strong>interpretable prompt-based confidence scoring</strong> that enables intelligent triage
-        of extraction outputs.
+        Sometimes a study reports a specimen or attribute the schema cannot express. The review
+        agent proposes the addition rather than discarding the value or forcing it into the
+        wrong field. If the curator accepts, the schema adopts it and the study is
+        re-extracted <strong>from the frozen evidence bundle</strong> under the new schema
+        &mdash; no refetching, so the only thing that changed is the schema.
       </p>
-
-      <div class="columns is-multiline mt-4">
-        <div class="column is-6">
-          <div class="box">
-            <h4 class="title is-5">
-              <span class="icon has-text-primary"><i class="fa-solid fa-gauge-high"></i></span>
-              Confidence Scoring (1-5 Scale)
-            </h4>
-            <table class="table is-fullwidth is-narrow">
-              <tbody>
-                <tr>
-                  <td><span class="tag is-success">4-5</span></td>
-                  <td>High confidence &rarr; Automated processing</td>
-                </tr>
-                <tr>
-                  <td><span class="tag is-warning">2-3</span></td>
-                  <td>Medium confidence &rarr; Review agent validation</td>
-                </tr>
-                <tr>
-                  <td><span class="tag is-danger">1</span></td>
-                  <td>Low confidence &rarr; Human expert review</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="column is-6">
-          <div class="box">
-            <h4 class="title is-5">
-              <span class="icon has-text-primary"><i class="fa-solid fa-user-check"></i></span>
-              Human-in-the-Loop Validation
-            </h4>
-            <p>Expert review is strategically triggered for:</p>
-            <ul>
-              <li>Low confidence extractions</li>
-              <li>Review agent disagreements</li>
-              <li>Random sampling (5% of high-confidence cases)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- Data Domains Section -->
-<section class="section has-background-light">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Target Data Domains</h2>
-    <p class="subtitle is-5 mb-5">Comprehensive coverage across critical biomarker research areas</p>
+<hr class="lod-rule">
 
-    <div class="columns">
-      <div class="column">
-        <div class="box has-text-centered">
-          <span class="icon is-large has-text-primary">
-            <i class="fa-solid fa-virus fa-2x"></i>
-          </span>
-          <h4 class="title is-5 mt-3">Pathogen Shedding</h4>
-          <p class="is-size-7">
-            Longitudinal quantitative measurements of viral load, bacterial counts, and antigen concentrations
-            across specimen types with temporal resolution for kinetic parameter characterization.
-          </p>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="box has-text-centered">
-          <span class="icon is-large has-text-primary">
-            <i class="fa-solid fa-syringe fa-2x"></i>
-          </span>
-          <h4 class="title is-5 mt-3">Immunological Responses</h4>
-          <p class="is-size-7">
-            Quantitative measurements of antibody titers, cellular responses, and cytokine levels
-            with temporal data enabling kinetic analysis.
-          </p>
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="box has-text-centered">
-          <span class="icon is-large has-text-primary">
-            <i class="fa-solid fa-flask-vial fa-2x"></i>
-          </span>
-          <h4 class="title is-5 mt-3">Human Challenge Studies</h4>
-          <p class="is-size-7">
-            Controlled pathogen exposure with systematic biomarker monitoring, including infection outcomes
-            and correlations between biomarker levels and clinical endpoints.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAIR Data Section -->
+<!-- The agents -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">FAIR Data Infrastructure (Coming Soon)</h2>
-    <div class="content">
-      <p>
-        All AI-curated data follows <strong>FAIR principles</strong> (Findable, Accessible, Interoperable, Reusable)
-        to maximize research impact and enable seamless computational integration.
-      </p>
-
-      <div class="columns is-multiline mt-4">
-        <div class="column is-6">
-          <div class="card">
-            <div class="card-content">
-              <h4 class="title is-5">
-                <span class="icon has-text-info"><i class="fa-solid fa-language"></i></span>
-                Controlled Vocabularies
-              </h4>
-              <p>
-                SKOS-based hierarchical taxonomies with mappings to established ontologies (OBI, SNOMED CT)
-                ensuring terminology standardization during curation.
-              </p>
-            </div>
-          </div>
+    <span class="eyebrow">The agents</span>
+    <h2 class="title is-3 mb-5">Two agents, two providers</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="agent-card">
+          <p class="agent-provider is-data">OpenAI</p>
+          <h3 class="title is-5">Extraction</h3>
+          <p>
+            Retrieves the paper, freezes the evidence, and produces the dataset: a
+            preprocessing pass with date arithmetic, then structured extraction validated
+            against the schema before anything is written.
+          </p>
         </div>
-
-        <div class="column is-6">
-          <div class="card">
-            <div class="card-content">
-              <h4 class="title is-5">
-                <span class="icon has-text-info"><i class="fa-solid fa-code"></i></span>
-                Semantic Metadata
-              </h4>
-              <p>
-                JSON-LD metadata using Dublin Core, DCAT, and SKOS standards enables semantic web
-                interoperability and automated data discovery.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-6">
-          <div class="card">
-            <div class="card-content">
-              <h4 class="title is-5">
-                <span class="icon has-text-info"><i class="fa-solid fa-file-code"></i></span>
-                Multi-Format Outputs
-              </h4>
-              <p>
-                Datasets available in YAML (human-readable), JSON-LD (semantic web), and CSV (statistical analysis)
-                with comprehensive data dictionaries.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="column is-6">
-          <div class="card">
-            <div class="card-content">
-              <h4 class="title is-5">
-                <span class="icon has-text-info"><i class="fa-solid fa-server"></i></span>
-                API Access
-              </h4>
-              <p>
-                FastAPI-based REST infrastructure with OpenAPI specifications for programmatic access,
-                flexible querying, and seamless integration with analysis pipelines.
-              </p>
-            </div>
-          </div>
+      </div>
+      <div class="column">
+        <div class="agent-card">
+          <p class="agent-provider is-data">Claude</p>
+          <h3 class="title is-5">Review</h3>
+          <p>
+            Checks the dataset against its source and the canonical schema, and returns
+            findings with mechanical patches where the fix is unambiguous, plus proposed
+            schema changes where it is not. Its structural checks run without an API key.
+          </p>
         </div>
       </div>
     </div>
+    <p class="mt-4 is-size-7 has-text-grey">
+      A third agent, literature discovery, is planned but not built. Studies are chosen by the
+      team today.
+    </p>
   </div>
 </section>
 
-<!-- Benefits Section -->
-<section class="section has-background-primary">
+<hr class="lod-rule">
+
+<!-- Guarantees -->
+<section class="section has-background-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-white">Why AI-Powered Curation?</h2>
+    <span class="eyebrow">Guardrails</span>
+    <h2 class="title is-3 mb-5">What keeps it honest</h2>
     <div class="columns is-multiline">
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-rocket fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Accelerated Research</h4>
-            <p>Reduce data preparation from months to days, enabling rapid response to emerging health threats.</p>
-          </div>
+      <div class="column is-6">
+        <div class="guard">
+          <h3 class="title is-6">Every claim carries its quote</h3>
+          <p>
+            Findings must quote the frozen evidence verbatim. If the quote cannot be located
+            in that text, the finding is <strong>dropped</strong> rather than downgraded &mdash;
+            an invented quote is worse than a missed problem.
+          </p>
         </div>
       </div>
-
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-scale-balanced fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Scalable Quality</h4>
-            <p>Process hundreds of articles per hour while maintaining quality standards equivalent to expert curation.</p>
-          </div>
+      <div class="column is-6">
+        <div class="guard">
+          <h3 class="title is-6">The reviewer is not the author</h3>
+          <p>
+            Extraction and review run on different providers. A model checking its own output
+            shares its own blind spots; this way agreement means something.
+          </p>
         </div>
       </div>
-
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-arrows-rotate fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Continuous Updates</h4>
-            <p>Automated pipelines enable real-time evidence synthesis as new studies are published.</p>
-          </div>
+      <div class="column is-6">
+        <div class="guard">
+          <h3 class="title is-6">Nothing applies itself</h3>
+          <p>
+            There is no confidence threshold above which a change lands unseen. Every finding
+            is a proposal, and a curator accepts, edits, or rejects it.
+          </p>
         </div>
       </div>
-
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-hospital fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Public Health Impact</h4>
-            <p>Support diagnostic testing strategies, surveillance systems, and disease control measures.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-chart-line fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Modeling Support</h4>
-            <p>Standardized datasets enable scenario planning, power calculations, and sensitivity analyses.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-4">
-        <div class="card">
-          <div class="card-content has-text-centered">
-            <span class="icon is-large has-text-primary">
-              <i class="fa-solid fa-code-branch fa-2x"></i>
-            </span>
-            <h4 class="title is-5 mt-3">Open Science</h4>
-            <p>All tools, datasets, and workflows publicly available under open-source licenses.</p>
-          </div>
+      <div class="column is-6">
+        <div class="guard">
+          <h3 class="title is-6">The evidence does not move</h3>
+          <p>
+            Because the source is frozen at fetch time, a review months later reads exactly
+            what the extraction read, and a re-extraction changes only what the schema change
+            intended.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Current Status Section -->
+<hr class="lod-rule">
+
+<!-- Where it stands -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Current Progress</h2>
-    <div class="content">
-      <p>Building on our manually curated benchmark datasets, we are actively developing and validating the AI-powered curation system.</p>
-
-      <table class="table is-striped is-fullwidth">
-        <thead>
-          <tr>
-            <th>Component</th>
-            <th>Status</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Manual Curated Benchmarks</strong></td>
-            <td><span class="tag is-success">Completed</span></td>
-            <td>{{ site.manual_curated_count }} studies extracted by hand, the benchmark the pipeline is measured against</td>
-          </tr>
-          <tr>
-            <td><strong>Controlled Vocabulary</strong></td>
-            <td><span class="tag is-success">Implemented</span></td>
-            <td>60 controlled vocabulary terms, 132 semantic relationships</td>
-          </tr>
-          <tr>
-            <td><strong>Literature Discovery Agent</strong></td>
-            <td><span class="tag is-info">Prototype</span></td>
-            <td>PRISMA-guided systematic search across PubMed</td>
-          </tr>
-          <tr>
-            <td><strong>Data Extraction Agent</strong></td>
-            <td><span class="tag is-success">Functional</span></td>
-            <td>Multi-format parsing with schema validation</td>
-          </tr>
-          <tr>
-            <td><strong>Review Agent</strong></td>
-            <td><span class="tag is-info">Prototype</span></td>
-            <td>Cross-model validation framework</td>
-          </tr>
-          <tr>
-            <td><strong>AI-Extracted Datasets</strong></td>
-            <td><span class="tag is-success">Released</span></td>
-            <td>{{ site.datasets | size | minus: site.manual_curated_count }} datasets curated with AI assistance and human validation</td>
-          </tr>
-        </tbody>
-      </table>
+    <span class="eyebrow">Where it stands</span>
+    <h2 class="title is-3 mb-5">What the pipeline has produced</h2>
+    <div class="stat-grid">
+      <div class="stat">
+        <p class="stat-value">{{ num_ai }}</p>
+        <p class="stat-label">AI-curated studies</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value">{{ site.manual_curated_count }}</p>
+        <p class="stat-label">Hand-built benchmark</p>
+      </div>
+      <div class="stat">
+        <p class="stat-value">{{ num_studies }}</p>
+        <p class="stat-label">Studies in total</p>
+      </div>
+    </div>
+    <div class="content mt-5">
+      <p>
+        The {{ site.manual_curated_count }} studies our biocurators extracted by hand from May
+        2024 are what the pipeline is measured against &mdash; the agents were built to
+        reproduce that standard, not to relax it. Every study curated since June 2025 has gone
+        through the agents and a human reviewer.
+      </p>
+      <p>
+        <a href="/datasets.html">Browse the catalogue &rarr;</a>
+      </p>
     </div>
   </div>
 </section>
 
-<!-- Get Involved Section -->
-<section class="section has-background-light">
+<hr class="lod-rule">
+
+<!-- Roadmap -->
+<section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3">Get Involved</h2>
-    <div class="content">
-      <p>
-        We welcome collaboration from researchers, public health professionals, and developers interested in
-        advancing AI-powered biomedical data curation.
-      </p>
-      <div class="buttons">
-        <a href="https://github.com/shedding-hub" class="button is-primary" target="_blank" rel="noopener">
-          <span class="icon">
-            <i class="fab fa-github"></i>
-          </span>
-          <span>View on GitHub</span>
-        </a>
-        <a href="/team.html" class="button is-link">
-          <span class="icon">
-            <i class="fa-solid fa-people-group"></i>
-          </span>
-          <span>Meet the Team</span>
-        </a>
+    <span class="eyebrow">Roadmap</span>
+    <h2 class="title is-3 mb-2">What&rsquo;s next</h2>
+    <p class="subtitle is-6 mb-5">None of this is running yet. It is here so you can tell it apart from what is.</p>
+    <div class="columns is-multiline">
+      <div class="column is-6">
+        <div class="planned">
+          <h3 class="title is-6">A discovery agent</h3>
+          <p>
+            The missing first step: given a topic and inclusion criteria, search the
+            literature and propose the studies worth extracting, instead of the team
+            choosing them by hand.
+          </p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="planned">
+          <h3 class="title is-6">Machine-readable metadata</h3>
+          <p>
+            JSON-LD alongside the YAML, using established vocabularies, so datasets can be
+            discovered and consumed without scraping this site.
+          </p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="planned">
+          <h3 class="title is-6">An API</h3>
+          <p>
+            Query the catalogue over HTTP rather than downloading it, for pipelines that
+            want a slice rather than the whole repository.
+          </p>
+        </div>
+      </div>
+      <div class="column is-6">
+        <div class="planned">
+          <h3 class="title is-6">Beyond shedding</h3>
+          <p>
+            The same extract-and-review shape applied to immunological response data and
+            human challenge studies, which share the longitudinal structure.
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<hr class="lod-rule">
+
+<!-- Get involved -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <span class="eyebrow">Get involved</span>
+    <h2 class="title is-3 mb-4">Work on this with us</h2>
+    <div class="content">
+      <p>
+        The agents are open source, and the parts most worth attacking are the ones a
+        curator still does by hand. If you have found an extraction that is wrong, that is
+        the most useful thing you can send us.
+      </p>
+    </div>
+    <div class="buttons">
+      <a href="https://github.com/shedding-hub" class="button is-primary" target="_blank" rel="noopener">
+        <span class="icon"><i class="fab fa-github"></i></span>
+        <span>View on GitHub</span>
+      </a>
+      <a href="https://github.com/shedding-hub/shedding-hub/issues" class="button" target="_blank" rel="noopener">
+        <span class="icon"><i class="fa-solid fa-flag"></i></span>
+        <span>Report a data issue</span>
+      </a>
+      <a href="/team.html" class="button">
+        <span class="icon"><i class="fa-solid fa-people-group"></i></span>
+        <span>Meet the team</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Pipeline: a numbered spine, because the steps really are ordered and each one
+   consumes the previous step's output. */
+.pipeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+  position: relative;
+}
+
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  top: 2.25rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-color);
+}
+
+.stage-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--bg-primary);
+  position: relative;
+  z-index: 1;
+}
+
+.stage-body .title {
+  margin-bottom: 0.4rem;
+}
+
+.stage-body p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.stage-note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem !important;
+  color: var(--text-light) !important;
+}
+
+.branch {
+  margin-top: 0.5rem;
+  margin-left: 4.75rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+}
+
+.branch p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 640px) {
+  .stage { grid-template-columns: 2.5rem 1fr; gap: 0.9rem; }
+  .stage:not(:last-child)::before { left: 1rem; }
+  .stage-number { width: 2rem; height: 2rem; font-size: 0.7rem; }
+  .branch { margin-left: 0; }
+}
+
+/* Agent cards */
+.agent-card,
+.guard,
+.planned {
+  height: 100%;
+  padding: 1.5rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.agent-card {
+  border-top: 3px solid var(--primary-color);
+}
+
+.agent-provider {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+
+.agent-card p:not(.agent-provider),
+.guard p,
+.planned p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Planned work is dashed, so it reads as not-yet-built at a glance. */
+.planned {
+  background-color: transparent;
+  border-style: dashed;
+}
+</style>

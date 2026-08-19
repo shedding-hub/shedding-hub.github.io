@@ -709,37 +709,7 @@ title: Shedding Hub
 /* ---------------------------------------------------------------------------
    At a glance
    --------------------------------------------------------------------------- */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 1px;
-  background-color: var(--border-color);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.stat {
-  background-color: var(--bg-card);
-  padding: 1.5rem 1rem;
-  text-align: center;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.055em;
-  color: var(--primary-color);
-}
-
-.stat-label {
-  margin-top: 0.35rem;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-light);
-}
+/* .stat-grid and its parts now live in the shared layout, since three pages use them. */
 
 .biomarker-tags {
   display: flex;
@@ -975,8 +945,6 @@ title: Shedding Hub
   }
 
   .hero-logo { margin-bottom: 1.25rem; }
-
-  .stat-value { font-size: 1.6rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
