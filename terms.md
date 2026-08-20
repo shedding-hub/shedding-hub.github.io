@@ -30,10 +30,18 @@ title: Terms of Use - Shedding Hub
         for the platform:
       </p>
       <blockquote>
-        Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2025).
-        Shedding Hub (Version 1.0.0) [Data set].
-        <a href="https://doi.org/10.5281/zenodo.15052773" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.15052773</a>
+        Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026).
+        Shedding Hub [Software]. Zenodo.
+        <a href="https://doi.org/10.5281/zenodo.15052772" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.15052772</a>
       </blockquote>
+      <p>
+        That DOI covers every version of Shedding Hub and always resolves to the current
+        release, so it does not fall out of date as the repository grows. Where an analysis
+        has to be reproducible against a fixed snapshot, cite instead the version DOI of the
+        release it used — each is listed on the
+        <a href="https://doi.org/10.5281/zenodo.15052772" target="_blank" rel="noopener">Zenodo
+        record</a>.
+      </p>
       <p>
         Each dataset page lists the original publication DOI; please also cite that source.
       </p>

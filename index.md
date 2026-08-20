@@ -319,10 +319,15 @@ title: Shedding Hub
 
     <div class="box cite-box">
       <span class="eyebrow">How to cite</span>
-      <p class="mb-3">Citing the repository in a paper? Use this, and tell us so we can link it here.</p>
+      <p class="mb-3">Citing Shedding Hub in a paper? Use this, and tell us so we can link the work here.</p>
+      {%- comment -%}
+        The concept DOI, not a version DOI: it always resolves to the current
+        release, so this citation cannot go stale the way the Terms page's did —
+        that one still pointed at v1.0.0 from 2025.
+      {%- endcomment -%}
       <div class="cite-row">
-        <code class="cite-text" id="cite-text">Shedding Hub: curated biomarker shedding data. https://shedding-hub.github.io</code>
-        <button type="button" class="button is-small copy-chip" data-copy="Shedding Hub: curated biomarker shedding data. https://shedding-hub.github.io">
+        <code class="cite-text" id="cite-text">Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Software]. Zenodo. https://doi.org/10.5281/zenodo.15052772</code>
+        <button type="button" class="button is-small copy-chip" data-copy="Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Software]. Zenodo. https://doi.org/10.5281/zenodo.15052772">
           <span class="icon copy-chip-idle"><i class="fa-regular fa-copy"></i></span>
           <span class="icon copy-chip-done"><i class="fa-solid fa-check"></i></span>
           <span class="copy-chip-idle">Copy</span>
@@ -330,7 +335,11 @@ title: Shedding Hub
         </button>
       </div>
       <p class="is-size-7 mt-3 has-text-grey">
-        Individual datasets should also cite their source study, linked from every dataset page.
+        That DOI covers all versions and resolves to the current release. To cite the exact
+        version an analysis used, take its version DOI from the
+        <a href="https://doi.org/10.5281/zenodo.15052772" target="_blank" rel="noopener">Zenodo
+        record</a>. Individual datasets should also cite their source study, linked from every
+        dataset page.
       </p>
     </div>
   </div>
