@@ -31,7 +31,7 @@ title: Terms of Use - Shedding Hub
       </p>
       <blockquote>
         Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026).
-        Shedding Hub [Software]. Zenodo.
+        Shedding Hub [Data set]. Zenodo.
         <a href="https://doi.org/10.5281/zenodo.15052772" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.15052772</a>
       </blockquote>
       <p>

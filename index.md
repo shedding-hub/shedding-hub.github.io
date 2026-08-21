@@ -326,8 +326,8 @@ title: Shedding Hub
         that one still pointed at v1.0.0 from 2025.
       {%- endcomment -%}
       <div class="cite-row">
-        <code class="cite-text" id="cite-text">Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Software]. Zenodo. https://doi.org/10.5281/zenodo.15052772</code>
-        <button type="button" class="button is-small copy-chip" data-copy="Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Software]. Zenodo. https://doi.org/10.5281/zenodo.15052772">
+        <code class="cite-text" id="cite-text">Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15052772</code>
+        <button type="button" class="button is-small copy-chip" data-copy="Wang, Y., Hoffmann, T., Xiao, W., Hu, Y., Chen, Z., Zhang, H., Shen, L., &amp; Zhai, S. (2026). Shedding Hub [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15052772">
           <span class="icon copy-chip-idle"><i class="fa-regular fa-copy"></i></span>
           <span class="icon copy-chip-done"><i class="fa-solid fa-check"></i></span>
           <span class="copy-chip-idle">Copy</span>
