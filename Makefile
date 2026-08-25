@@ -1,4 +1,4 @@
-.PHONY = ^datasets-yaml hero-trace curation-growth clean
+.PHONY = ^datasets-yaml hero-trace clean
 
 DATA_REF ?= main
 DATASETS_YAML = $(wildcard _datasets/*.yaml)
@@ -57,6 +57,17 @@ ${DATASETS_MD} : _datasets/%.md : _datasets/%.yaml
 	else \
 	  echo "no shedding_catalog_ct_gate2.yaml in ${DATA_REF}; fits page shows concentration fits only" ; \
 	fi
+	# The catalogue's growth curve for the curation page, built in the data
+	# repository because it is read out of that repository's commit history --
+	# which this site never receives, unpacking an archive with no git attached.
+	# Tolerated when absent, like the figures: the page omits the figure and the
+	# section reads as it did before it existed.
+	rm -f _data/curation_growth.yaml
+	if [ -f tmp/shedding-hub-${DATA_REF}/curation_growth.yaml ]; then \
+	  cp tmp/shedding-hub-${DATA_REF}/curation_growth.yaml _data/curation_growth.yaml ; \
+	else \
+	  echo "no curation_growth.yaml in ${DATA_REF}; the curation page omits the growth figure" ; \
+	fi
 
 tmp/shedding-hub.zip :
 	mkdir -p tmp
@@ -69,14 +80,5 @@ tmp/shedding-hub.zip :
 hero-trace :
 	python tools/make_hero_trace.py
 
-# The curation page's growth curve. Unlike hero-trace this reads the *data*
-# repository's git history, which this site never has -- `_datasets/` arrives as
-# an archive with no commits -- so it needs a local clone of shedding-hub beside
-# this one, or --repo. Committed for the same reason as the hero trace: CI is
-# Ruby only. Rerun after a data drop; the page states the figure's as-of date, so
-# a stale run reads as history rather than as a wrong current total.
-curation-growth :
-	python tools/make_curation_growth.py
-
 clean :
-	rm -rf _datasets tmp assets/figures _data/figures.json _data/shedding_catalog.yaml
+	rm -rf _datasets tmp assets/figures _data/figures.json _data/shedding_catalog.yaml _data/curation_growth.yaml

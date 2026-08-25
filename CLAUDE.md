@@ -124,23 +124,30 @@ changing the featured study or the plot geometry.
 
 `curation.html`'s "Where it stands" section carries a step chart of how the catalog
 actually grew, so the claim that the agents changed the slope is shown rather than
-asserted. `tools/make_curation_growth.py` writes `_data/curation_growth.yaml`;
-regenerate with `make curation-growth`.
+asserted. The homepage's AI-curation card links straight to it (`/curation.html#growth`).
 
-Unlike the hero trace, it does **not** read `_datasets/`. The growth history lives in
-the data repository's commits, and this site only ever sees an archive with no git
-attached — so the script reads a local clone of `shedding-hub/shedding-hub` (a sibling
-directory by default, or `--repo PATH`). Everything drawn is derived there, axis ticks
-and label positions included, so regenerating is the only step.
+**Nothing generates it here.** The shape is read out of the *data* repository's commit
+history, which this site never receives — `_datasets/` is unpacked from an archive with
+no git attached, and CI is Ruby only. So `scripts/build_curation_growth.py` builds it
+there, `refresh-figures.yaml` republishes it on every data change, and
+`make ^_datasets-yaml` copies `curation_growth.yaml` out of the same archive it already
+downloads, exactly like `figures.json` and `shedding_catalog.yaml`. `_data/curation_growth.yaml`
+is therefore gitignored and generated, not edited.
 
-The figure is history and says so: the caption prints its `as_of` date, while the stat
-grid above it comes from `site.datasets` and is always live. Between a data drop and a
-rerun the two legitimately differ, and the wording is built for that. Do not replace the
-`as_of` caption with a live count — the curve behind it would still be the old one.
+Tolerated when absent, like the figures: a `DATA_REF` predating it still builds, and
+`{%- if growth -%}` makes the section read as it did before the figure existed.
 
-`AI_START` in the script is the first agent-extracted batch (2026-02-05). It is pinned
-rather than detected: which batch was the first the agents produced is a fact about how
-the work was done, not something recoverable from the shape of the curve.
+The published file carries normalized SVG coordinates rather than counts — Liquid has no
+arithmetic worth the name, so ticks, label positions and the path are all resolved
+upstream. To change the geometry, change the script in the data repository.
+
+The caption prints the figure's `as_of` date while the stat grid above comes from
+`site.datasets`. Both now refresh on the same deploy, so they should agree; the `as_of`
+line stays because it dates the *history*, and it is the tell if a refresh ever fails.
+
+One trap, guarded upstream but worth knowing here: the curve is built from `git log`, so
+a shallow clone silently collapses it to a single point. The data repository checks out
+with `fetch-depth: 0` and its script refuses fewer than 20 `data/` commits.
 
 ### Design Tokens
 

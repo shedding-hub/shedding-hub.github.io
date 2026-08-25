@@ -105,14 +105,15 @@ title: Shedding Hub
     <h2 class="title is-3 mb-5">What&rsquo;s new</h2>
     <div class="columns">
       <div class="column">
-        <a class="news-card" href="/curation.html">
+        <a class="news-card" href="/curation.html#growth">
           <p class="news-figure is-data">{{ num_ai }}</p>
           <h3 class="title is-5">studies curated by AI</h3>
           <p>
-            A multi-agent pipeline now finds, extracts, and cross-checks studies, and a
-            human curator reviews every one before it lands.
+            A multi-agent pipeline finds, extracts, and cross-checks studies, and a human
+            curator reviews every one before it lands &mdash; which is how the catalogue
+            grew the way it did.
           </p>
-          <span class="news-link">How the pipeline works <i class="fa-solid fa-arrow-right"></i></span>
+          <span class="news-link">See how it grew <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
       <div class="column">
