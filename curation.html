@@ -246,6 +246,71 @@ title: AI Curation - Shedding Hub
         <p class="stat-label">Studies in total</p>
       </div>
     </div>
+
+    {%- comment -%}
+      The shape behind those three numbers, reconstructed from the data
+      repository's git history by tools/make_curation_growth.py. Guarded: a
+      checkout without the generated file still builds, and the section reads
+      exactly as it did before the figure existed.
+    {%- endcomment -%}
+    {%- assign growth = site.data.curation_growth -%}
+    {%- if growth -%}
+    <figure class="growth-figure">
+      <div class="growth-scroll">
+        <svg class="growth-chart" viewBox="0 0 {{ growth.width }} {{ growth.height }}"
+             role="img" aria-labelledby="growth-title growth-desc"
+             preserveAspectRatio="xMidYMid meet">
+          <title id="growth-title">Curated studies over time</title>
+          <desc id="growth-desc">
+            A step chart of the catalogue's size. It holds {{ growth.manual_era_end }}
+            hand-curated studies until the first agent-extracted batch in
+            {{ growth.ai_start.date_label }}, then rises to {{ growth.end.count }} by
+            {{ growth.end.date_label }}.
+          </desc>
+
+          <rect class="growth-band" x="{{ growth.ai_band.x }}" y="{{ growth.plot_top }}"
+                width="{{ growth.ai_band.width }}"
+                height="{{ growth.baseline_y | minus: growth.plot_top }}" />
+
+          {%- for line in growth.gridlines %}
+          <line class="growth-grid" x1="{{ growth.plot_left }}" y1="{{ line.y }}"
+                x2="{{ growth.plot_right }}" y2="{{ line.y }}" />
+          <text class="growth-axis" x="{{ growth.plot_left | minus: 12 }}" y="{{ line.y }}"
+                text-anchor="end" dominant-baseline="middle">{{ line.label }}</text>
+          {%- endfor %}
+
+          {%- for tick in growth.xticks %}
+          <text class="growth-axis" x="{{ tick.x }}" y="{{ growth.height | minus: 6 }}"
+                text-anchor="middle">{{ tick.label }}</text>
+          {%- endfor %}
+
+          <polyline class="growth-line" points="{{ growth.path }}" />
+
+          <circle class="growth-dot" cx="{{ growth.ai_start.x }}"
+                  cy="{{ growth.ai_start.y }}" r="5.5" />
+          <text class="growth-note" x="{{ growth.ai_start.x | minus: 14 }}"
+                y="{{ growth.ai_start.y | minus: 14 }}" text-anchor="end">
+            First AI batch &middot; {{ growth.ai_start.date_label }}
+          </text>
+
+          <circle class="growth-dot is-end" cx="{{ growth.end.x }}"
+                  cy="{{ growth.end.y }}" r="6.5" />
+          <text class="growth-total" x="{{ growth.end.x | plus: 14 }}"
+                y="{{ growth.end.y | plus: 4 }}">{{ growth.end.count }}</text>
+          <text class="growth-note" x="{{ growth.end.x | plus: 14 }}"
+                y="{{ growth.end.y | plus: 26 }}">studies</text>
+        </svg>
+      </div>
+      <figcaption>
+        Curated studies over time, from the data repository's commit history. The
+        catalogue sat at {{ growth.manual_era_end }} hand-built studies when the first
+        agent-extracted batch landed in {{ growth.ai_start.date_label }}; the shaded
+        stretch is everything since. Figure as of {{ growth.as_of }} &mdash; the totals
+        above are live.
+      </figcaption>
+    </figure>
+    {%- endif -%}
+
     <div class="content mt-5">
       <p>
         The {{ site.manual_curated_count }} studies our biocurators extracted by hand from May
@@ -358,6 +423,80 @@ title: AI Curation - Shedding Hub
 </section>
 
 <style>
+/* ---------------------------------------------------------------------------
+   Growth figure. Every colour is a theme token rather than a literal, so the
+   chart follows the light/dark switch without a second palette to maintain.
+   --------------------------------------------------------------------------- */
+.growth-figure {
+  margin: 2.75rem 0 0;
+}
+
+/* The frame is 1200 wide. Letting it shrink to a phone's width would scale the
+   axis type down with it, to about a third of its size and well past legible,
+   so below the min-width the figure scrolls instead of shrinking. */
+.growth-scroll {
+  overflow-x: auto;
+}
+
+.growth-chart {
+  display: block;
+  width: 100%;
+  min-width: 640px;
+  height: auto;
+}
+
+.growth-band {
+  fill: var(--primary-color);
+  opacity: 0.09;
+}
+
+.growth-grid {
+  stroke: var(--border-color);
+  stroke-width: 1;
+}
+
+.growth-line {
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* Ringed in the page colour rather than outlined: the marker sits on top of the
+   line, and a ring reads as separation where a stroke reads as a border. */
+.growth-dot {
+  fill: var(--primary-color);
+  stroke: var(--bg-primary);
+  stroke-width: 2.5;
+}
+
+.growth-axis {
+  fill: var(--text-light);
+  font-family: var(--font-mono);
+  font-size: 15px;
+}
+
+.growth-note {
+  fill: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.growth-total {
+  fill: var(--primary-color);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.growth-figure figcaption {
+  margin-top: 1.1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 /* Pipeline: a numbered spine, because the steps really are ordered and each one
    consumes the previous step's output. */
 .pipeline {
