@@ -5,11 +5,11 @@ andrew:
   job: Assistant Research Professor
   institution: Rollins School of Public Health, Emory University
   email: yuke[dot]wang[at]emory[dot]edu
-  # Institutional profile, kept distinct from the personal site below. The
-  # homepage leadership card links here, the way the advisor cards link to
-  # theirs; the Team page still lists the personal site.
+  # The homepage leadership card links here, the way the advisor cards link to
+  # theirs. No `website` by choice: the Team page's Website link is optional
+  # (`{% if person.website %}`) and the homepage card falls back to `profile`,
+  # so leaving it out drops the link cleanly rather than breaking either page.
   profile: https://sph.emory.edu/profile/faculty/yuke-wang
-  website: https://ywan446.github.io/
   github: YWAN446
   bio: Yuke (Andrew) Wang sets the overall direction of the Shedding Hub project and leads the teams to build the AI-powered multi-agent system for data curation.
   description: |
@@ -20,6 +20,8 @@ andrew:
     I am more broadly interested in what **AI agents can do for public health**: not only synthesising the evidence, but putting it to work. [EpiChat](https://ywan446.github.io/epichat/) is one example — it turns a plain-language question into a validated epidemiological simulation, so a surveillance team or policy officer can explore a scenario without waiting on a modeller.
 
     I am an Investigator of the [Emory Center for Infectious Disease Modeling & Analytics and Training Hub (CIDMATH)](https://cidmath.org/) and a Core Investigator at the [Center for Global Safe Water, Sanitation, and Hygiene (CGSW)](https://www.cgswash.org/).
+
+    I am also the founder of [GrantOtter](https://grantotter.com).
 till:
   group: leadership
   first: Till
