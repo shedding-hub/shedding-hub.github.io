@@ -120,6 +120,28 @@ paths. The output is committed because CI builds with Ruby only and has no Pytho
 regenerate with `make hero-trace` after `make ^_datasets-yaml`, and only when
 changing the featured study or the plot geometry.
 
+### Curation Growth Curve
+
+`curation.html`'s "Where it stands" section carries a step chart of how the catalog
+actually grew, so the claim that the agents changed the slope is shown rather than
+asserted. `tools/make_curation_growth.py` writes `_data/curation_growth.yaml`;
+regenerate with `make curation-growth`.
+
+Unlike the hero trace, it does **not** read `_datasets/`. The growth history lives in
+the data repository's commits, and this site only ever sees an archive with no git
+attached — so the script reads a local clone of `shedding-hub/shedding-hub` (a sibling
+directory by default, or `--repo PATH`). Everything drawn is derived there, axis ticks
+and label positions included, so regenerating is the only step.
+
+The figure is history and says so: the caption prints its `as_of` date, while the stat
+grid above it comes from `site.datasets` and is always live. Between a data drop and a
+rerun the two legitimately differ, and the wording is built for that. Do not replace the
+`as_of` caption with a live count — the curve behind it would still be the old one.
+
+`AI_START` in the script is the first agent-extracted batch (2026-02-05). It is pinned
+rather than detected: which batch was the first the agents produced is a fact about how
+the work was done, not something recoverable from the shape of the curve.
+
 ### Design Tokens
 
 `_layouts/default.html` defines the palette, typography, and theme variables for the

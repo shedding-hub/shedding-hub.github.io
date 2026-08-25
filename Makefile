@@ -1,4 +1,4 @@
-.PHONY = ^datasets-yaml hero-trace clean
+.PHONY = ^datasets-yaml hero-trace curation-growth clean
 
 DATA_REF ?= main
 DATASETS_YAML = $(wildcard _datasets/*.yaml)
@@ -68,6 +68,15 @@ tmp/shedding-hub.zip :
 # or change the plot geometry, after `make ^_datasets-yaml`.
 hero-trace :
 	python tools/make_hero_trace.py
+
+# The curation page's growth curve. Unlike hero-trace this reads the *data*
+# repository's git history, which this site never has -- `_datasets/` arrives as
+# an archive with no commits -- so it needs a local clone of shedding-hub beside
+# this one, or --repo. Committed for the same reason as the hero trace: CI is
+# Ruby only. Rerun after a data drop; the page states the figure's as-of date, so
+# a stale run reads as history rather than as a wrong current total.
+curation-growth :
+	python tools/make_curation_growth.py
 
 clean :
 	rm -rf _datasets tmp assets/figures _data/figures.json _data/shedding_catalog.yaml
