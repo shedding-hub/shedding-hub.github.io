@@ -191,28 +191,6 @@ title: Shedding Hub
   </div>
 </section>
 
-<!-- Interactive Data Explorer -->
-<section class="section has-background-light">
-  <div class="container is-fluid">
-    <div class="container is-max-desktop">
-      <span class="eyebrow">Explore</span>
-      <h2 class="title is-3 mb-4">Interactive data explorer</h2>
-      <div class="content mb-5">
-        <p>
-          Plot time courses, compare studies, and inspect shedding dynamics without writing code.
-        </p>
-      </div>
-    </div>
-    <div class="dashboard-container" id="dashboard-container">
-      <button type="button" class="dashboard-launch" id="dashboard-launch">
-        <span class="icon is-large"><i class="fa-solid fa-circle-play fa-2x"></i></span>
-        <span class="dashboard-launch-label">Load the dashboard</span>
-        <span class="dashboard-launch-note">Opens in place</span>
-      </button>
-    </div>
-  </div>
-</section>
-
 <hr class="lod-rule">
 
 <!-- Why -->
@@ -748,69 +726,6 @@ title: Shedding Hub
 }
 
 /* ---------------------------------------------------------------------------
-   Dashboard: loaded on demand so a cold start on the free instance never blocks
-   the page, and the iframe is not fetched for readers who never open it.
-   --------------------------------------------------------------------------- */
-.dashboard-container {
-  position: relative;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.dashboard-launch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  min-height: 13rem;
-  padding: 2rem;
-  background: none;
-  border: 0;
-  cursor: pointer;
-  color: var(--text-secondary);
-  font-family: inherit;
-}
-
-.dashboard-launch:hover {
-  background-color: var(--bg-secondary);
-  color: var(--primary-color);
-}
-
-.dashboard-launch-label {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-}
-
-.dashboard-launch-note {
-  font-size: 0.8rem;
-  color: var(--text-light);
-}
-
-#dash-dashboard {
-  width: 100%;
-  height: 1000px;
-  border: 0;
-  background: var(--bg-card);
-  display: block;
-}
-
-@media screen and (max-width: 1024px) {
-  #dash-dashboard { height: 850px; }
-}
-
-@media screen and (max-width: 768px) {
-  #dash-dashboard { height: 700px; }
-}
-
-/* ---------------------------------------------------------------------------
    Citation
    --------------------------------------------------------------------------- */
 .cite-box {
@@ -1026,19 +941,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
-  // Dashboard loads only when asked for, so a cold start never blocks the page.
-  const launch = document.getElementById('dashboard-launch');
-  if (launch) {
-    launch.addEventListener('click', function () {
-      const container = document.getElementById('dashboard-container');
-      const frame = document.createElement('iframe');
-      frame.id = 'dash-dashboard';
-      frame.src = 'https://shedding-hub-dashboard-demo.onrender.com';
-      frame.title = 'Shedding Hub interactive dashboard';
-      container.replaceChildren(frame);
-    });
-  }
 
   // People carousel: one viewport of cards per press.
   const track = document.getElementById('people-track');
