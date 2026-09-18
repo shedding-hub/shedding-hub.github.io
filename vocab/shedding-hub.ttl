@@ -1,489 +1,945 @@
-@prefix dcat:  <http://www.w3.org/ns/dcat#> .
-@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema1: <http://schema.org/> .
 @prefix shv: <https://shedding-hub.github.io/vocab#> .
-@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-
-<https://shedding-hub.github.io/vocab>
-  a skos:ConceptScheme, owl:Ontology ;
-  dct:title "Shedding Hub Vocabulary"@en ;
-  dct:description "A controlled vocabulary for studies with pathogen and biomarker shedding information."@en ;
-  dct:created "2025-05-20"^^xsd:date ;
-  dct:modified "2025-05-20"^^xsd:date ;
-  dct:creator <https://orcid.org/0000-0002-9615-7859> ;
-  dct:publisher <https://shedding-hub.github.io/> ;
-  dct:language "en"@en ;
-  dct:license <https://spdx.org/licenses/MIT.html> ;
-  dct:audience schema:Researcher ;
-  dcat:theme <http://eurovoc.europa.eu/100142> ,  # Health
-             <http://eurovoc.europa.eu/4530> ,   # Medical sciences
-             <http://eurovoc.europa.eu/3645> .   # Biology
-  owl:imports <http://www.w3.org/2004/02/skos/core> ;
-  owl:versionInfo "0.1.0" ;
-  owl:versionIRI <https://shedding-hub.github.io/vocab/0.1.0> .
-  skos:prefLabel "Pathogen/Biomarker Shedding Vocabulary"@en ;
-  rdfs:label "Pathogen/Biomarker Shedding Vocabulary"@en ;
-  skos:hasTopConcept 
-    shv:analyte, shv:doi, shv:participants, shv:title, shv:url .
-
-### TOP CONCEPT: Analyte
-shv:analyte a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Analyte"@en ;
-  rdfs:label "Analyte"@en ;
-  skos:narrower shv:biomarker, shv:gene_target, shv:limit_of_blank, shv:limit_of_detection, shv:limit_of_quantification, shv: reference_event, shv:specimen, shv:unit ;
-  skos:topConceptOf <https://shedding-hub.github.io/vocab> ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:biomarker a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Biomarker or pathogen being measured"@en ;
-  rdfs:label "Biomarker or pathogen being measured"@en ;
-  skos:narrower shv:crAssphage, shv:influenza, shv:mtDNA, shv:PMMoV, shv:sapovirus, shv:SARS, shv:SARS-CoV-2 ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:crAssphage a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Cross-assembly phage"@en ;
-  rdfs:label "Cross-assembly phage"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:influenza a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Influenza virus"@en ;
-  rdfs:label "Influenza virus"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:mtDNA a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Mitochondrial DNA (mtDNA)"@en ;
-  rdfs:label "Mitochondrial DNA (mtDNA)"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:PMMoV a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Pepper mild mottle virus (PMMoV)"@en ;
-  rdfs:label "Pepper mild mottle virus (PMMoV)"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:sapovirus a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Sapovirus"@en ;
-  rdfs:label "Sapovirus"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 shv:SARS a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Severe acute respiratory syndrome (SARS) virus"@en ;
-  rdfs:label "Severe acute respiratory syndrome (SARS) virus"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "Severe acute respiratory syndrome (SARS) virus"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Severe acute respiratory syndrome (SARS) virus"@en .
+
+shv:BK_polyomavirus a skos:Concept ;
+    rdfs:label "BK polyomavirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "BK polyomavirus"@en .
+
+shv:HCoV-HKU1 a skos:Concept ;
+    rdfs:label "HCoV-HKU1"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "HCoV-HKU1"@en .
+
+shv:HCoV-NL63 a skos:Concept ;
+    rdfs:label "HCoV-NL63"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "HCoV-NL63"@en .
+
+shv:HIV a skos:Concept ;
+    rdfs:label "HIV"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "HIV"@en .
+
+shv:PCV-1 a skos:Concept ;
+    rdfs:label "PCV-1"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "PCV-1"@en .
+
+shv:PMMoV a skos:Concept ;
+    rdfs:label "Pepper mild mottle virus (PMMoV)"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Pepper mild mottle virus (PMMoV)"@en .
+
+shv:RSV a skos:Concept ;
+    rdfs:label "RSV"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "RSV"@en .
+
+shv:SARS-CoV-1 a skos:Concept ;
+    rdfs:label "SARS-CoV-1"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "SARS-CoV-1"@en .
 
 shv:SARS-CoV-2 a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus"@en ;
-  rdfs:label "Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus"@en ;
-  skos:broader shv:biomarker ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus"@en .
 
-shv:gene_target a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "PCR gene target"@en ;
-  rdfs:label "PCR gene target"@en ;
-  skos:definition "In PCR (Polymerase Chain Reaction), the specific gene or DNA sequence that is targeted for amplification"@en ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:adenovirus a skos:Concept ;
+    rdfs:label "adenovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "adenovirus"@en .
 
-shv:limit_of_blank a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Limit of blank"@en ;
-  rdfs:label "Limit of blank"@en ;
-  skos:definition "The highest concentration or quantity measurement expected from a blank sample"@en ;
-  skos:narrower shv:unknown ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:anorectal_swab a skos:Concept ;
+    rdfs:label "anorectal_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "anorectal_swab"@en .
 
-shv:limit_of_detection a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Limit of detection"@en ;
-  rdfs:label "Limit of detection"@en ;
-  skos:definition "The lowest concentration or quantity measurement in a sample that can be reliably detected by a specific analytical method"@en ;
-  skos:narrower shv:unknown ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:limit_of_quantification a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Limit of quantification"@en ;
-  rdfs:label "Limit of quantification"@en ;
-  skos:definition "The lowest concentration or quantity measurement in a sample that can be reliably quantified by a specific analytical method"@en ;
-  skos:narrower shv:unknown ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:reference_event a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Reference event"@en ;
-  rdfs:label "Reference event"@en ;
-  skos:definition "Event used as reference for `time` fields of measurements"@en ;
-  skos:narrower shv:symptom_onset, shv:confirmation_date, shv:enrollment, shv:hospital_admission ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:symptom_onset a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Symptom onset"@en ;
-  rdfs:label "Symptom onset"@en ;
-  skos:broader shv:reference_event ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:confirmation_date a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Confirmation date"@en ;
-  rdfs:label "Confirmation date"@en ;
-  skos:broader shv:reference_event ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:enrollment a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Enrollment date"@en ;
-  rdfs:label "Enrollment date"@en ;
-  skos:broader shv:reference_event ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:hospital_admission a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Hospital Admission"@en ;
-  rdfs:label "Hospital Admission"@en ;
-  skos:broader shv:reference_event ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:specimen a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Specimen type or specimen types for combined samples"@en ;
-  rdfs:label "Specimen type or specimen types for combined samples"@en ;
-  skos:narrower shv:bronchoalveolar_lavage_fluid, shv:nasopharyngeal_swab, shv:oropharyngeal_swab, shv:plasma, shv:rectal_swab, shv:saliva, shv:serum, shv:sputum, shv:stool, shv:unknown, shv:urine ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:bronchoalveolar_lavage_fluid a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Bronchoalveolar lavage fluid sample"@en ;
-  rdfs:label "Bronchoalveolar lavage fluid sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:nasopharyngeal_swab a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Nasopharyngeal swab sample"@en ;
-  rdfs:label "Nasopharyngeal swab sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:oropharyngeal_swab a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Oropharyngeal swab or throat swab sample"@en ;
-  rdfs:label "Oropharyngeal swab or throat swab sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:plasma a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Plasma sample"@en ;
-  rdfs:label "Plasma sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:rectal_swab a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Rectal swab sample"@en ;
-  rdfs:label "Rectal swab sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:saliva a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Saliva sample"@en ;
-  rdfs:label "Saliva sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:serum a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Serum sample"@en ;
-  rdfs:label "Serum sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:sputum a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Sputum sample"@en ;
-  rdfs:label "Sputum sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:stool a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Stool sample"@en ;
-  rdfs:label "Stool sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:unknown a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Unknown"@en ;
-  rdfs:label "Unknown"@en ;
-  skos:related shv:age, shv:ethnicity, shv:limit_of_blank, shv:limit_of_detection, shv:limit_of_quantification, shv:race, shv:sex, shv:specimen, shv:time, shv:vaccinated ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:urine a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Urine sample"@en ;
-  rdfs:label "Urine sample"@en ;
-  skos:broader shv:specimen ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:unit a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Unit in which measurements are reported"@en ;
-  rdfs:label "Unit in which measurements are reported"@en ;
-  skos:narrower shv:cycle_threshold, shv:gc_dry_gram, shv:gc_mL, shv:gc_swab, shv:gc_wet_gram, shv:pfu_mL ;
-  skos:broader shv:analyte ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:cycle_threshold a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Cycle threshold"@en ;
-  rdfs:label "Cycle threshold"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:gc_dry_gram a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "gene copies/dry gram"@en ;
-  rdfs:label "gene copies/dry gram"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:gc_mL a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "gene copies/mL"@en ;
-  rdfs:label "gene copies/mL"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:gc_swab a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "gene copies/swab"@en ;
-  rdfs:label "gene copies/swab"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:gc_wet_gram a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "gene copies/wet gram"@en ;
-  rdfs:label "gene copies/wet gram"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:pfu_mL a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "plaque-forming unit (pfu)/mL"@en ;
-  rdfs:label "plaque-forming unit (pfu)/mL"@en ;
-  skos:broader shv:unit ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-### TOP CONCEPT: Doi
-shv:doi a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Digital object identifier"@en ;
-  rdfs:label "Digital object identifier"@en ;
-  skos:definition "Digital object identifier (doi) for the source publication, study, or data repository"@en ;
-  skos:topConceptOf <https://shedding-hub.github.io/vocab> ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-### TOP CONCEPT: Participants
-shv:participants a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Partifipants or subjects"@en ;
-  rdfs:label "Partifipants or subjects"@en ;
-  skos:definition "Participants include patients who enrolled after disease confirmation or participants in a prospective study or human challenging study"@en ;
-  skos:narrower shv:attributes, shv:measurements ;
-  skos:topConceptOf <https://shedding-hub.github.io/vocab> ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:attributes a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Participant's attributes (such as demographics, comorbidities, and clinical characteristics)"@en ;
-  rdfs:label "Participant's attributes (such as demographics, comorbidities, and clinical characteristics)"@en ;
-  skos:narrower shv:age, shv:ethnicity, shv:lineage, shv:race, shv:sex, shv:variant, shv:vaccinated ;
-  skos:broader shv:participants ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:age a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Age of the participant in years"@en ;
-  rdfs:label "Age of the participant in years"@en ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:ethnicity a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Ethnicity of the participant"@en ;
-  rdfs:label "Ethnicity of the participant"@en ;
-  skos:narrower shv:hispanic, shv:not_hispanic, shv:unknown ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:hispanic a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is hispanic"@en ;
-  rdfs:label "If the participant is hispanic"@en ;
-  skos:broader shv:ethnicity ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:not_hispanic a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is not hispanic"@en ;
-  rdfs:label "If the participant is not hispanic"@en ;
-  skos:broader shv:ethnicity ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:lineage a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Pathogen lineage for the participant"@en ;
-  rdfs:label "Pathogen lineage for the participant"@en ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
-
-shv:race a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Race of the participant"@en ;
-  rdfs:label "Race of the participant"@en ;
-  skos:narrower shv:asian, shv:black, shv:white, shv:race_other, shv:unknown ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:anterior_nares_swab a skos:Concept ;
+    rdfs:label "anterior_nares_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "anterior_nares_swab"@en .
 
 shv:asian a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is Asian"@en ;
-  rdfs:label "If the participant is Asian"@en ;
-  skos:broader shv:race ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "If the participant is Asian"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:race ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is Asian"@en .
 
 shv:black a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is Black"@en ;
-  rdfs:label "If the participant is Black"@en ;
-  skos:broader shv:race ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "If the participant is Black"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:race ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is Black"@en .
 
-shv:white a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is White"@en ;
-  rdfs:label "If the participant is White"@en ;
-  skos:broader shv:race ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:blood a skos:Concept ;
+    rdfs:label "blood"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "blood"@en .
 
-shv:race_other a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant is other than Asian, Black, and White."@en ;
-  rdfs:label "If the participant is other than Asian, Black, and White."@en ;
-  skos:broader shv:race ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:bocavirus a skos:Concept ;
+    rdfs:label "bocavirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "bocavirus"@en .
 
-shv:sex a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Sex of the participant at birth"@en ;
-  rdfs:label "Sex of the participant at birth"@en ;
-  skos:narrower shv:female, shv:male, shv:unknown ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:bronchial_aspirate a skos:Concept ;
+    rdfs:label "bronchial_aspirate"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "bronchial_aspirate"@en .
+
+shv:bronchoalveolar_lavage_fluid a skos:Concept ;
+    rdfs:label "Bronchoalveolar lavage fluid sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Bronchoalveolar lavage fluid sample"@en .
+
+shv:buccal_swab a skos:Concept ;
+    rdfs:label "buccal_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "buccal_swab"@en .
+
+shv:confirmation_date a skos:Concept ;
+    rdfs:label "Confirmation date"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Confirmation date"@en .
+
+shv:crAssphage a skos:Concept ;
+    rdfs:label "Cross-assembly phage"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Cross-assembly phage"@en .
+
+shv:cycle_threshold a skos:Concept ;
+    rdfs:label "Cycle threshold"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Cycle threshold"@en .
+
+shv:cytomegalovirus a skos:Concept ;
+    rdfs:label "cytomegalovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "cytomegalovirus"@en .
+
+shv:doi a skos:Concept ;
+    rdfs:label "Digital object identifier"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:definition "Digital object identifier (doi) for the source publication, study, or data repository"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Digital object identifier"@en ;
+    skos:topConceptOf <https://shedding-hub.github.io/vocab> .
+
+shv:emesis a skos:Concept ;
+    rdfs:label "emesis"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "emesis"@en .
+
+shv:enrollment a skos:Concept ;
+    rdfs:label "Enrollment date"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Enrollment date"@en .
+
+shv:enterovirus a skos:Concept ;
+    rdfs:label "enterovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "enterovirus"@en .
+
+shv:exposure a skos:Concept ;
+    rdfs:label "exposure"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "exposure"@en .
 
 shv:female a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant at birth is female"@en ;
-  rdfs:label "If the participant at birth is female"@en ;
-  skos:broader shv:sex ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "If the participant at birth is female"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:sex ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant at birth is female"@en .
+
+shv:gc_dry_gram a skos:Concept ;
+    rdfs:label "gene copies/dry gram"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gene copies/dry gram"@en .
+
+shv:gc_mL a skos:Concept ;
+    rdfs:label "gene copies/mL"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gene copies/mL"@en .
+
+shv:gc_ng a skos:Concept ;
+    rdfs:label "gc/ng"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gc/ng"@en .
+
+shv:gc_ng_hDNA a skos:Concept ;
+    rdfs:label "gc/ng hDNA"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gc/ng hDNA"@en .
+
+shv:gc_reaction a skos:Concept ;
+    rdfs:label "gc/reaction"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gc/reaction"@en .
+
+shv:gc_swab a skos:Concept ;
+    rdfs:label "gene copies/swab"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gene copies/swab"@en .
+
+shv:gc_wet_gram a skos:Concept ;
+    rdfs:label "gene copies/wet gram"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "gene copies/wet gram"@en .
+
+shv:gene_target a skos:Concept ;
+    rdfs:label "PCR gene target"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:definition "In PCR (Polymerase Chain Reaction), the specific gene or DNA sequence that is targeted for amplification"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "PCR gene target"@en .
+
+shv:genital_or_rectal_lesion a skos:Concept ;
+    rdfs:label "genital_or_rectal_lesion"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "genital_or_rectal_lesion"@en .
+
+shv:genital_swab a skos:Concept ;
+    rdfs:label "genital_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "genital_swab"@en .
+
+shv:hepatitis_A_virus a skos:Concept ;
+    rdfs:label "hepatitis A virus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "hepatitis A virus"@en .
+
+shv:hepatitis_E_virus a skos:Concept ;
+    rdfs:label "hepatitis E virus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "hepatitis E virus"@en .
+
+shv:hispanic a skos:Concept ;
+    rdfs:label "If the participant is hispanic"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:ethnicity ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is hispanic"@en .
+
+shv:hospital_admission a skos:Concept ;
+    rdfs:label "Hospital Admission"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Hospital Admission"@en .
+
+shv:influenza a skos:Concept ;
+    rdfs:label "Influenza virus"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Influenza virus"@en .
+
+shv:inoculation a skos:Concept ;
+    rdfs:label "inoculation"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "inoculation"@en .
+
+shv:lineage a skos:Concept ;
+    rdfs:label "Pathogen lineage for the participant"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Pathogen lineage for the participant"@en .
 
 shv:male a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant at birth is male"@en ;
-  rdfs:label "If the participant at birth is male"@en ;
-  skos:broader shv:sex ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "If the participant at birth is male"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:sex ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant at birth is male"@en .
 
-shv:variant a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Pathogen variant for the participant"@en ;
-  rdfs:label "Pathogen variant for the participant"@en ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:metapneumovirus a skos:Concept ;
+    rdfs:label "metapneumovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "metapneumovirus"@en .
 
-shv:vaccinated a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "If the participant was vaccinated against the pathogen."@en ;
-  rdfs:label "If the participant was vaccinated against the pathogen."@en ;
-  skos:narrower shv:unknown ;
-  skos:broader shv:attributes ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:mpox a skos:Concept ;
+    rdfs:label "mpox"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "mpox"@en .
 
-shv:measurements a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Measurements of samples collected from the participant"@en ;
-  rdfs:label "Measurements of samples collected from the participant"@en ;
-  skos:narrower shv:analyte, shv:sample_id, shv:time, shv:value ;
-  skos:broader shv:participants ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:mtDNA a skos:Concept ;
+    rdfs:label "Mitochondrial DNA (mtDNA)"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Mitochondrial DNA (mtDNA)"@en .
+
+shv:mucosal_lesion_swab a skos:Concept ;
+    rdfs:label "mucosal_lesion_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "mucosal_lesion_swab"@en .
+
+shv:nasal_discharge a skos:Concept ;
+    rdfs:label "nasal_discharge"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "nasal_discharge"@en .
+
+shv:nasal_lavage_fluid a skos:Concept ;
+    rdfs:label "nasal_lavage_fluid"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "nasal_lavage_fluid"@en .
+
+shv:nasopharyngeal_aspirate a skos:Concept ;
+    rdfs:label "nasopharyngeal_aspirate"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "nasopharyngeal_aspirate"@en .
+
+shv:nasopharyngeal_swab a skos:Concept ;
+    rdfs:label "Nasopharyngeal swab sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Nasopharyngeal swab sample"@en .
+
+shv:norovirus a skos:Concept ;
+    rdfs:label "norovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "norovirus"@en .
+
+shv:not_hispanic a skos:Concept ;
+    rdfs:label "If the participant is not hispanic"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:ethnicity ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is not hispanic"@en .
+
+shv:oropharyngeal_lavage_fluid a skos:Concept ;
+    rdfs:label "oropharyngeal_lavage_fluid"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "oropharyngeal_lavage_fluid"@en .
+
+shv:oropharyngeal_swab a skos:Concept ;
+    rdfs:label "Oropharyngeal swab or throat swab sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Oropharyngeal swab or throat swab sample"@en .
+
+shv:orthopox a skos:Concept ;
+    rdfs:label "orthopox"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "orthopox"@en .
+
+shv:parainfluenza_virus a skos:Concept ;
+    rdfs:label "parainfluenza virus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "parainfluenza virus"@en .
+
+shv:pfu_mL a skos:Concept ;
+    rdfs:label "plaque-forming unit (pfu)/mL"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "plaque-forming unit (pfu)/mL"@en .
+
+shv:plasma a skos:Concept ;
+    rdfs:label "Plasma sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Plasma sample"@en .
+
+shv:race_other a skos:Concept ;
+    rdfs:label "If the participant is other than Asian, Black, and White."@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:race ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is other than Asian, Black, and White."@en .
+
+shv:rectal_swab a skos:Concept ;
+    rdfs:label "Rectal swab sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Rectal swab sample"@en .
+
+shv:rhinovirus a skos:Concept ;
+    rdfs:label "rhinovirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "rhinovirus"@en .
+
+shv:rotavirus a skos:Concept ;
+    rdfs:label "rotavirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "rotavirus"@en .
+
+shv:rotavirus_vaccine a skos:Concept ;
+    rdfs:label "rotavirus vaccine"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "rotavirus vaccine"@en .
+
+shv:saliva a skos:Concept ;
+    rdfs:label "Saliva sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Saliva sample"@en .
 
 shv:sample_id a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Unique sample identifier"@en ;
-  rdfs:label "Unique sample identifier"@en ;
-  skos:definition "Unique sample identifier in case multiple measurements are reported for the same sample"@en ;
-  skos:broader shv:measurements ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "Unique sample identifier"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:measurements ;
+    skos:definition "Unique sample identifier in case multiple measurements are reported for the same sample"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Unique sample identifier"@en .
 
-shv:time a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Sample collection time"@en ;
-  rdfs:label "Sample collection time"@en ;
-  skos:definition "Time of sample collection since the reference event (e.g., symptom onset)"@en ;
-  skos:broader shv:measurements ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:sapovirus a skos:Concept ;
+    rdfs:label "Sapovirus"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Sapovirus"@en .
+
+shv:scab a skos:Concept ;
+    rdfs:label "scab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "scab"@en .
+
+shv:seasonal_human_coronavirus a skos:Concept ;
+    rdfs:label "seasonal human coronavirus"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "seasonal human coronavirus"@en .
+
+shv:semen a skos:Concept ;
+    rdfs:label "semen"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "semen"@en .
+
+shv:serum a skos:Concept ;
+    rdfs:label "Serum sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Serum sample"@en .
+
+shv:skin_lesion a skos:Concept ;
+    rdfs:label "skin_lesion"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "skin_lesion"@en .
+
+shv:sputum a skos:Concept ;
+    rdfs:label "Sputum sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Sputum sample"@en .
+
+shv:stool a skos:Concept ;
+    rdfs:label "Stool sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Stool sample"@en .
+
+shv:symptom_onset a skos:Concept ;
+    rdfs:label "Symptom onset"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Symptom onset"@en .
+
+shv:tear a skos:Concept ;
+    rdfs:label "tear"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "tear"@en .
+
+shv:title a skos:Concept ;
+    rdfs:label "Title"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:definition "Title of the source publication, study, or data repository."@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Title"@en ;
+    skos:topConceptOf <https://shedding-hub.github.io/vocab> .
+
+shv:tracheal_aspirate a skos:Concept ;
+    rdfs:label "tracheal_aspirate"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "tracheal_aspirate"@en .
+
+shv:treatment a skos:Concept ;
+    rdfs:label "treatment"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "treatment"@en .
+
+shv:urethral_swab a skos:Concept ;
+    rdfs:label "urethral_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "urethral_swab"@en .
+
+shv:urine a skos:Concept ;
+    rdfs:label "Urine sample"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Urine sample"@en .
+
+shv:url a skos:Concept ;
+    rdfs:label "Access URL"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:definition "Url for the source publication, study, or data repository"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Access URL"@en ;
+    skos:topConceptOf <https://shedding-hub.github.io/vocab> .
+
+shv:vaccination a skos:Concept ;
+    rdfs:label "vaccination"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:reference_event ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "vaccination"@en .
 
 shv:value a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Measurement value for the analyte"@en ;
-  rdfs:label "Measurement value for the analyte"@en ;
-  skos:broader shv:measurements ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+    rdfs:label "Measurement value for the analyte"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:measurements ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Measurement value for the analyte"@en .
 
-### TOP CONCEPT: Title
-shv:title a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Title"@en ;
-  rdfs:label "Title"@en ;
-  skos:definition "Title of the source publication, study, or data repository."@en ;
-  skos:topConceptOf <https://shedding-hub.github.io/vocab> ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:variant a skos:Concept ;
+    rdfs:label "Pathogen variant for the participant"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Pathogen variant for the participant"@en .
 
-### TOP CONCEPT: Url
-shv:url a skos:Concept ;
-  dct:created "2025-05-20"^^xsd:date ;
-  skos:prefLabel "Access URL"@en ;
-  rdfs:label "Access URL"@en ;
-  skos:definition "Url for the source publication, study, or data repository"@en ;
-  skos:topConceptOf <https://shedding-hub.github.io/vocab> ;
-  skos:inScheme <https://shedding-hub.github.io/vocab> .
+shv:vesicle_swab a skos:Concept ;
+    rdfs:label "vesicle_swab"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "vesicle_swab"@en .
+
+shv:vp_mL a skos:Concept ;
+    rdfs:label "vp/mL"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    skos:broader shv:unit ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "vp/mL"@en .
+
+shv:white a skos:Concept ;
+    rdfs:label "If the participant is White"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:race ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "If the participant is White"@en .
+
+shv:age a skos:Concept ;
+    rdfs:label "Age of the participant in years"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Age of the participant in years"@en .
+
+shv:limit_of_blank a skos:Concept ;
+    rdfs:label "Limit of blank"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:definition "The highest concentration or quantity measurement expected from a blank sample"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:unknown ;
+    skos:prefLabel "Limit of blank"@en .
+
+shv:limit_of_detection a skos:Concept ;
+    rdfs:label "Limit of detection"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:definition "The lowest concentration or quantity measurement in a sample that can be reliably detected by a specific analytical method"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:unknown ;
+    skos:prefLabel "Limit of detection"@en .
+
+shv:limit_of_quantification a skos:Concept ;
+    rdfs:label "Limit of quantification"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:definition "The lowest concentration or quantity measurement in a sample that can be reliably quantified by a specific analytical method"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:unknown ;
+    skos:prefLabel "Limit of quantification"@en .
+
+shv:time a skos:Concept ;
+    rdfs:label "Sample collection time"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:measurements ;
+    skos:definition "Time of sample collection since the reference event (e.g., symptom onset)"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Sample collection time"@en .
+
+shv:vaccinated a skos:Concept ;
+    rdfs:label "If the participant was vaccinated against the pathogen."@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:unknown ;
+    skos:prefLabel "If the participant was vaccinated against the pathogen."@en .
+
+shv:participants a skos:Concept ;
+    rdfs:label "Partifipants or subjects"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:definition "Participants include patients who enrolled after disease confirmation or participants in a prospective study or human challenging study"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:attributes,
+        shv:measurements ;
+    skos:prefLabel "Partifipants or subjects"@en ;
+    skos:topConceptOf <https://shedding-hub.github.io/vocab> .
+
+shv:ethnicity a skos:Concept ;
+    rdfs:label "Ethnicity of the participant"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:hispanic,
+        shv:not_hispanic,
+        shv:unknown ;
+    skos:prefLabel "Ethnicity of the participant"@en .
+
+shv:measurements a skos:Concept ;
+    rdfs:label "Measurements of samples collected from the participant"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:participants ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:analyte,
+        shv:sample_id,
+        shv:time,
+        shv:value ;
+    skos:prefLabel "Measurements of samples collected from the participant"@en .
+
+shv:sex a skos:Concept ;
+    rdfs:label "Sex of the participant at birth"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:female,
+        shv:male,
+        shv:unknown ;
+    skos:prefLabel "Sex of the participant at birth"@en .
+
+shv:race a skos:Concept ;
+    rdfs:label "Race of the participant"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:attributes ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:asian,
+        shv:black,
+        shv:race_other,
+        shv:unknown,
+        shv:white ;
+    skos:prefLabel "Race of the participant"@en .
+
+shv:attributes a skos:Concept ;
+    rdfs:label "Participant's attributes (such as demographics, comorbidities, and clinical characteristics)"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:participants ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:age,
+        shv:ethnicity,
+        shv:lineage,
+        shv:race,
+        shv:sex,
+        shv:vaccinated,
+        shv:variant ;
+    skos:prefLabel "Participant's attributes (such as demographics, comorbidities, and clinical characteristics)"@en .
+
+shv:unknown a skos:Concept ;
+    rdfs:label "Unknown"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:specimen ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "Unknown"@en ;
+    skos:related shv:age,
+        shv:ethnicity,
+        shv:limit_of_blank,
+        shv:limit_of_detection,
+        shv:limit_of_quantification,
+        shv:race,
+        shv:sex,
+        shv:specimen,
+        shv:time,
+        shv:vaccinated .
+
+shv:reference_event a skos:Concept ;
+    rdfs:label "Reference event"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:definition "Event used as reference for `time` fields of measurements"@en ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:confirmation_date,
+        shv:enrollment,
+        shv:exposure,
+        shv:hospital_admission,
+        shv:inoculation,
+        shv:symptom_onset,
+        shv:treatment,
+        shv:vaccination ;
+    skos:prefLabel "Reference event"@en .
+
+shv:analyte a skos:Concept ;
+    rdfs:label "Analyte"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:biomarker,
+        shv:gene_target,
+        shv:limit_of_blank,
+        shv:limit_of_detection,
+        shv:limit_of_quantification,
+        shv:reference_event,
+        shv:specimen,
+        shv:unit ;
+    skos:prefLabel "Analyte"@en ;
+    skos:topConceptOf <https://shedding-hub.github.io/vocab> .
+
+shv:unit a skos:Concept ;
+    rdfs:label "Unit in which measurements are reported"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:cycle_threshold,
+        shv:gc_dry_gram,
+        shv:gc_mL,
+        shv:gc_ng,
+        shv:gc_ng_hDNA,
+        shv:gc_reaction,
+        shv:gc_swab,
+        shv:gc_wet_gram,
+        shv:pfu_mL,
+        shv:vp_mL ;
+    skos:prefLabel "Unit in which measurements are reported"@en .
+
+shv:biomarker a skos:Concept ;
+    rdfs:label "Biomarker or pathogen being measured"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:BK_polyomavirus,
+        shv:HCoV-HKU1,
+        shv:HCoV-NL63,
+        shv:HIV,
+        shv:PCV-1,
+        shv:PMMoV,
+        shv:RSV,
+        shv:SARS-CoV-1,
+        shv:SARS-CoV-2,
+        shv:adenovirus,
+        shv:bocavirus,
+        shv:crAssphage,
+        shv:cytomegalovirus,
+        shv:enterovirus,
+        shv:hepatitis_A_virus,
+        shv:hepatitis_E_virus,
+        shv:influenza,
+        shv:metapneumovirus,
+        shv:mpox,
+        shv:mtDNA,
+        shv:norovirus,
+        shv:orthopox,
+        shv:parainfluenza_virus,
+        shv:rhinovirus,
+        shv:rotavirus,
+        shv:rotavirus_vaccine,
+        shv:sapovirus,
+        shv:seasonal_human_coronavirus ;
+    skos:prefLabel "Biomarker or pathogen being measured"@en .
+
+shv:specimen a skos:Concept ;
+    rdfs:label "Specimen type or specimen types for combined samples"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    skos:broader shv:analyte ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:narrower shv:anorectal_swab,
+        shv:anterior_nares_swab,
+        shv:blood,
+        shv:bronchial_aspirate,
+        shv:bronchoalveolar_lavage_fluid,
+        shv:buccal_swab,
+        shv:emesis,
+        shv:genital_or_rectal_lesion,
+        shv:genital_swab,
+        shv:mucosal_lesion_swab,
+        shv:nasal_discharge,
+        shv:nasal_lavage_fluid,
+        shv:nasopharyngeal_aspirate,
+        shv:nasopharyngeal_swab,
+        shv:oropharyngeal_lavage_fluid,
+        shv:oropharyngeal_swab,
+        shv:plasma,
+        shv:rectal_swab,
+        shv:saliva,
+        shv:scab,
+        shv:semen,
+        shv:serum,
+        shv:skin_lesion,
+        shv:sputum,
+        shv:stool,
+        shv:tear,
+        shv:tracheal_aspirate,
+        shv:unknown,
+        shv:urethral_swab,
+        shv:urine,
+        shv:vesicle_swab ;
+    skos:prefLabel "Specimen type or specimen types for combined samples"@en .
+
+<https://shedding-hub.github.io/vocab> a owl:Ontology,
+        skos:ConceptScheme ;
+    rdfs:label "Pathogen/Biomarker Shedding Vocabulary"@en ;
+    dct:audience schema1:Researcher ;
+    dct:created "2025-05-20"^^xsd:date ;
+    dct:creator <https://orcid.org/0000-0002-9615-7859> ;
+    dct:description "A controlled vocabulary for studies with pathogen and biomarker shedding information."@en ;
+    dct:language "en"@en ;
+    dct:license <https://spdx.org/licenses/MIT.html> ;
+    dct:modified "2026-09-18"^^xsd:date ;
+    dct:publisher <https://shedding-hub.github.io/> ;
+    dct:title "Shedding Hub Vocabulary"@en ;
+    owl:imports <http://www.w3.org/2004/02/skos/core> ;
+    owl:versionIRI <https://shedding-hub.github.io/vocab/0.2.0> ;
+    owl:versionInfo "0.2.0" ;
+    skos:hasTopConcept shv:analyte,
+        shv:doi,
+        shv:participants,
+        shv:title,
+        shv:url ;
+    skos:prefLabel "Pathogen/Biomarker Shedding Vocabulary"@en ;
+    dcat:theme <http://eurovoc.europa.eu/100142>,
+        <http://eurovoc.europa.eu/3645>,
+        <http://eurovoc.europa.eu/4530> .
+

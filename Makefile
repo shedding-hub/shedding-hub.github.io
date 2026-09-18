@@ -1,4 +1,4 @@
-.PHONY = ^datasets-yaml hero-trace clean
+.PHONY = ^datasets-yaml hero-trace vocab clean
 
 DATA_REF ?= main
 DATASETS_YAML = $(wildcard _datasets/*.yaml)
@@ -79,6 +79,15 @@ tmp/shedding-hub.zip :
 # or change the plot geometry, after `make ^_datasets-yaml`.
 hero-trace :
 	python tools/make_hero_trace.py
+
+# Bring the published vocabulary up to date with data/.schema.yaml, which is
+# the authority for which terms exist. Like hero-trace, deliberately outside
+# the site build: CI has no Python, and this is a versioned artifact with a
+# resolvable namespace, so it should change when someone decides it changes.
+# Needs the schema, so run `make ^_datasets-yaml` first. `--check` reports
+# drift without writing.
+vocab :
+	python tools/build_vocabulary.py
 
 clean :
 	rm -rf _datasets tmp assets/figures _data/figures.json _data/shedding_catalog.yaml _data/curation_growth.yaml
