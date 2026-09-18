@@ -1,4 +1,4 @@
-.PHONY = ^datasets-yaml hero-trace vocab clean
+.PHONY = ^datasets-yaml hero-trace vocab citations clean
 
 DATA_REF ?= main
 DATASETS_YAML = $(wildcard _datasets/*.yaml)
@@ -88,6 +88,14 @@ hero-trace :
 # drift without writing.
 vocab :
 	python tools/build_vocabulary.py
+
+# Resolve each dataset's DOI into a citation and cache it in _data/. Like vocab
+# and hero-trace, outside the site build: CI has no Python, and 144 sequential
+# publisher round-trips do not belong in a deploy. Existing entries are reused,
+# so a normal run costs one request per new dataset. Needs the datasets, so run
+# `make ^_datasets-yaml` first.
+citations :
+	python tools/fetch_citations.py
 
 clean :
 	rm -rf _datasets tmp assets/figures _data/figures.json _data/shedding_catalog.yaml _data/curation_growth.yaml
