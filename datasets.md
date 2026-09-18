@@ -21,7 +21,7 @@ title: Datasets - Shedding Hub
       <div class="column">
         <h3 class="title is-6">1. Narrow the list</h3>
         <p class="is-size-7">
-          Search by study identifier or title, or filter by pathogen and specimen type.
+          Search by study identifier or title, or filter by biomarker and specimen type.
           Filters apply across every dataset, not just the page you are on.
         </p>
       </div>
@@ -29,7 +29,7 @@ title: Datasets - Shedding Hub
         <h3 class="title is-6">2. Read the card</h3>
         <p class="is-size-7">
           Each card shows the study identifier, how many participants and measurements it
-          holds, and which pathogens it covers.
+          holds, and which biomarkers it covers.
         </p>
       </div>
       <div class="column">
