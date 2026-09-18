@@ -72,7 +72,7 @@ title: Shedding Hub
         <span class="is-sr-only">Shedding Hub</span>
       </h1>
       <p class="subtitle is-size-4 hero-lede">
-        Every published measurement of how much pathogen a person sheds, and when &mdash;
+        Every published measurement of how much of a biomarker a person sheds, and when &mdash;
         standardized, versioned, and ready to model.
       </p>
       <div class="hero-actions">
@@ -174,7 +174,7 @@ title: Shedding Hub
       </div>
       <div class="stat">
         <p class="stat-value is-data">{{ num_biomarkers }}</p>
-        <p class="stat-label">Pathogens</p>
+        <p class="stat-label">Biomarkers</p>
       </div>
       <div class="stat">
         <p class="stat-value is-data">{{ num_specimens }}</p>
@@ -183,7 +183,7 @@ title: Shedding Hub
     </div>
     <div class="biomarker-tags">
       {%- comment -%}
-        Carries the pathogen through as a query parameter so the datasets page opens
+        Carries the biomarker through as a query parameter so the datasets page opens
         already filtered to it, rather than dropping the reader into all 84 studies.
       {%- endcomment -%}
       {% for biomarker in biomarkers %}<a class="tag pathogen-tag pathogen-{{ biomarker | slugify }}" href="/datasets.html?biomarker={{ biomarker | uri_escape }}" title="Show {{ biomarker }} datasets">{{ biomarker }}</a>{% endfor %}
@@ -202,7 +202,7 @@ title: Shedding Hub
         <h2 class="title is-4">Shedding data is scattered by default</h2>
         <div class="content">
           <p>
-            How much pathogen a person sheds, and for how long, drives biomedical research,
+            How much of a biomarker a person sheds, and for how long, drives biomedical research,
             transmission models, wastewater surveillance, and public health policy. Yet the
             measurements sit in supplementary spreadsheets, in figures and tables with various
             formats, and in lab methods and units that differ from one paper to the next.
@@ -340,7 +340,7 @@ title: Shedding Hub
       </p>
     </div>
     <div class="buttons">
-      <a href="mailto:sheddinghub@emory.edu?subject=Contributing%20a%20dataset&body=What%20the%20data%20measures%20%28pathogen%2C%20specimen%29%3A%0AStudy%20or%20cohort%20it%20comes%20from%3A%0APublished%3F%20DOI%20or%20PMID%2C%20or%20say%20unpublished%3A%0ARoughly%20how%20many%20participants%20and%20measurements%3A%0AWhat%20form%20it%20is%20in%20%28spreadsheet%2C%20database%20export%2C%20figures%20only%29%3A%0AAnything%20unusual%20about%20how%20it%20was%20collected%20or%20reported%3A%0A%0AYour%20name%20and%20institution%3A%0A" class="button is-primary is-medium">
+      <a href="mailto:sheddinghub@emory.edu?subject=Contributing%20a%20dataset&body=What%20the%20data%20measures%20%28biomarker%2C%20specimen%29%3A%0AStudy%20or%20cohort%20it%20comes%20from%3A%0APublished%3F%20DOI%20or%20PMID%2C%20or%20say%20unpublished%3A%0ARoughly%20how%20many%20participants%20and%20measurements%3A%0AWhat%20form%20it%20is%20in%20%28spreadsheet%2C%20database%20export%2C%20figures%20only%29%3A%0AAnything%20unusual%20about%20how%20it%20was%20collected%20or%20reported%3A%0A%0AYour%20name%20and%20institution%3A%0A" class="button is-primary is-medium">
         <span class="icon"><i class="fa-solid fa-envelope"></i></span>
         <span>Contribute a dataset</span>
       </a>
