@@ -96,6 +96,17 @@ def main() -> int:
         default=ROOT / "tmp" / "shedding-hub-main" / "data",
         help="data/ from the shedding-hub archive (see `make ^_datasets-yaml`).",
     )
+    parser.add_argument(
+        "--hub-doi",
+        default="10.5281/zenodo.15052772",
+        help=(
+            "Zenodo CONCEPT doi for the Shedding Hub itself, stored under the reserved "
+            "key `_shedding_hub`. The concept doi deliberately, not a version doi: it "
+            "resolves to whatever the latest release is, so a card citing 146 datasets "
+            "does not point readers at the March 2025 snapshot. 10.5281/zenodo.15052773 "
+            "is the v1.0.0 version doi and would do exactly that."
+        ),
+    )
     parser.add_argument("--refresh", action="store_true", help="Re-fetch every entry.")
     parser.add_argument("--limit", type=int, default=0, help="Stop after N fetches.")
     args = parser.parse_args()
@@ -174,6 +185,21 @@ def main() -> int:
             out[study] = {"doi": doi, "error": f"{type(error).__name__}: {error}"}
             failed += 1
             print(f"  {study}: FAILED — {error}", file=sys.stderr)
+
+    # The resource's own citation, fetched once and reused like any other.
+    if args.hub_doi and (args.refresh or not cached.get("_shedding_hub", {}).get("apa")):
+        try:
+            doi = args.hub_doi
+            hub_apa = negotiate(doi, "text/x-bibliography; style=apa")
+            time.sleep(DELAY)
+            hub_bib = negotiate(doi, "application/x-bibtex")
+            out["_shedding_hub"] = {"doi": doi, "apa": hub_apa, "bibtex": hub_bib}
+            print(f"  _shedding_hub: {doi}")
+        except Exception as error:  # noqa: BLE001
+            out["_shedding_hub"] = {"doi": args.hub_doi, "error": str(error)}
+            print(f"  _shedding_hub: FAILED - {error}", file=sys.stderr)
+    elif cached.get("_shedding_hub"):
+        out["_shedding_hub"] = cached["_shedding_hub"]
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(
