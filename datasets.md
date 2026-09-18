@@ -99,6 +99,8 @@ title: Datasets - Shedding Hub
       {% assign temp = participant.measurements | size %}
       {% assign num_measurements = num_measurements | plus: temp %}
       {% endfor %}
+      {% assign dataset_key = dataset.path | split: "/" | last | split: "." | first %}
+      {% assign citation = site.data.citations[dataset_key] %}
       <article class="card dataset-card" data-biomarkers="{{ biomarkers }}" data-specimens="{{ specimens }}" data-slug="{{ dataset.slug }}">
         <div class="card-content">
           <h3 class="title is-6 dataset-title">{{ dataset.title }}</h3>
@@ -123,6 +125,28 @@ title: Datasets - Shedding Hub
             <span class="tag pathogen-tag pathogen-{{ biomarker | slugify }}">{{ biomarker }}</span>
             {% endfor %}
           </div>
+
+          {%- comment -%}
+            Cites the study first and the Shedding Hub second: the data are the
+            original authors' work, and this repository is how they were reached.
+            Falls back to the DOI link when a citation could not be resolved, so a
+            publisher outage leaves a usable card rather than an empty panel.
+          {%- endcomment -%}
+          <div class="dataset-citation" id="cite-{{ dataset_key }}" hidden>
+            {% if citation.apa %}
+            <p class="citation-text">{{ citation.apa }}</p>
+            <p class="citation-hub">Accessed via the Shedding Hub, dataset <code>{{ dataset_key }}</code>. https://shedding-hub.github.io</p>
+            <button type="button" class="citation-copy" data-cite-for="{{ dataset_key }}">
+              <span class="icon"><i class="fa-regular fa-copy"></i></span><span>Copy citation</span>
+            </button>
+            {% else %}
+            <p class="citation-text is-muted">{{ dataset.title }}. Cite the source directly: {% if dataset.doi %}https://doi.org/{{ dataset.doi }}{% else %}{{ citation.url | default: dataset.source_url }}{% endif %}</p>
+            <p class="citation-hub">Accessed via the Shedding Hub, dataset <code>{{ dataset_key }}</code>. https://shedding-hub.github.io</p>
+            <button type="button" class="citation-copy" data-cite-for="{{ dataset_key }}">
+              <span class="icon"><i class="fa-regular fa-copy"></i></span><span>Copy citation</span>
+            </button>
+            {% endif %}
+          </div>
         </div>
         <footer class="card-footer">
           {% if dataset.doi %}
@@ -134,12 +158,16 @@ title: Datasets - Shedding Hub
             <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
             <span>Source</span>
           </a>
-          {% assign dataset_key = dataset.path | split: "/" | last | split: "." | first %}
           <a href="https://github.com/shedding-hub/shedding-hub/blob/main/data/{{ dataset_key }}/{{ dataset_key }}.yaml"
              class="card-footer-item" title="View the dataset YAML on GitHub">
             <span class="icon"><i class="fab fa-github"></i></span>
             <span>YAML</span>
           </a>
+          <button type="button" class="card-footer-item citation-toggle" data-cite-target="cite-{{ dataset_key }}"
+                  title="Show a citation for the source study" aria-expanded="false">
+            <span class="icon"><i class="fa-solid fa-quote-right"></i></span>
+            <span>Cite</span>
+          </button>
           <a href="{{ dataset.url }}" class="card-footer-item is-explore" title="Open the study page with its fitted curves">
             <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
             <span>Explore</span>
@@ -365,4 +393,107 @@ title: Datasets - Shedding Hub
   border-radius: 4px;
   background: #fff;
 }
+/* Citation panel. Collapsed by default: it is reference material a reader asks
+   for, not something to scan past on every card. `hidden` is toggled rather
+   than a display rule so the panel stays out of the accessibility tree while
+   closed. */
+.dataset-citation {
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-left: 2px solid var(--border-color, #d8d8d4);
+  background: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+.citation-text {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  margin: 0 0 0.4rem 0;
+  color: var(--text-primary);
+}
+
+.citation-hub {
+  font-size: 0.72rem;
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+  color: var(--text-secondary);
+}
+
+.citation-copy {
+  font: inherit;
+  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-color, #d8d8d4);
+  border-radius: 3px;
+}
+
+.citation-copy:hover { color: var(--text-primary); }
+.citation-copy.is-copied { color: #0E6949; border-color: #0E6949; }
+
+.card-footer-item.citation-toggle {
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 </style>
+
+<script>
+  // Citation panels. Delegated from the grid so cards re-rendered by the
+  // existing filter keep working without rebinding.
+  (function () {
+    var grid = document.getElementById('datasets-container');
+    if (!grid) return;
+
+    grid.addEventListener('click', function (event) {
+      var toggle = event.target.closest('.citation-toggle');
+      if (toggle) {
+        var panel = document.getElementById(toggle.dataset.citeTarget);
+        if (!panel) return;
+        var open = panel.hidden;
+        panel.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+        return;
+      }
+
+      var copy = event.target.closest('.citation-copy');
+      if (!copy) return;
+      var panel = copy.closest('.dataset-citation');
+      var text = [
+        panel.querySelector('.citation-text'),
+        panel.querySelector('.citation-hub')
+      ].filter(Boolean).map(function (el) { return el.textContent.trim(); }).join(' ');
+
+      var label = copy.querySelector('span:last-child');
+      var done = function (ok) {
+        copy.classList.toggle('is-copied', ok);
+        label.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+        setTimeout(function () {
+          copy.classList.remove('is-copied');
+          label.textContent = 'Copy citation';
+        }, 2000);
+      };
+
+      // navigator.clipboard is unavailable over plain http and in some
+      // embedded browsers; selecting the text lets the reader finish the job.
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(function () { done(true); },
+                                                 function () { done(false); });
+      } else {
+        var range = document.createRange();
+        range.selectNodeContents(panel);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        done(false);
+      }
+    });
+  })();
+</script>

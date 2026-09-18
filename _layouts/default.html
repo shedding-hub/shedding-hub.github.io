@@ -360,13 +360,28 @@
       margin-bottom: 0.75rem;
     }
 
-    /* Pathogen identity colors.
-       Four hues, and only four: validated for all-pairs colorblind separation
-       (worst CVD ΔE 9.2, worst normal-vision ΔE 16.3). Every candidate fifth hue
-       collided with the orange — red, yellow, magenta, brown and green all fell
-       under the normal-vision floor — so the long tail of rare pathogens stays
-       neutral rather than taking generated hues nobody can distinguish.
-       Colour is redundant here: each tag always carries its pathogen name. */
+    /* Biomarker emphasis, not identity.
+       One accent and neutral, rather than a hue per biomarker. Identity
+       colouring was tried and does not survive the arithmetic: the tags sort
+       alphabetically, so any two can end up adjacent and all-pairs separation
+       is the operative check. Under it the previous four hues failed -- the
+       norovirus indigo and the SARS-CoV-2 blue were 1.3 apart for deuteranopes
+       and 12.1 for normal vision, and the RSV green sat under the chroma floor
+       and read grey. Eight hues clear only adjacent-pair separation, which
+       assumes an order these tags do not have; all 5- and 6-hue subsets of the
+       dark steps fail outright.
+
+       So the accent answers a question colour can actually carry here: which
+       biomarkers the repository holds real depth on. Over 10 datasets takes
+       the accent; the tail stays neutral. Colour is redundant either way --
+       every tag carries its name.
+
+       Validated: light #1B5AA8 and dark #3987e5 each pass lightness, chroma
+       and >= 3:1 contrast against their own surface.
+
+       Counts as of 2026-09-18: SARS-CoV-2 36, mpox 26, norovirus 17,
+       influenza 15, RSV 13, adenovirus 11, bocavirus 11; next is rotavirus
+       vaccine at 9. Revisit when something crosses 10. */
     .pathogen-tag {
       --tag-ink: var(--text-secondary);
       --tag-wash: var(--bg-secondary);
@@ -375,15 +390,21 @@
       border: 1px solid currentColor;
     }
 
-    .pathogen-sars-cov-2 { --tag-ink: #1B5AA8; --tag-wash: #E9F1FC; }
-    .pathogen-influenza  { --tag-ink: #A2441B; --tag-wash: #FBEDE5; }
-    .pathogen-rsv        { --tag-ink: #0E6949; --tag-wash: #E3F5ED; }
-    .pathogen-norovirus  { --tag-ink: #3B2E86; --tag-wash: #ECEAF8; }
+    .pathogen-sars-cov-2,
+    .pathogen-mpox,
+    .pathogen-norovirus,
+    .pathogen-influenza,
+    .pathogen-rsv,
+    .pathogen-adenovirus,
+    .pathogen-bocavirus { --tag-ink: #1B5AA8; --tag-wash: #E9F1FC; }
 
-    [data-theme="dark"] .pathogen-sars-cov-2 { --tag-ink: #8FBDF2; --tag-wash: #14283F; }
-    [data-theme="dark"] .pathogen-influenza  { --tag-ink: #F0996F; --tag-wash: #3A2115; }
-    [data-theme="dark"] .pathogen-rsv        { --tag-ink: #5FC7A0; --tag-wash: #10322A; }
-    [data-theme="dark"] .pathogen-norovirus  { --tag-ink: #A79BF0; --tag-wash: #221F44; }
+    [data-theme="dark"] .pathogen-sars-cov-2,
+    [data-theme="dark"] .pathogen-mpox,
+    [data-theme="dark"] .pathogen-norovirus,
+    [data-theme="dark"] .pathogen-influenza,
+    [data-theme="dark"] .pathogen-rsv,
+    [data-theme="dark"] .pathogen-adenovirus,
+    [data-theme="dark"] .pathogen-bocavirus { --tag-ink: #3987e5; --tag-wash: #14283F; }
 
     /* Stat grid. Shared rather than page-local: the homepage, the fits page's
        no-catalog fallback and the curation page all use it, and the fallback was
