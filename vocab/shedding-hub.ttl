@@ -7,13 +7,6 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-shv:SARS a skos:Concept ;
-    rdfs:label "Severe acute respiratory syndrome (SARS) virus"@en ;
-    dct:created "2025-05-20"^^xsd:date ;
-    skos:broader shv:biomarker ;
-    skos:inScheme <https://shedding-hub.github.io/vocab> ;
-    skos:prefLabel "Severe acute respiratory syndrome (SARS) virus"@en .
-
 shv:BK_polyomavirus a skos:Concept ;
     rdfs:label "BK polyomavirus"@en ;
     dct:created "2026-09-18"^^xsd:date ;
@@ -63,12 +56,15 @@ shv:RSV a skos:Concept ;
     skos:inScheme <https://shedding-hub.github.io/vocab> ;
     skos:prefLabel "RSV"@en .
 
-shv:SARS-CoV-1 a skos:Concept ;
-    rdfs:label "SARS-CoV-1"@en ;
-    dct:created "2026-09-18"^^xsd:date ;
-    skos:broader shv:biomarker ;
+shv:SARS a skos:Concept ;
+    rdfs:label "Severe acute respiratory syndrome (SARS) virus"@en ;
+    dct:created "2025-05-20"^^xsd:date ;
+    dct:isReplacedBy shv:SARS-CoV-1 ;
+    dct:modified "2026-09-18"^^xsd:date ;
+    owl:deprecated true ;
+    skos:changeNote "Deprecated in 0.2.0 and replaced by shv:SARS-CoV-1. 'SARS' names the disease; the biomarker measured is the virus. Retained because this IRI resolves and may already be cited."@en ;
     skos:inScheme <https://shedding-hub.github.io/vocab> ;
-    skos:prefLabel "SARS-CoV-1"@en .
+    skos:prefLabel "Severe acute respiratory syndrome (SARS) virus"@en .
 
 shv:SARS-CoV-2 a skos:Concept ;
     rdfs:label "Severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2) virus"@en ;
@@ -662,6 +658,14 @@ shv:white a skos:Concept ;
     skos:broader shv:race ;
     skos:inScheme <https://shedding-hub.github.io/vocab> ;
     skos:prefLabel "If the participant is White"@en .
+
+shv:SARS-CoV-1 a skos:Concept ;
+    rdfs:label "SARS-CoV-1"@en ;
+    dct:created "2026-09-18"^^xsd:date ;
+    dct:replaces shv:SARS ;
+    skos:broader shv:biomarker ;
+    skos:inScheme <https://shedding-hub.github.io/vocab> ;
+    skos:prefLabel "SARS-CoV-1"@en .
 
 shv:age a skos:Concept ;
     rdfs:label "Age of the participant in years"@en ;
