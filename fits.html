@@ -98,7 +98,7 @@ title: Fitted Curves - Shedding Hub
       <ul>
         <li>
           <strong>Analyte</strong> is what makes a row unique, and it is the identifier the
-          package uses. A study can measure the same pathogen in the same specimen several
+          package uses. A study can measure the same biomarker in the same specimen several
           ways &mdash; a different vaccine dose, gene target, assay, or patient subgroup &mdash;
           and those differ only in this column.
         </li>
@@ -173,7 +173,7 @@ title: Fitted Curves - Shedding Hub
       A headline figure with a part-to-whole bar rather than five equal boxes: the
       model counts are shares of one total, and equal boxes hide that relationship.
       One hue in three ordered steps, not three categorical hues, so the models
-      never read as pathogen colours from the tags elsewhere on the page.
+      never read as biomarker colours from the tags elsewhere on the page.
     {%- endcomment -%}
     {% assign pct_exp = total_exponential | times: 100.0 | divided_by: total_fits %}
     {% assign pct_gam = total_gamma | times: 100.0 | divided_by: total_fits %}
