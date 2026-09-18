@@ -133,15 +133,16 @@ title: Datasets - Shedding Hub
             publisher outage leaves a usable card rather than an empty panel.
           {%- endcomment -%}
           <div class="dataset-citation" id="cite-{{ dataset_key }}" hidden>
+            <p class="citation-label">Cite the study and the Shedding Hub</p>
             {% if citation.apa %}
             <p class="citation-text">{{ citation.apa }}</p>
-            <p class="citation-hub">Accessed via the Shedding Hub, dataset <code>{{ dataset_key }}</code>. https://shedding-hub.github.io</p>
+            <p class="citation-hub">{% if site.data.citations._shedding_hub.apa %}{{ site.data.citations._shedding_hub.apa }} Dataset <code>{{ dataset_key }}</code>.{% else %}Shedding Hub. https://doi.org/10.5281/zenodo.15052772 Dataset <code>{{ dataset_key }}</code>.{% endif %}</p>
             <button type="button" class="citation-copy" data-cite-for="{{ dataset_key }}">
               <span class="icon"><i class="fa-regular fa-copy"></i></span><span>Copy citation</span>
             </button>
             {% else %}
             <p class="citation-text is-muted">{{ dataset.title }}. Cite the source directly: {% if dataset.doi %}https://doi.org/{{ dataset.doi }}{% else %}{{ citation.url | default: dataset.source_url }}{% endif %}</p>
-            <p class="citation-hub">Accessed via the Shedding Hub, dataset <code>{{ dataset_key }}</code>. https://shedding-hub.github.io</p>
+            <p class="citation-hub">{% if site.data.citations._shedding_hub.apa %}{{ site.data.citations._shedding_hub.apa }} Dataset <code>{{ dataset_key }}</code>.{% else %}Shedding Hub. https://doi.org/10.5281/zenodo.15052772 Dataset <code>{{ dataset_key }}</code>.{% endif %}</p>
             <button type="button" class="citation-copy" data-cite-for="{{ dataset_key }}">
               <span class="icon"><i class="fa-regular fa-copy"></i></span><span>Copy citation</span>
             </button>
@@ -403,6 +404,14 @@ title: Datasets - Shedding Hub
   border-left: 2px solid var(--border-color, #d8d8d4);
   background: var(--bg-secondary);
   border-radius: 3px;
+}
+
+.citation-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.4rem 0;
+  color: var(--text-muted, var(--text-secondary));
 }
 
 .citation-text {
