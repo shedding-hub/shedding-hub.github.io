@@ -127,10 +127,23 @@ def main() -> int:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
         doi = (data.get("doi") or "").strip()
 
-        if study in cached and not cached[study].get("error") and not args.refresh:
-            out[study] = cached[study]
+        # Reuse a cached citation only while its doi still matches the dataset's.
+        # Keyed on the study name alone, a corrected doi would keep serving the
+        # citation fetched for the wrong one indefinitely: yuan2021sars carried
+        # 10.1016/j.virusres.2020.198147, a different paper by different authors,
+        # and the card credited Wang et al. 2020 until the doi was fixed.
+        prior = cached.get(study)
+        if (
+            prior
+            and not prior.get("error")
+            and prior.get("doi") == doi
+            and not args.refresh
+        ):
+            out[study] = prior
             reused += 1
             continue
+        if prior and prior.get("doi") and prior.get("doi") != doi:
+            print(f"  {study}: doi changed {prior.get('doi')} -> {doi}; re-fetching")
 
         if not doi:
             # Two datasets carry a url instead. Nothing to negotiate against.
