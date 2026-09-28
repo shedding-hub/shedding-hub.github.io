@@ -1,5 +1,15 @@
 title: Shedding Hub
-url: https://shedding-hub.github.io
+description: >-
+  Open data and statistical models for biomarker shedding: standardized,
+  validated shedding datasets from peer-reviewed studies to support
+  wastewater-based epidemiology.
+url: https://sheddinghub.org
+# sitemap.xml and the <head> SEO tags (meta description, canonical URL,
+# JSON-LD) that Google reads. Both are Gemfile dependencies, not
+# github-pages whitelisted plugins, since CI builds with bundler.
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
 strict_front_matter: true
 # Manual biocuration closed at 39 studies; everything curated since is AI-assisted,
 # so the AI-curated count is the collection size minus this constant.
