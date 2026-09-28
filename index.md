@@ -240,11 +240,11 @@ title: Shedding Hub
 <section class="section">
   <div class="container is-max-desktop">
     <span class="eyebrow">Get started</span>
-    <h2 class="title is-3 mb-5">From install to first plot in a few lines</h2>
+    <h2 class="title is-3 mb-5">How the Shedding Hub works</h2>
     <div class="video-container">
-      <video muted loop controls playsinline preload="metadata" poster="/assets/logo/og-image.png"
+      <video controls playsinline preload="metadata" poster="/assets/logo/og-image.png"
              style="width: 100%; max-width: 1280px; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 4px 12px var(--shadow);">
-        <source src="/assets/videos/SheddingHubQuickStart.mp4" type="video/mp4">
+        <source src="/assets/videos/shedding-hub-explainer.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
